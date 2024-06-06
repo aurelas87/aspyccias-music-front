@@ -47,3 +47,29 @@ npm run test:e2e
 ```sh
 npm run lint
 ```
+
+## Maintenance Mode
+
+A maintenance mode is available to display a temporary page while modifying the website.<br>
+The mode can be activated via the `mode` option in `vite.config.ts` by adding the line as follows:
+
+```ts
+mode: 'maintenance'
+```
+
+This mode will by applied for all the following commands: 
+
+```sh
+npm run dev
+npm run build
+npm run preview
+npm run test:e2e
+npm run test:e2e:dev
+npm run build-only
+```
+
+<div style="background-color: #082f49;">
+
+> The maintenance mode is currently activated during all the development process
+
+</div>

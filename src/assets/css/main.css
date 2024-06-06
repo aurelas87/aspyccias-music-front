@@ -1,0 +1,17 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@font-face {
+    font-family: Cabin;
+    font-display: auto;
+    src: url("@/assets/font/cabin/Cabin-Regular.ttf");
+}
+
+body {
+    background-image: url("@/assets/img/background.jpg");
+}
+
+h1 {
+    @apply text-5xl uppercase first-letter:text-primary;
+}

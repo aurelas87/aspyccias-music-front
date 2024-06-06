@@ -1,12 +1,15 @@
-import './assets/main.css'
+import './assets/css/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import App from './App.vue'
 import router from './router'
+import App from '@/App.vue'
+import Maintenance from '@/Maintenance.vue'
 
-const app = createApp(App)
+const app = (import.meta.env.MODE === 'maintenance')
+  ? createApp(Maintenance)
+  : createApp(App)
 
 app.use(createPinia())
 app.use(router)
