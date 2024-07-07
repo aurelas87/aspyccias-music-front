@@ -1,19 +1,15 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
+import HeaderView from '@/HeaderView.vue'
+import FooterView from '@/FooterView.vue'
 </script>
 
 <template>
-  <header class="mb-10">
-    <div class="wrapper text-center">
-      <img alt="Aspyccias logo" class="m-5 ml-auto mr-auto" src="@/assets/img/logo-full.png" width="200" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div class="flex flex-col h-screen">
+    <HeaderView class="p-3 pb-0" />
+    <RouterView class="flex flex-col flex-grow pl-3 pr-3" />
+    <FooterView class="p-3 pt-0" />
+  </div>
 </template>
 
 <style scoped>
