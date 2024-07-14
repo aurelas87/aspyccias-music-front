@@ -16,7 +16,8 @@ export default {
         ]
       },
       colors: {
-        background: '#1d1d1b',
+        background: '#000000',
+        'dark-grey': '#1d1d1b',
         primary: '#cd7025',
         'brown-dark': '#94400D',
         'yellow': '#FFF69E',

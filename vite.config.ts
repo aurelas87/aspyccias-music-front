@@ -14,4 +14,10 @@ export default defineConfig({
     }
   },
   mode: 'production',
+  optimizeDeps: {
+    exclude: [ "@fortawesome/vue-fontawesome" ]
+  },
+  server: {
+    host: '0.0.0.0'
+  }
 })

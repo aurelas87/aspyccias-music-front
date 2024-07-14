@@ -1,0 +1,10 @@
+{
+  "home": "Home",
+  "news": "News",
+  "music": "Music",
+  "contact": "Contact",
+  "lang": {
+    "en": "English",
+    "fr": "French"
+  }
+}

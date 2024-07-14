@@ -1,0 +1,10 @@
+{
+  "home": "Accueil",
+  "news": "Actualités",
+  "music": "Musique",
+  "contact": "Contact",
+  "lang": {
+    "en": "Anglais",
+    "fr": "Français"
+  }
+}
