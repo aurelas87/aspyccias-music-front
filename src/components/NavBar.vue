@@ -16,13 +16,14 @@ const toggleBurgerMenu = () => {
     <LocaleMenu />
   </nav>
 
-  <button v-if="!burgerMenuOpen"
-          @click="toggleBurgerMenu"
-          class="sm:hidden fixed top-3 right-3 w-10 h-10 p-2 bg-dark-grey rounded-md space-y-2 box-content">
+  <button @click="toggleBurgerMenu"
+          class="burger-button sm:hidden fixed top-3 right-3 w-10 h-10 p-2 bg-dark-grey rounded-md space-y-2 box-content"
+          :class="{'burger-button-hidden': burgerMenuOpen, 'burger-button-visible': !burgerMenuOpen}">
     <span v-for="number in 3" class="block w-10 h-0.5 bg-white"></span>
   </button>
 
-  <div v-if="burgerMenuOpen" class="sm:hidden fixed top-0 left-0 w-full h-full bg-dark-grey overflow-auto">
+  <div class="burger-menu sm:hidden fixed top-0 right-0 w-full bg-dark-grey overflow-auto"
+       :class="{ 'burger-menu-closed': !burgerMenuOpen, 'burger-menu-open': burgerMenuOpen }">
     <button @click="toggleBurgerMenu"
             class="fixed top-3 right-3 w-10 h-10 p-2 content-center box-content">
       <span v-for="index in 2"

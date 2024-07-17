@@ -2,6 +2,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "menu.css";
+
 @font-face {
     font-family: Cabin;
     font-display: auto;
@@ -21,8 +23,4 @@ body {
 
 h1 {
     @apply text-5xl uppercase first-letter:text-primary;
-}
-
-.router-link-exact-active {
-    @apply text-primary;
 }

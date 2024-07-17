@@ -22,7 +22,7 @@ app.use(createPinia())
 
 const localeStore = useLocaleStore();
 if (!localeStore.locale) {
-  localeStore.setLocale(navigator.language.split(' - ')[0] || 'en');
+  localeStore.setLocale(navigator.language.split('-')[0].trim() || 'en');
 }
 
 const i18n = createI18n({

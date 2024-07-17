@@ -1,0 +1,33 @@
+
+
+.router-link-exact-active {
+    @apply text-primary;
+}
+
+.burger-button, .burger-menu, .burger-menu button {
+    @apply transition-all duration-200 ease-in-out;
+}
+
+.burger-button-hidden {
+    @apply opacity-0;
+}
+
+.burger-button-visible {
+    @apply opacity-100;
+}
+
+.burger-menu-closed {
+    @apply h-0;
+
+    button {
+        @apply opacity-0;
+    }
+}
+
+.burger-menu-open {
+    @apply h-full;
+
+    button {
+        @apply opacity-100;
+    }
+}

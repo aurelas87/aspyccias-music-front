@@ -14,7 +14,7 @@ function expectRouterLinks(allRouterLinks, expectClassBlock = false) {
 
   if (expectClassBlock) {
     allRouterLinks.forEach((element) => {
-      expect(element.classes().includes('block'))
+      expect(element.classes().toString()).toContain('block')
     })
   }
 }
@@ -23,15 +23,15 @@ describe('NavBar', () => {
   it('renders nav and burger button according to window sizes (desktop vs mobile)', () => {
     const wrapper = mount(NavBar)
 
-    expect(wrapper.find('nav').classes().toString()).toContain('hidden,sm:block')
-    expect(wrapper.find('button').classes().toString()).toContain('sm:hidden,fixed')
-    expect(wrapper.find('div').classes().includes('sm:hidden')).toBe(false) // burger menu
+    expect(wrapper.find(':not(.burger-menu) nav').classes().toString()).toContain('hidden,sm:block')
+    expect(wrapper.find('.burger-button').classes().toString()).toContain('sm:hidden,fixed')
+    expect(wrapper.find('.burger-menu').classes().toString()).toContain('sm:hidden,fixed')
   })
 
   it('renders nav links for desktop', () => {
     const wrapper = mount(NavBar)
 
-    expectRouterLinks(wrapper.findAllComponents(RouterLink))
+    expectRouterLinks(wrapper.find(':not(.burger-menu) nav').findAllComponents(RouterLink))
   })
 
   it('renders locale switcher', () => {
@@ -43,14 +43,14 @@ describe('NavBar', () => {
   it('renders nav and locale switcher in burger menu', () => {
     const wrapper = mount(NavBar)
 
-    wrapper.find('button').trigger('click').then(
+    wrapper.find('.burger-button').trigger('click').then(
       () => {
-        expect(wrapper.find('div').classes().toString()).toContain('sm:hidden,fixed')
-        expect(wrapper.find('div button').classes().includes('fixed')).toBe(true)
+        expect(wrapper.find('.burger-menu').classes().toString()).toContain('sm:hidden,fixed')
+        expect(wrapper.find('.burger-menu button').classes().toString()).toContain('fixed')
 
-        expectRouterLinks(wrapper.find('div').findAllComponents(RouterLink), true)
+        expectRouterLinks(wrapper.find('.burger-menu').findAllComponents(RouterLink), true)
 
-        expect(wrapper.find('div').findComponent(LocaleSwitcher).isVisible()).toBe(true)
+        expect(wrapper.find('.burger-menu').findComponent(LocaleSwitcher).isVisible()).toBe(true)
       }
     )
   })
