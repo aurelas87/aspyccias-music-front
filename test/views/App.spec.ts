@@ -9,8 +9,8 @@ import FooterView from '../../src/views/FooterView.vue'
 describe('App', () => {
   it('renders header, content and footer', () => {
     const wrapper = mount(App)
-    expect(wrapper.findComponent(HeaderView).exists()).toBe(true)
-    expect(wrapper.findComponent(RouterView).exists()).toBe(true)
-    expect(wrapper.findComponent(FooterView).exists()).toBe(true)
+    expect(wrapper.findAllComponents(HeaderView).length).toStrictEqual(1)
+    expect(wrapper.findAllComponents(RouterView).length).toStrictEqual(1)
+    expect(wrapper.findAllComponents(FooterView).length).toStrictEqual(1)
   })
 })

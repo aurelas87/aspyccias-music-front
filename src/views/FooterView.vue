@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import ProfileLinks from '@/components/ProfileLinks.vue'
 </script>
 
 <template>
-  <footer>
-    <p class="m-3 sm:mt-10 text-center">Copyright © Aspyccias</p>
+  <footer class="my-3 md:mt-10 text-center">
+    <ProfileLinks class="mx-auto mb-5"/>
+    <p>Copyright © Aspyccias</p>
   </footer>
 </template>
 

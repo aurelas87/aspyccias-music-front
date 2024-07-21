@@ -4,6 +4,8 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
 import { useLocaleStore } from '@/stores/LocaleStore'
+import { useProfileLinksStore } from '@/stores/ProfileLinksStore'
+import axios from '@/plugins/axios'
 
 import router from './router'
 
@@ -18,22 +20,33 @@ const app = (import.meta.env.MODE === 'maintenance')
   ? createApp(Maintenance)
   : createApp(App)
 
-app.use(createPinia())
+if (import.meta.env.mode !== 'maintenance') {
+  app.use(axios, {
+    baseUrl: import.meta.env.VITE_API_BASE_URL,
+  })
 
-const localeStore = useLocaleStore();
-if (!localeStore.locale) {
-  localeStore.setLocale(navigator.language.split('-')[0].trim() || 'en');
+  app.use(createPinia())
+
+  const localeStore = useLocaleStore()
+  if (!localeStore.locale) {
+    localeStore.setLocale(navigator.language.split('-')[0].trim() || 'en');
+  }
+
+  const i18n = createI18n({
+    availableLocales: ['en', 'fr'],
+    locale: localeStore.locale,
+    fallbackLocale: 'en',
+    messages: { en, fr },
+    legacy: false
+  })
+
+  app.use(i18n)
+  app.use(router)
 }
 
-const i18n = createI18n({
-  availableLocales: ['en', 'fr'],
-  locale: localeStore.locale,
-  fallbackLocale: 'en',
-  messages: { en, fr },
-  legacy: false
-})
-
-app.use(router)
-app.use(i18n)
-
 app.mount('#app')
+
+if (import.meta.env.mode !== 'maintenance') {
+  const profileLinksStore = useProfileLinksStore()
+  profileLinksStore.fetchProfileLinks()
+}

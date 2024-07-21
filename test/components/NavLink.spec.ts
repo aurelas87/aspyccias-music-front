@@ -21,9 +21,9 @@ describe('NavLink', () => {
         }
       })
 
-      expect(wrapper.find('a').element.getAttribute('href')).toBe(navLink.route.path)
+      expect(wrapper.find('a').element.getAttribute('href')).toStrictEqual(navLink.route.path)
       expect(wrapper.find('a').classes().toString()).toContain(navLink.class)
-      expect(wrapper.find('a').text()).toBe(navLink.route.name.toString())
+      expect(wrapper.find('a').text()).toStrictEqual(navLink.route.name.toString())
     })
   })
 })

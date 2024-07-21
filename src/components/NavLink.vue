@@ -11,6 +11,7 @@ const props = defineProps<{
 <template>
   <RouterLink v-if="props.route.name"
               :to="props.route.path"
+              class="hover:text-primary transition-300"
               :class="props.class || ''"
               @click="props.click">
     {{ $t(props.route.name.toString()) }}

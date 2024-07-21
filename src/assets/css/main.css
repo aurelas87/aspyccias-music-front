@@ -24,3 +24,7 @@ body {
 h1 {
     @apply text-5xl uppercase first-letter:text-primary;
 }
+
+.transition-300 {
+    @apply transition-all duration-200 ease-in-out;
+}

@@ -33,19 +33,19 @@ onClickOutside(
 </script>
 
 <template>
-  <div class="inline relative text-base sm:bottom-0.5">
-    <span class="hover:text-primary hover:cursor-pointer"
+  <div class="inline relative text-base md:bottom-0.5">
+    <a href="#" class="hover:text-primary hover:cursor-pointer transition-300"
           @click.prevent="localeMenuOpen = !localeMenuOpen" ref="ignoreClickOutsideRef">
       <span class="inline-block align-middle">{{ $i18n.locale.toUpperCase() }}</span>
       <FontAwesomeIcon v-if="!localeMenuOpen" :icon="faAngleRight" class="w-2 h-2 inline-block align-middle" />
       <FontAwesomeIcon v-if="localeMenuOpen" :icon="faAngleDown" class="w-2 h-2 inline-block align-middle" />
-    </span>
+    </a>
 
     <div v-if="localeMenuOpen" ref="menuRef"
-         class="sm:absolute sm:top-5 sm:left-0 sm:text-left sm:rounded-md bg-dark-grey p-3
+         class="md:absolute md:top-5 md:left-0 md:text-left md:rounded-md bg-dark-grey p-3
          w-fit mx-auto space-y-2">
       <label v-for="availableLocale in $i18n.availableLocales" :for="availableLocale"
-             class="hover:cursor-pointer hover:text-primary block sm:w-max w-full"
+             class="hover:cursor-pointer hover:text-primary block md:w-max w-full transition-300"
              :class="{'text-primary': $i18n.locale === availableLocale}">
         <input type="radio"
                class="hidden"

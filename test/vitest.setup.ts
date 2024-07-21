@@ -1,9 +1,10 @@
 import { createI18n } from 'vue-i18n'
-import { createPinia } from 'pinia'
+import { createPinia, setActivePinia } from 'pinia'
 import { config } from '@vue/test-utils'
 import router from '../src/router'
 
 const pinia = createPinia()
+setActivePinia(pinia)
 
 const i18n = createI18n({
   availableLocales: ['en', 'fr'],
