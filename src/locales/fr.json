@@ -6,5 +6,13 @@
   "lang": {
     "en": "Anglais",
     "fr": "Français"
+  },
+  "page": {
+    "lost": "Alors ? Vous êtes perdu ?",
+    "not_found": {
+      "line1": "Vraiment navré... Mais cette page n'existe pas !",
+      "line2": "A moins qu'un autre moi l'ai créée dans une réalité alternative sous un accès de folie !?",
+      "line3": "Hum je m'égare tout autant que vous..."
+    }
   }
 }

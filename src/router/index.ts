@@ -3,6 +3,7 @@ import HomeView from '@/views/pages/HomeView.vue'
 import NewsView from '@/views/pages/NewsView.vue'
 import MusicView from '@/views/pages/MusicView.vue'
 import ContactView from '@/views/pages/ContactView.vue'
+import NotFoundView from '@/views/pages/NotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
       name: 'contact',
       component: ContactView
     },
+    {
+      path: '/:pathMatch(.*)',
+      name: 'not-found',
+      component: NotFoundView,
+    }
   ]
 })
 

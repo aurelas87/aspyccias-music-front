@@ -9,7 +9,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <RouterLink v-if="props.route.name"
+  <RouterLink v-if="props.route.name && props.route.name !== 'not-found'"
               :to="props.route.path"
               class="hover:text-primary transition-300"
               :class="props.class || ''"

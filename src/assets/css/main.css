@@ -25,6 +25,10 @@ h1 {
     @apply text-5xl uppercase first-letter:text-primary;
 }
 
+h2 {
+    @apply text-4xl my-5
+}
+
 .transition-300 {
     @apply transition-all duration-200 ease-in-out;
 }
