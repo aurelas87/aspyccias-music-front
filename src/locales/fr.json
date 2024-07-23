@@ -1,5 +1,8 @@
 {
-  "home": "Accueil",
+  "home": {
+    "menu": "Accueil",
+    "about": "A propos"
+  },
   "news": "Actualités",
   "music": "Musique",
   "contact": "Contact",

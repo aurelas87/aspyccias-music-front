@@ -15,11 +15,11 @@ library.add(faQuestion)
       <FontAwesomeIcon :icon="['fas', 'question']" class="text-6xl rotate-45" />
     </div>
 
-    <h2>{{ $t('page.lost') }}</h2>
+    <p class="text-4xl my-5">{{ $t('page.lost') }}</p>
 
-    <p class="mb-1">{{ $t('page.not_found.line1') }}</p>
-    <p class="my-1">{{ $t('page.not_found.line2') }}</p>
-    <p class="mt-1">{{ $t('page.not_found.line3') }}</p>
+    <p>{{ $t('page.not_found.line1') }}</p>
+    <p>{{ $t('page.not_found.line2') }}</p>
+    <p>{{ $t('page.not_found.line3') }}</p>
   </main>
 </template>
 

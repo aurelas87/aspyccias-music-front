@@ -1,5 +1,8 @@
 {
-  "home": "Home",
+  "home": {
+    "menu": "Home",
+    "about": "About"
+  },
   "news": "News",
   "music": "Music",
   "contact": "Contact",

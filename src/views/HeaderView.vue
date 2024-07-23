@@ -10,7 +10,7 @@ import ProfileLinks from '@/components/ProfileLinks.vue'
 
       <div class="mx-auto">
         <RouterLink to="/" class="relative w-fit my-5 px-3">
-          <img alt="Aspyccias Logo" src="@/assets/img/logo-full-200.png" width="200" />
+          <img alt="Aspyccias Logo" src="@/assets/img/logo-full-200.png" width="200" height="144" class="max-w-[200px] max-h-[144px]" />
         </RouterLink>
       </div>
 

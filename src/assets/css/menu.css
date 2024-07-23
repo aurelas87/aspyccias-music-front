@@ -14,6 +14,10 @@
     @apply opacity-100;
 }
 
+.burger-button, .burger-menu {
+    @apply z-10
+}
+
 .burger-menu-closed {
     @apply w-0;
 

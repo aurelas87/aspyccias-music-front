@@ -6,6 +6,7 @@ import { createI18n } from 'vue-i18n'
 import { useLocaleStore } from '@/stores/LocaleStore'
 import { useProfileLinksStore } from '@/stores/ProfileLinksStore'
 import axios from '@/plugins/axios'
+import emitter from '@/plugins/emitter'
 
 import router from './router'
 
@@ -21,6 +22,7 @@ const app = (import.meta.env.MODE === 'maintenance')
   : createApp(App)
 
 if (import.meta.env.mode !== 'maintenance') {
+  app.use(emitter)
   app.use(axios, {
     baseUrl: import.meta.env.VITE_API_BASE_URL,
   })
@@ -48,5 +50,5 @@ app.mount('#app')
 
 if (import.meta.env.mode !== 'maintenance') {
   const profileLinksStore = useProfileLinksStore()
-  profileLinksStore.fetchProfileLinks()
+  profileLinksStore.fetchProfileLinks().then(r => r)
 }

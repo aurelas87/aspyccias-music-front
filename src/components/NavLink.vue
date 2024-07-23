@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { RouteRecordNormalized } from 'vue-router'
 
-const props = defineProps<{
+defineProps<{
   route: RouteRecordNormalized,
   class?: String,
   click?: CallableFunction
@@ -9,12 +9,12 @@ const props = defineProps<{
 </script>
 
 <template>
-  <RouterLink v-if="props.route.name && props.route.name !== 'not-found'"
-              :to="props.route.path"
+  <RouterLink v-if="$props.route.name && $props.route.name !== 'not-found'"
+              :to="$props.route.path"
               class="hover:text-primary transition-300"
-              :class="props.class || ''"
-              @click="props.click">
-    {{ $t(props.route.name.toString()) }}
+              :class="$props.class || ''"
+              @click="$props.click">
+    {{ $t($props.route.name.toString()) }}
   </RouterLink>
 </template>
 

@@ -8,6 +8,10 @@ export function useAxios(): AxiosInstance {
   return currentInstance?.appContext.config.globalProperties.$axios
 }
 
+export function updateAxiosLocale(axiosInstance: AxiosInstance, locale: string) {
+  axiosInstance.defaults.headers['Accept-Language'] = locale
+}
+
 export default {
   install: (app: App, options: AxiosOptions) => {
     app.config.globalProperties.$axios = axios.create({

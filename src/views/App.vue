@@ -2,6 +2,11 @@
 import { RouterView } from 'vue-router'
 import HeaderView from '@/views/HeaderView.vue'
 import FooterView from '@/views/FooterView.vue'
+import { updateAxiosLocale, useAxios } from '@/plugins/axios'
+import { useLocaleStore } from '@/stores/LocaleStore'
+
+const axios = useAxios()
+updateAxiosLocale(axios, useLocaleStore().locale)
 </script>
 
 <template>

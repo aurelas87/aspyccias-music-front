@@ -6,11 +6,16 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons/faAngleRight'
 import { onClickOutside } from '@vueuse/core'
+import { updateAxiosLocale, useAxios } from '@/plugins/axios'
+import { useEmitter } from '@/plugins/emitter'
 
 const { locale } = useI18n()
 
 const localeStore = useLocaleStore()
 const localeMenuOpen = ref(false)
+
+const axios = useAxios()
+const emitter = useEmitter()
 
 function localeFullName(locale: string): string {
   return locale === 'en' ? 'English' : 'Français'
@@ -19,6 +24,9 @@ function localeFullName(locale: string): string {
 function switchLocale() {
   localeStore.setLocale(locale.value)
   localeMenuOpen.value = !localeMenuOpen
+
+  updateAxiosLocale(axios, locale.value)
+  emitter.emit('localeSwitched')
 }
 
 const menuRef = ref()
