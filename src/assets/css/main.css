@@ -22,11 +22,15 @@ body {
 }
 
 h1 {
-    @apply text-5xl uppercase first-letter:text-primary leading-[83px];
+    @apply text-3xl md:text-5xl text-center mx-auto uppercase first-letter:text-primary leading-[83px] md:leading-[83px];
 }
 
 h2 {
     @apply uppercase text-3xl mb-3 leading-[83px];
+}
+
+h3 {
+    @apply text-xl
 }
 
 h1::before, h2::before {

@@ -1,8 +1,11 @@
 import { useAxios } from '@/plugins/axios'
+import { useImage } from '@/composables/image'
 
 export function useProfileService() {
   const profileBasePath = '/profile'
   const axios = useAxios()
+
+  const { getImageUri } = useImage()
 
   async function get(): Promise<Profile|null> {
     try {
@@ -12,7 +15,12 @@ export function useProfileService() {
     }
   }
 
+  function getProfilePictureUri(): string {
+    return getImageUri('/uploads' + profileBasePath + '/profile-picture.jpg')
+  }
+
   return {
-    get
+    get,
+    getProfilePictureUri
   }
 }

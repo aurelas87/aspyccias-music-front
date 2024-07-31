@@ -1,13 +1,25 @@
+import { useAxios } from '@/plugins/axios'
+
 export function useImage() {
-  async function onImageError(event: Event) {
+  const axios = useAxios()
+
+  async function onImageError(event: Event, ratio: string|null = null) {
     const target = event.currentTarget || event.target
 
     if (target instanceof Element) {
-      if (target.clientWidth < target.clientHeight) {
+      if (ratio === 'portrait' || target.clientWidth < target.clientHeight) {
         target.setAttribute('src', (await import('@/assets/img/not-found-portrait.jpg')).default)
+      }
+
+      if (ratio === 'landscape' || target.clientWidth > target.clientHeight) {
+        target.setAttribute('src', (await import('@/assets/img/not-found-landscape.jpg')).default)
       }
     }
   }
 
-  return { onImageError }
+  function getImageUri(url: string): string {
+    return axios.getUri({ url: url, params: { t: (new Date()).getTime() } })
+  }
+
+  return { onImageError, getImageUri }
 }

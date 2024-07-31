@@ -4,7 +4,7 @@
 
 <template>
   <main>
-    <h1 class="text-center ml-auto mr-auto">Contact Page</h1>
+    <h1>Contact Page</h1>
   </main>
 </template>
 

@@ -4,7 +4,7 @@
 
 <template>
   <main>
-    <h1 class="text-center ml-auto mr-auto">Music Page</h1>
+    <h1>Music Page</h1>
   </main>
 </template>
 

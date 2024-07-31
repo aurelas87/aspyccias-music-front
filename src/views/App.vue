@@ -10,7 +10,7 @@ updateAxiosLocale(axios, useLocaleStore().locale)
 </script>
 
 <template>
-  <div class="flex flex-col h-screen max-w-[80%] mx-auto">
+  <div class="flex flex-col h-screen min-w-[300px] px-10 sm:px-20 md:px-32 mx-auto">
     <HeaderView />
     <RouterView class="flex flex-col flex-grow my-3 md:my-10" />
     <FooterView />

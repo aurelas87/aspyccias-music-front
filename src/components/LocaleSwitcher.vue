@@ -50,7 +50,7 @@ onClickOutside(
     </a>
 
     <div v-if="localeMenuOpen" ref="menuRef"
-         class="md:absolute md:top-5 md:left-0 md:text-left md:rounded-md bg-dark-grey p-3
+         class="md:absolute md:top-5 md:left-0 md:text-left md:rounded-sm bg-dark-grey p-3
          w-fit mx-auto space-y-2">
       <label v-for="availableLocale in $i18n.availableLocales" :for="availableLocale"
              class="hover:cursor-pointer hover:text-primary block md:w-max w-full transition-300"

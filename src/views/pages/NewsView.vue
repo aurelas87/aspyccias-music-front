@@ -4,7 +4,7 @@
 
 <template>
   <main>
-    <h1 class="text-center ml-auto mr-auto">News Page</h1>
+    <h1>News Page</h1>
   </main>
 </template>
 

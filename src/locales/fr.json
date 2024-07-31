@@ -3,7 +3,12 @@
     "menu": "Accueil",
     "about": "A propos"
   },
-  "news": "Actualités",
+  "news": {
+    "menu": "Actualités",
+    "latest": "Dernières actus",
+    "none": "Aucune actualité disponible",
+    "more_about_it": "En savoir plus..."
+  },
   "music": "Musique",
   "contact": "Contact",
   "lang": {
