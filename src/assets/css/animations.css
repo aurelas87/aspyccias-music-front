@@ -1,0 +1,33 @@
+/* page animation */
+.slide-fade-enter-active {
+    @apply transition-all duration-200 ease-out;
+}
+
+.slide-fade-leave-active {
+    @apply transition-all duration-200 ease-in;
+}
+
+.slide-fade-enter-from {
+    @apply translate-y-1 opacity-0;
+}
+
+.slide-fade-leave-to {
+    @apply -translate-y-1 opacity-0;
+}
+/* end page animation */
+
+/* element in page animation */
+.v-enter-active,
+.v-leave-active {
+    @apply transition-opacity duration-300 ease-in;
+}
+
+.v-enter-from,
+.v-leave-to {
+    @apply opacity-0;
+}
+/* end element in page animation */
+
+.transition-300 {
+    @apply transition-all duration-300 ease-in-out;
+}

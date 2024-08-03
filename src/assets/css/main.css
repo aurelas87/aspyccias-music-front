@@ -2,6 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "animations.css";
 @import "menu.css";
 
 @font-face {
@@ -42,10 +43,6 @@ h1::before, h2::before {
 
 p {
     @apply mb-3;
-}
-
-.transition-300 {
-    @apply transition-all duration-200 ease-in-out;
 }
 
 .shadow-white-double {

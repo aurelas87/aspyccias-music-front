@@ -77,21 +77,23 @@ onBeforeUnmount(() => {
       <NewsCard v-for="latestNewsItem in latestNews" :news="latestNewsItem" />
     </CardList>
 
-    <div class="bg-primary/50 py-3 px-5 sm:py-10 sm:px-20 mt-10 rounded-custom shadow-white-double">
-      <div class="mx-auto sm:float-left w-fit h-fit mr-5 mb-5 sm:mr-20 sm:mb-10 border-2 rounded-custom">
-        <img :src="profileService.getProfilePictureUri()"
-             alt="Aspyccias profile picture"
-             width="400" height="484"
-             class="relative top-3 left-3 rounded-custom"
-             @error="onImageError" />
-      </div>
+    <transition appear>
+      <div class="bg-primary/50 py-3 px-5 sm:py-10 sm:px-20 mt-10 rounded-custom shadow-white-double">
+        <div class="mx-auto sm:float-left w-fit h-fit mr-5 mb-5 sm:mr-20 sm:mb-10 border-2 rounded-custom">
+          <img :src="profileService.getProfilePictureUri()"
+               alt="Aspyccias profile picture"
+               width="400" height="484"
+               class="relative top-3 left-3 rounded-custom"
+               @error="onImageError" />
+        </div>
 
-      <div class="text-justify">
-        <h2>{{ $t('home.about') }}</h2>
+        <div class="text-justify">
+          <h2>{{ $t('home.about') }}</h2>
 
-        <Loader :loading="loadingProfile" />
-        <div v-if="!loadingProfile">{{ profile.description }}</div>
+          <Loader :loading="loadingProfile" />
+          <div v-if="!loadingProfile">{{ profile.description }}</div>
+        </div>
       </div>
-    </div>
+    </transition>
   </main>
 </template>

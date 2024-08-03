@@ -1,4 +1,4 @@
-.router-link-exact-active {
+.router-link-active {
     @apply text-primary;
 }
 

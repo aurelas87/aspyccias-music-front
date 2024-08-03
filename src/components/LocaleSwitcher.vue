@@ -43,7 +43,7 @@ onClickOutside(
 <template>
   <div class="inline relative text-base md:bottom-0.5">
     <a href="#" class="hover:text-primary hover:cursor-pointer transition-300"
-          @click.prevent="localeMenuOpen = !localeMenuOpen" ref="ignoreClickOutsideRef">
+       @click.prevent="localeMenuOpen = !localeMenuOpen" ref="ignoreClickOutsideRef">
       <span class="inline-block align-middle">{{ $i18n.locale.toUpperCase() }}</span>
       <FontAwesomeIcon v-if="!localeMenuOpen" :icon="faAngleRight" class="w-2 h-2 inline-block align-middle" />
       <FontAwesomeIcon v-if="localeMenuOpen" :icon="faAngleDown" class="w-2 h-2 inline-block align-middle" />
