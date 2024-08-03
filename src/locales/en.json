@@ -7,7 +7,12 @@
     "menu": "News",
     "latest": "Latest news",
     "none": "No news available",
-    "more_about_it": "More about it..."
+    "more_about_it": "More about it...",
+    "title": "News",
+    "list": {
+      "older": "Older",
+      "newer": "Newer"
+    }
   },
   "music": "Music",
   "contact": "Contact",
@@ -20,7 +25,7 @@
     "not_found": {
       "line1": "Really sorry... But this page does not exist!",
       "line2": "Unless another me created it in an alternative reality in a fit of madness!?",
-      "line3": "Hum I'm getting just as lost as you are..."
+      "line3": "Hum I'm getting lost just as much as you are..."
     }
   }
 }

@@ -2,15 +2,17 @@ interface News {
   slug: string,
   preview_image: string,
   title: string
-}
-
-interface NewsResponseItem extends News {
-  date: string
+  date: string|Date
 }
 
 interface NewsListItem extends News {
   date: Date
 }
 
-type NewsResponseList = NewsResponseItem[]
 type NewsList = NewsListItem[]
+
+interface PaginatedNewsList {
+  previous_offset: number|null,
+  next_offset: number|null,
+  items: NewsList
+}

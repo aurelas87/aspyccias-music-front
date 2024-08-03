@@ -7,11 +7,29 @@ export function useNewsService() {
 
   const { getImageUri } = useImage()
 
-  async function getLatest(): Promise<NewsResponseList> {
+  const emptyPaginatedNewsList = <PaginatedNewsList>{
+    previous_offset: null,
+    next_offset: null,
+    items: [],
+  }
+
+  async function getLatest(): Promise<NewsList> {
     try {
       return (await axios.get(newsBasePath + '/latest')).data
     } catch (error) {
       return []
+    }
+  }
+
+  async function getPaginated(offset: number|null = null): Promise<PaginatedNewsList> {
+    try {
+      return (await axios.get(newsBasePath, {
+        params: {
+          offset: offset
+        }
+      })).data
+    } catch (error) {
+      return emptyPaginatedNewsList
     }
   }
 
@@ -24,7 +42,11 @@ export function useNewsService() {
   }
 
   return {
+    emptyPaginatedNewsList,
+
     getLatest,
+    getPaginated,
+
     getNewsThumbnailUri,
     getNewsItemUri
   }

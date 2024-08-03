@@ -24,7 +24,7 @@ watch(localeStore.$state, () => {
   </nav>
 
   <button @click="toggleBurgerMenu"
-          class="burger-button md:hidden fixed top-3 right-3 w-10 h-10 p-2 bg-dark-grey rounded-sm space-y-2 box-content"
+          class="burger-button md:hidden fixed top-3 right-3 w-10 h-10 p-2 bg-dark-grey rounded-custom space-y-2 box-content"
           :class="{'burger-button-hidden': burgerMenuOpen, 'burger-button-visible': !burgerMenuOpen}">
     <span v-for="number in 3" class="block w-10 h-0.5 bg-white"></span>
   </button>

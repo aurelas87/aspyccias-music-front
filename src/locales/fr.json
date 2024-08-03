@@ -7,7 +7,12 @@
     "menu": "Actualités",
     "latest": "Dernières actus",
     "none": "Aucune actualité disponible",
-    "more_about_it": "En savoir plus..."
+    "more_about_it": "En savoir plus...",
+    "title": "Actualités",
+    "list": {
+      "older": "Plus anciennes",
+      "newer": "Plus récentes"
+    }
   },
   "music": "Musique",
   "contact": "Contact",

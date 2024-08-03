@@ -22,7 +22,7 @@ body {
 }
 
 h1 {
-    @apply text-3xl md:text-5xl text-center mx-auto uppercase first-letter:text-primary leading-[83px] md:leading-[83px];
+    @apply text-3xl md:text-5xl text-center mx-auto uppercase first-letter:text-primary leading-[83px] md:leading-[83px] mb-10;
 }
 
 h2 {
@@ -30,7 +30,7 @@ h2 {
 }
 
 h3 {
-    @apply text-xl
+    @apply text-xl;
 }
 
 h1::before, h2::before {
@@ -46,4 +46,20 @@ p {
 
 .transition-300 {
     @apply transition-all duration-200 ease-in-out;
+}
+
+.shadow-white-double {
+    box-shadow: rgba(255, 255, 255, 0.2) 2px 2px, rgba(255, 255, 255, 0.1) 4px 4px;
+}
+
+.rounded-custom {
+    @apply rounded-md
+}
+
+.rounded-b-custom {
+    @apply rounded-b-md
+}
+
+.rounded-t-custom {
+    @apply rounded-t-md
 }
