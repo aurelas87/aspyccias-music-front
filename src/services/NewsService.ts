@@ -11,15 +11,15 @@ export function useNewsService() {
 
   const { getImageUri } = useImage()
 
-  async function getLatest(): Promise<NewsListResponse> {
+  async function getLatest(): Promise<NewsListResponse | null> {
     try {
       return (await axios.get(newsBasePath + '/latest')).data
     } catch (error) {
-      return []
+      return null
     }
   }
 
-  async function getPaginated(offset: number|null = null): Promise<PaginatedNewsListResponse|null> {
+  async function getPaginated(offset: number | null = null): Promise<PaginatedNewsListResponse | null> {
     try {
       return (await axios.get(newsBasePath, {
         params: {
@@ -31,7 +31,7 @@ export function useNewsService() {
     }
   }
 
-  async function get(slug: string): Promise<NewsDetailsResponse|null> {
+  async function get(slug: string): Promise<NewsDetailsResponse | null> {
     try {
       return (await axios.get(newsBasePath + '/' + slug)).data
     } catch (error) {

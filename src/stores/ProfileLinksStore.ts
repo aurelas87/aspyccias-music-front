@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { reactive, type UnwrapRef } from 'vue'
 import { useProfileLinkService } from '@/services/ProfileLinkService'
-import { useProfileLinkMapper } from '@/mappers/ProfileLinkMapper'
+import { useProfileLinkMapper } from '@/mappers/Profile/ProfileLinkMapper'
 import ProfileLink from '@/models/Profile/ProfileLink'
 
 export const useProfileLinksStore = defineStore('profileLinks', () => {

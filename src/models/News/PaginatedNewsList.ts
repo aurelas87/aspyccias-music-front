@@ -3,11 +3,10 @@ import News from '@/models/News/News'
 export default class PaginatedNewsList {
   public static EMPTY_PREVIOUS_OFFSET = null
   public static EMPTY_NEXT_OFFSET = null
-  public static EMPTY_ITEMS = []
 
   private _previousOffset: number | null = PaginatedNewsList.EMPTY_PREVIOUS_OFFSET
   private _nextOffset: number | null = PaginatedNewsList.EMPTY_NEXT_OFFSET
-  private _items: News[] = PaginatedNewsList.EMPTY_ITEMS
+  private _items: News[] = []
 
   get previousOffset(): number | null {
     return this._previousOffset

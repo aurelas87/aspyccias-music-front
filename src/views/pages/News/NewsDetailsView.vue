@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useEmitter } from '@/plugins/emitter'
 import { useNewsService } from '@/services/NewsService'
-import { useNewsMapper } from '@/mappers/NewsMapper'
+import { useNewsMapper } from '@/mappers/News/NewsMapper'
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import Loader from '@/components/Loader.vue'
 import Title from '@/components/Title.vue'
@@ -53,8 +53,8 @@ onBeforeUnmount(() => {
       <Loader :loading="loading" />
 
       <div v-if="!loading && newsDetails.date !== NewsDetails.EMPTY_DATE" class="w-[100%] lg:w-[60%] mx-auto">
-        <Title :title="newsDetails.title" :level="1" class="mb-0" />
-        <h3 class="mb-10">{{ $d(newsDetails.date) }}</h3>
+        <Title :title="newsDetails.title || ''" :level="1" margins="mb-0" />
+        <Title :title="$d(newsDetails.date)" :level="2" :icon="false" margins="mb-10" />
 
         <img :src="newsService.getNewsImageUri(newsDetails)" class="mb-10"
              alt="News preview" @error="onImageError" />

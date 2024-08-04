@@ -25,7 +25,7 @@ export function useNewsMapper() {
     news.title = newsResponse.title
   }
 
-  function mapResponseToNewsDetails(newsDetailsResponse: NewsDetailsResponse | null, newsDetails: UnwrapNestedRefs<NewsDetails>) {
+  function mapResponseToNewsDetails(newsDetailsResponse: NewsDetailsResponse | null, newsDetails: UnwrapRef<NewsDetails>) {
     if (!newsDetailsResponse) {
       return
     }
@@ -54,7 +54,11 @@ export function useNewsMapper() {
     })
   }
 
-  function mapResponseToNewsList(newsListResponse: NewsListResponse, newsList: Array<UnwrapRef<News>>) {
+  function mapResponseToNewsList(newsListResponse: NewsListResponse | null, newsList: Array<UnwrapRef<News>>) {
+    if (!newsListResponse) {
+      return
+    }
+
     newsListResponse.forEach((newsResponse) => {
       newsList.push(new News())
       mapResponseToNews(newsResponse, newsList[newsList.length - 1])

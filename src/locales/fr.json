@@ -14,7 +14,10 @@
       "newer": "Plus récentes"
     }
   },
-  "music": "Musique",
+  "music": {
+    "menu": "Musique",
+    "none": "Aucune musique n'est disponible"
+  },
   "contact": "Contact",
   "lang": {
     "en": "Anglais",

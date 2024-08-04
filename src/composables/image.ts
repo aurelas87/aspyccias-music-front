@@ -3,16 +3,20 @@ import { useAxios } from '@/plugins/axios'
 export function useImage() {
   const axios = useAxios()
 
-  async function onImageError(event: Event, ratio: string|null = null) {
+  async function onImageError(event: Event) {
     const target = event.currentTarget || event.target
 
     if (target instanceof Element) {
-      if (ratio === 'portrait' || target.clientWidth < target.clientHeight) {
+      if (target.clientWidth < target.clientHeight) {
         target.setAttribute('src', (await import('@/assets/img/not-found-portrait.jpg')).default)
       }
 
-      if (ratio === 'landscape' || target.clientWidth > target.clientHeight) {
+      if (target.clientWidth > target.clientHeight) {
         target.setAttribute('src', (await import('@/assets/img/not-found-landscape.jpg')).default)
+      }
+
+      if (target.clientWidth === target.clientHeight) {
+        target.setAttribute('src', (await import('@/assets/img/not-found-square.jpg')).default)
       }
     }
   }

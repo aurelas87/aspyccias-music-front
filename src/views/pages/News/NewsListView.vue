@@ -10,7 +10,7 @@ import NewsCard from '@/components/NewsCard.vue'
 import CardList from '@/components/CardList.vue'
 import Title from '@/components/Title.vue'
 import PaginatedNewsList from '@/models/News/PaginatedNewsList'
-import { useNewsMapper } from '@/mappers/NewsMapper'
+import { useNewsMapper } from '@/mappers/News/NewsMapper'
 
 const emitter = useEmitter()
 const newsService = useNewsService()

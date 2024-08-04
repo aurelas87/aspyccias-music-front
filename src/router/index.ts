@@ -34,7 +34,7 @@ const router = createRouter({
     },
     {
       path: '/music',
-      name: 'music',
+      name: 'music.menu',
       component: MusicView
     },
     {

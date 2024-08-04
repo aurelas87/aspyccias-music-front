@@ -1,27 +1,27 @@
 export default class News {
-  public static EMPTY_SLUG = ''
-  public static EMPTY_PREVIEW_IMAGE = ''
+  public static EMPTY_SLUG = null
+  public static EMPTY_PREVIEW_IMAGE = null
   public static EMPTY_DATE = null
-  public static EMPTY_TITLE = ''
+  public static EMPTY_TITLE = null
 
-  private _slug: string = News.EMPTY_SLUG
-  private _previewImage: string = News.EMPTY_PREVIEW_IMAGE
+  private _slug: string | null = News.EMPTY_SLUG
+  private _previewImage: string | null = News.EMPTY_PREVIEW_IMAGE
   private _date: Date | null = News.EMPTY_DATE
-  private _title: string = News.EMPTY_TITLE
+  private _title: string | null = News.EMPTY_TITLE
 
-  get slug(): string {
+  get slug(): string | null {
     return this._slug
   }
 
-  set slug(value: string) {
+  set slug(value: string | null) {
     this._slug = value
   }
 
-  get previewImage(): string {
+  get previewImage(): string | null {
     return this._previewImage
   }
 
-  set previewImage(value: string) {
+  set previewImage(value: string | null) {
     this._previewImage = value
   }
 
@@ -33,11 +33,11 @@ export default class News {
     this._date = value
   }
 
-  get title(): string {
+  get title(): string | null {
     return this._title
   }
 
-  set title(value: string) {
+  set title(value: string | null) {
     this._title = value
   }
 }
