@@ -1,4 +1,4 @@
-interface Profile {
+interface ProfileResponse {
   welcome: string,
   description: string
 }

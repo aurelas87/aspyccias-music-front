@@ -1,26 +1,27 @@
 import { defineStore } from 'pinia'
-import { reactive } from 'vue'
+import { reactive, type UnwrapRef } from 'vue'
 import { useProfileLinkService } from '@/services/ProfileLinkService'
+import { useProfileLinkMapper } from '@/mappers/ProfileLinkMapper'
+import ProfileLink from '@/models/Profile/ProfileLink'
 
 export const useProfileLinksStore = defineStore('profileLinks', () => {
-  const profileLinks = reactive<ProfileLinks>([])
+  const profileLinks = reactive<ProfileLink[]>([])
   const profileLinkService = useProfileLinkService()
-
-  function setProfileLinks(fetchedProfileLinks: ProfileLinks) {
-    fetchedProfileLinks.forEach((profileLink: ProfileLink) => {
-      profileLinks.push(profileLink)
-    })
-  }
+  const profileLinkMapper = useProfileLinkMapper()
 
   async function fetchProfileLinks() {
-    const profileLinks = await profileLinkService.getAll()
-    setProfileLinks(profileLinks)
+    const profileLinksResponse = await profileLinkService.getAll()
+    profileLinkMapper.mapResponseToProfileLinks(profileLinksResponse, profileLinks)
   }
 
-  function getProfileLinksInPositionRange(positionStart: number, positionEnd: number): ProfileLink[] {
-    return profileLinks.filter((profileLink: ProfileLink) => {
+  function getProfileLinksInPositionRange(positionStart: number, positionEnd: number): UnwrapRef<ProfileLink>[] {
+    return profileLinks.filter((profileLink: UnwrapRef<ProfileLink>) => {
+      if (!profileLink.position) {
+        return null
+      }
+
       if (profileLink.position >= positionStart && profileLink.position <= positionEnd) {
-        return profileLink;
+        return profileLink
       }
     })
   }

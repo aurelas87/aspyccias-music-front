@@ -1,0 +1,70 @@
+<script setup lang="ts">
+import { useEmitter } from '@/plugins/emitter'
+import { useNewsService } from '@/services/NewsService'
+import { useNewsMapper } from '@/mappers/NewsMapper'
+import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import Loader from '@/components/Loader.vue'
+import Title from '@/components/Title.vue'
+import NewsDetails from '@/models/News/NewsDetails'
+import { useImage } from '@/composables/image'
+
+const props = defineProps({
+  slug: {
+    type: String,
+    required: true
+  }
+})
+
+const loading = ref(true)
+const emitter = useEmitter()
+const newsService = useNewsService()
+const newsMapper = useNewsMapper()
+const { onImageError } = useImage()
+
+const newsDetails = reactive<NewsDetails>(new NewsDetails())
+
+async function fetchNews() {
+  loading.value = true
+
+  newsMapper.resetNewsDetails(newsDetails)
+
+  const newsDetailsResponse = await newsService.get(props.slug).then(r => r)
+  newsMapper.mapResponseToNewsDetails(newsDetailsResponse, newsDetails)
+
+  loading.value = false
+}
+
+onMounted(async () => {
+  await fetchNews()
+
+  emitter.on('localeSwitched', () => {
+    fetchNews().then(r => r)
+  })
+})
+
+onBeforeUnmount(() => {
+  emitter.off('localeSwitched')
+})
+</script>
+
+<template>
+  <transition appear>
+    <div>
+      <Loader :loading="loading" />
+
+      <div v-if="!loading && newsDetails.date !== NewsDetails.EMPTY_DATE" class="w-[100%] lg:w-[60%] mx-auto">
+        <Title :title="newsDetails.title" :level="1" class="mb-0" />
+        <h3 class="mb-10">{{ $d(newsDetails.date) }}</h3>
+
+        <img :src="newsService.getNewsImageUri(newsDetails)" class="mb-10"
+             alt="News preview" @error="onImageError" />
+
+        <div class="text-justify">{{ newsDetails.content }}</div>
+      </div>
+    </div>
+  </transition>
+</template>
+
+<style scoped>
+
+</style>

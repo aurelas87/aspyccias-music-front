@@ -7,7 +7,7 @@ export function useProfileService() {
 
   const { getImageUri } = useImage()
 
-  async function get(): Promise<Profile|null> {
+  async function get(): Promise<ProfileResponse|null> {
     try {
       return (await axios.get(profileBasePath)).data
     } catch (error) {

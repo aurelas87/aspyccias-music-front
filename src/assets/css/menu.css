@@ -1,7 +1,3 @@
-.router-link-active {
-    @apply text-primary;
-}
-
 .burger-button, .burger-menu, .burger-menu button, .burger-menu div {
     @apply transition-300;
 }

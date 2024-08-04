@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import router from '@/router'
 import NavLink from '@/components/NavLink.vue'
 import LocaleMenu from '@/components/LocaleSwitcher.vue'
 import ProfileLinks from '@/components/ProfileLinks.vue'
 import { useLocaleStore } from '@/stores/LocaleStore'
+import type { RouteRecord } from 'vue-router'
+
+const routes = reactive<RouteRecord[]>(router.getRoutes())
 
 const burgerMenuOpen = ref(false)
 const toggleBurgerMenu = () => {
@@ -19,7 +22,7 @@ watch(localeStore.$state, () => {
 
 <template>
   <nav class="hidden md:block font-bold text-2xl space-x-5">
-    <NavLink v-for="route in router.getRoutes()" :route="route" />
+    <NavLink v-for="route in routes" :route="route" />
     <LocaleMenu />
   </nav>
 
@@ -40,7 +43,7 @@ watch(localeStore.$state, () => {
     </button>
 
     <div class="relative top-14">
-      <NavLink v-for="route in router.getRoutes()"
+      <NavLink v-for="route in routes"
                :route="route"
                :class="'block text-4xl p-3'"
                :click="toggleBurgerMenu" />

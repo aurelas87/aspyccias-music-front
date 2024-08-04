@@ -1,18 +1,21 @@
-interface News {
+interface NewsResponseCommons {
   slug: string,
   preview_image: string,
   title: string
-  date: string|Date
 }
 
-interface NewsListItem extends News {
-  date: Date
+interface NewsResponse extends NewsResponseCommons {
+  date: string
 }
 
-type NewsList = NewsListItem[]
+interface NewsDetailsResponse extends NewsResponse {
+  content: string
+}
 
-interface PaginatedNewsList {
+type NewsListResponse = NewsResponse[]
+
+interface PaginatedNewsListResponse {
   previous_offset: number|null,
   next_offset: number|null,
-  items: NewsList
+  items: NewsListResponse
 }

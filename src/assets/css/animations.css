@@ -1,18 +1,15 @@
 /* page animation */
-.slide-fade-enter-active {
+.fade-enter-active {
     @apply transition-all duration-200 ease-out;
 }
 
-.slide-fade-leave-active {
+.fade-leave-active {
     @apply transition-all duration-200 ease-in;
 }
 
-.slide-fade-enter-from {
-    @apply translate-y-1 opacity-0;
-}
-
-.slide-fade-leave-to {
-    @apply -translate-y-1 opacity-0;
+.fade-enter-from,
+.fade-leave-to {
+    @apply opacity-0;
 }
 /* end page animation */
 

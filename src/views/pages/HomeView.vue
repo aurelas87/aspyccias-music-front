@@ -3,33 +3,36 @@ import { useImage } from '@/composables/image'
 import { onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { useProfileService } from '@/services/ProfileService'
 import { useNewsService } from '@/services/NewsService'
+import { useNewsMapper } from '@/mappers/NewsMapper'
+import { useProfileMapper } from '@/mappers/ProfileMapper'
 import { useEmitter } from '@/plugins/emitter'
 import CardList from '@/components/CardList.vue'
 import NewsCard from '@/components/NewsCard.vue'
 import Loader from '@/components/Loader.vue'
+import Title from '@/components/Title.vue'
+import News from '@/models/News/News'
+import Profile from '@/models/Profile/Profile'
 
 const { onImageError } = useImage()
 
 const emitter = useEmitter()
 const profileService = useProfileService()
 const newsService = useNewsService()
+const newsMapper = useNewsMapper()
+const profileMapper = useProfileMapper()
 
 const loadingNews = ref(true)
 const loadingProfile = ref(true)
 
-const profile = reactive<Profile>({
-  welcome: '',
-  description: ''
-})
+const profile = reactive<Profile>(new Profile())
 
-const latestNews = reactive<NewsList>([])
+const latestNews = reactive<News[]>([])
 
 async function fetchProfile() {
   loadingProfile.value = true
 
-  const fetchedProfile = await profileService.get().then(r => r)
-  profile.welcome = fetchedProfile?.welcome || ''
-  profile.description = fetchedProfile?.description || ''
+  const profileResponse = await profileService.get().then(r => r)
+  profileMapper.mapResponseToProfile(profileResponse, profile)
 
   loadingProfile.value = false
 }
@@ -39,12 +42,8 @@ async function fetchLatestNews() {
 
   latestNews.splice(0)
 
-  const fetchedLatestNews = await newsService.getLatest().then(r => r)
-
-  fetchedLatestNews.forEach((latestNewsItem) => {
-    latestNewsItem.date = (new Date(latestNewsItem.date))
-    latestNews.push(latestNewsItem)
-  })
+  const latestNewsResponse = await newsService.getLatest().then(r => r)
+  newsMapper.mapResponseToNewsList(latestNewsResponse, latestNews)
 
   loadingNews.value = false
 }
@@ -66,13 +65,13 @@ onBeforeUnmount(() => {
 
 <template>
   <main>
-    <div class="text-center text-2xl mb-10">
+    <div class="text-2xl mb-10">
       <p>{{ profile.welcome }}</p>
     </div>
 
-    <h1>{{ $t('news.latest') }}</h1>
+    <Title :title="$t('news.latest')" :level="1" />
     <Loader :loading="loadingNews" />
-    <h3 v-if="!loadingNews && latestNews.length === 0" class="text-center mb-10">{{ $t('news.none') }}</h3>
+    <h3 v-if="!loadingNews && latestNews.length === 0" class="mb-10">{{ $t('news.none') }}</h3>
     <CardList v-else-if="!loadingNews">
       <NewsCard v-for="latestNewsItem in latestNews" :news="latestNewsItem" />
     </CardList>
@@ -88,7 +87,7 @@ onBeforeUnmount(() => {
         </div>
 
         <div class="text-justify">
-          <h2>{{ $t('home.about') }}</h2>
+          <Title :title="$t('home.about')" :level="2" />
 
           <Loader :loading="loadingProfile" />
           <div v-if="!loadingProfile">{{ profile.description }}</div>

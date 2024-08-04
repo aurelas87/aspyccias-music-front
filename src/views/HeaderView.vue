@@ -4,7 +4,7 @@ import ProfileLinks from '@/components/ProfileLinks.vue'
 </script>
 
 <template>
-  <header class="text-center mx-auto">
+  <header class="mx-auto">
     <div class="md:grid md:grid-flow-col">
       <ProfileLinks :position-start="1" :position-end="2" class="hidden md:flex w-max text-right items-end mb-5 mr-20" />
 

@@ -1,12 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/pages/HomeView.vue'
-import NewsView from '@/views/pages/NewsView.vue'
+import NewsMainView from '@/views/pages/News/NewsMainView.vue'
+import NewsListView from '@/views/pages/News/NewsListView.vue'
+import NewsDetailsView from '@/views/pages/News/NewsDetailsView.vue'
 import MusicView from '@/views/pages/MusicView.vue'
 import ContactView from '@/views/pages/ContactView.vue'
 import NotFoundView from '@/views/pages/NotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  linkActiveClass: 'text-primary',
   routes: [
     {
       path: '/',
@@ -15,8 +18,19 @@ const router = createRouter({
     },
     {
       path: '/news',
-      name: 'news.menu',
-      component: NewsView
+      component: NewsMainView,
+      children: [
+        {
+          path: '',
+          name: 'news.menu',
+          component: NewsListView
+        },
+        {
+          path: ':slug',
+          component: NewsDetailsView,
+          props: true
+        }
+      ]
     },
     {
       path: '/music',
@@ -31,7 +45,7 @@ const router = createRouter({
     {
       path: '/:pathMatch(.*)',
       name: 'not-found',
-      component: NotFoundView,
+      component: NotFoundView
     }
   ]
 })

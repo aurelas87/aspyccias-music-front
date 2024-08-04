@@ -8,7 +8,7 @@ library.add(faQuestion)
 </script>
 
 <template>
-  <main class="text-center text-2xl">
+  <main class="text-2xl">
     <div class="flex items-end my-5 mx-auto">
       <FontAwesomeIcon :icon="['fas', 'question']" class="text-8xl -rotate-12" />
       <FontAwesomeIcon :icon="['fas', 'question']" class="text-9xl" />
