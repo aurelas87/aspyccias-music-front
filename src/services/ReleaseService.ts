@@ -1,27 +1,39 @@
 import { useAxios } from '@/plugins/axios'
 import { useImage } from '@/composables/image'
-import type { UnwrapNestedRefs } from 'vue'
-import Release from '@/models/Release/Release'
-import ReleaseDetails from '@/models/Release/ReleaseDetails'
+import type { ReleaseDetailsResponse, ReleasesResponse } from '@/types/Release'
 
 export function useReleaseService() {
-  const releasesBasePath = '/releases'
+  const releasesBaseAPIPath = '/releases'
+  const musicBasePath = '/music'
+
   const axios = useAxios()
 
   const { getImageUri } = useImage()
 
   async function getByType(releaseType: string): Promise<ReleasesResponse | null> {
     try {
-      return (await axios.get(releasesBasePath + '/' + releaseType)).data
+      return (await axios.get(releasesBaseAPIPath + '/' + releaseType)).data
     } catch (error) {
       return null
     }
   }
 
-  function getReleaseImageUri(release: UnwrapNestedRefs<Release>): string {
-    let imageBasePath = '/uploads' + releasesBasePath + '/' + release.slug
+  async function get(slug: string): Promise<ReleaseDetailsResponse | null> {
+    try {
+      return (await axios.get(releasesBaseAPIPath + '/' + slug)).data
+    } catch (error) {
+      return null
+    }
+  }
 
-    if (!(release instanceof ReleaseDetails)) {
+  function getReleaseImageUri(imageName: string | null, isThumbnail: boolean): string {
+    if (!imageName) {
+      return ''
+    }
+
+    let imageBasePath = '/uploads' + releasesBaseAPIPath + '/' + imageName
+
+    if (isThumbnail) {
       imageBasePath += '.thumbnail'
     }
 
@@ -29,11 +41,12 @@ export function useReleaseService() {
   }
 
   function getReleaseUri(slug: string): string {
-    return releasesBasePath + '/' + slug
+    return musicBasePath + '/' + slug
   }
 
   return {
     getByType,
+    get,
 
     getReleaseImageUri,
     getReleaseUri

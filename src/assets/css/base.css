@@ -1,0 +1,11 @@
+.rounded-custom {
+    @apply rounded-md
+}
+
+.rounded-b-custom {
+    @apply rounded-b-md
+}
+
+.rounded-t-custom {
+    @apply rounded-t-md
+}

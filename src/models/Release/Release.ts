@@ -4,10 +4,10 @@ export default class Release {
   public static EMPTY_TITLE = null
   public static EMPTY_ARTWORK_FRONT_IMAGE = null
 
-  private _slug: string | null = Release.EMPTY_SLUG
-  private _releaseDate: Date | null = Release.EMPTY_RELEASE_DATE
-  private _title: string | null = Release.EMPTY_TITLE
-  private _artworkFrontImage: string | null = Release.EMPTY_ARTWORK_FRONT_IMAGE
+  protected _slug: string | null = Release.EMPTY_SLUG
+  protected _releaseDate: Date | null = Release.EMPTY_RELEASE_DATE
+  protected _title: string | null = Release.EMPTY_TITLE
+  protected _artworkFrontImage: string | null = Release.EMPTY_ARTWORK_FRONT_IMAGE
 
   get slug(): string | null {
     return this._slug

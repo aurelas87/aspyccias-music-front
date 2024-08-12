@@ -24,7 +24,7 @@ const showTitle = ref(false)
     >
       <RouterLink :to="releaseService.getReleaseUri($props.release.slug || '')">
         <img
-          :src="releaseService.getReleaseImageUri($props.release)"
+          :src="releaseService.getReleaseImageUri($props.release.artworkFrontImage, true)"
           alt="News preview"
           width="100%"
           class="rounded-custom aspect-square"
@@ -34,9 +34,11 @@ const showTitle = ref(false)
           class="absolute px-3 pb-3 transition-300 w-full h-full z-10 top-0 bg-dark-grey/60 rounded-custom flex flex-col justify-center"
           :class="{ 'opacity-0': !showTitle }"
         >
-          <Title :title="$props.release.title || ''" :level="2" :icon="false" :uppercase="false"
-                 class="bg-clip-text text-transparent bg-gradient-to-t from-primary to-yellow" />
-          <Title :title="$d($props.release.releaseDate)" :level="3" :icon="false" :uppercase="false" />
+          <div class="w-fit mx-auto p-3 rounded-custom bg-dark-grey/80">
+            <Title :title="$props.release.title || ''" :level="2" :icon="false" :uppercase="false"
+                   class="bg-clip-text text-transparent bg-gradient-to-t from-primary to-yellow" />
+            <Title :title="$d($props.release.releaseDate)" :level="3" :icon="false" :uppercase="false" />
+          </div>
         </div>
       </RouterLink>
     </div>

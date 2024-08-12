@@ -15,12 +15,12 @@ const props = defineProps({
   }
 })
 
-const loading = ref(true)
 const emitter = useEmitter()
 const newsService = useNewsService()
 const newsMapper = useNewsMapper()
 const { onImageError } = useImage()
 
+const loading = ref(true)
 const newsDetails = reactive<NewsDetails>(new NewsDetails())
 
 async function fetchNews() {
@@ -52,9 +52,9 @@ onBeforeUnmount(() => {
     <div>
       <Loader :loading="loading" />
 
-      <div v-if="!loading && newsDetails.date !== NewsDetails.EMPTY_DATE" class="w-[100%] lg:w-[60%] mx-auto">
+      <div v-if="!loading && newsDetails.date !== NewsDetails.EMPTY_DATE" class="w-[100%] lg:w-[80%] mx-auto">
         <Title :title="newsDetails.title || ''" :level="1" margins="mb-0" />
-        <Title :title="$d(newsDetails.date)" :level="2" :icon="false" margins="mb-10" />
+        <Title :title="$d(newsDetails.date, 'long')" :level="2" :icon="false" :uppercase="false" margins="mb-10" />
 
         <img :src="newsService.getNewsImageUri(newsDetails)" class="mb-10"
              alt="News preview" @error="onImageError" />

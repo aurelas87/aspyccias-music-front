@@ -2,46 +2,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "fonts.css";
+@import "base.css";
 @import "animations.css";
+@import "shadows.css";
+@import "components.css";
 @import "menu.css";
-
-@font-face {
-    font-family: Cabin;
-    font-display: auto;
-    src: url("@/assets/font/cabin/Cabin-Regular.ttf");
-}
-
-@font-face {
-    font-family: Cabin;
-    font-display: auto;
-    font-weight: bold;
-    src: url("@/assets/font/cabin/Cabin-Bold.ttf");
-}
-
-body {
-    background-image: url("@/assets/img/background.jpg");
-}
-
-h3 {
-    @apply text-xl;
-}
-
-p {
-    @apply mb-3;
-}
-
-.shadow-white-double {
-    box-shadow: rgba(255, 255, 255, 0.2) 2px 2px, rgba(255, 255, 255, 0.1) 4px 4px;
-}
-
-.rounded-custom {
-    @apply rounded-md
-}
-
-.rounded-b-custom {
-    @apply rounded-b-md
-}
-
-.rounded-t-custom {
-    @apply rounded-t-md
-}

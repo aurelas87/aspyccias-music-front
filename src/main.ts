@@ -39,7 +39,23 @@ if (import.meta.env.mode !== 'maintenance') {
     locale: localeStore.locale,
     fallbackLocale: 'en',
     messages: { en, fr },
-    legacy: false
+    legacy: false,
+    datetimeFormats: {
+      en: {
+        long: {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }
+      },
+      fr: {
+        long: {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }
+      }
+    }
   })
 
   app.use(i18n)

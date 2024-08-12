@@ -16,7 +16,14 @@
   },
   "music": {
     "menu": "Music",
-    "none": "No music available"
+    "none": "No music available",
+    "released": "Released",
+    "no_release_date": "No release date",
+    "listen_on": "Listen on: ",
+    "buy_on": "Buy on: ",
+    "tracks": "Tracks",
+    "credits": "Credits",
+    "back_cover": "Back cover"
   },
   "contact": "Contact",
   "lang": {

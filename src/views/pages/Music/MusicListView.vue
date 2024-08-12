@@ -65,21 +65,21 @@ onMounted(async () => {
     <div class="!last:mb-0">
       <div v-if="!loading && singleReleases.length > 0" class="mb-10">
         <Title title="Singles" :level="1" />
-        <CardList class="sm:!grid-cols-3 lg:!grid-cols-4">
+        <CardList class="release-card-list">
           <ReleaseCard v-for="singleRelease in singleReleases" :release="singleRelease" />
         </CardList>
       </div>
 
       <div v-if="!loading && epReleases.length > 0" class="mb-10">
         <Title title="EP" :level="1" />
-        <CardList class="sm:!grid-cols-3 lg:!grid-cols-4">
+        <CardList class="release-card-list">
           <ReleaseCard v-for="epRelease in epReleases" :release="epRelease" />
         </CardList>
       </div>
 
       <div v-if="!loading && albumReleases.length > 0" class="mb-10">
         <Title title="Albums" :level="1" />
-        <CardList class="sm:!grid-cols-3 lg:!grid-cols-4">
+        <CardList class="release-card-list">
           <ReleaseCard v-for="albumRelease in albumReleases" :release="albumRelease" />
         </CardList>
       </div>
@@ -87,6 +87,8 @@ onMounted(async () => {
   </main>
 </template>
 
-<style scoped>
-
+<style lang="postcss" scoped>
+.release-card-list {
+  @apply sm:!grid-cols-2 lg:!grid-cols-4
+}
 </style>

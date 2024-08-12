@@ -16,7 +16,14 @@
   },
   "music": {
     "menu": "Musique",
-    "none": "Aucune musique n'est disponible"
+    "none": "Aucune musique n'est disponible",
+    "released": "Date de sortie",
+    "no_release_date": "Aucune date de sortie",
+    "listen_on": "Ecouter sur : ",
+    "buy_on": "Acheter sur : ",
+    "tracks": "Pistes",
+    "credits": "Crédits",
+    "back_cover": "Pochette arrière"
   },
   "contact": "Contact",
   "lang": {
