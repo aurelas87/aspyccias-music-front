@@ -9,3 +9,7 @@ h3 {
 p {
     @apply mb-3;
 }
+
+main a {
+    @apply hover:text-primary transition-300
+}

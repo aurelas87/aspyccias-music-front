@@ -21,7 +21,10 @@
     "no_release_date": "No release date",
     "listen_on": "Listen on: ",
     "buy_on": "Buy on: ",
-    "tracks": "Tracks",
+    "tracks": {
+      "title": "Tracks",
+      "none": "No track available"
+    },
     "credits": "Credits",
     "back_cover": "Back cover"
   },
@@ -37,5 +40,6 @@
       "line2": "Unless another me created it in an alternative reality in a fit of madness!?",
       "line3": "Hum I'm getting lost just as much as you are..."
     }
-  }
+  },
+  "colon": ":"
 }

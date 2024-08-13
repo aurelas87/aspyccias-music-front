@@ -2,7 +2,16 @@ import type { UnwrapNestedRefs, UnwrapRef } from 'vue'
 import Release from '@/models/Release/Release'
 import ReleaseDetails from '@/models/Release/ReleaseDetails'
 import ReleaseLink from '@/models/Release/ReleaseLink'
-import type { ReleaseDetailsResponse, ReleaseLinkResponse, ReleaseResponse, ReleasesResponse } from '@/types/Release'
+import ReleaseTrack from '@/models/Release/ReleaseTrack'
+import ReleaseCredit from '@/models/Release/ReleaseCredit'
+import type {
+  ReleaseCreditResponse,
+  ReleaseDetailsResponse,
+  ReleaseLinkResponse,
+  ReleaseResponse,
+  ReleasesResponse,
+  ReleaseTrackResponse
+} from '@/types/Release'
 
 export function useReleaseMapper() {
   function resetReleaseDetails(releaseDetails: UnwrapNestedRefs<ReleaseDetails>) {
@@ -27,6 +36,18 @@ export function useReleaseMapper() {
     releaseLink.embedded = releaseLinkResponse.embedded
   }
 
+  function mapResponseToReleaseTrack(releaseTrackResponse: ReleaseTrackResponse, releaseTrack: UnwrapRef<ReleaseTrack>) {
+    releaseTrack.title = releaseTrackResponse.title
+    releaseTrack.position = releaseTrackResponse.position
+    releaseTrack.duration = releaseTrackResponse.duration
+  }
+
+  function mapResponseToReleaseCredit(releaseCreditResponse: ReleaseCreditResponse, releaseCredit: UnwrapRef<ReleaseCredit>) {
+    releaseCredit.fullName = releaseCreditResponse.full_name
+    releaseCredit.link = releaseCreditResponse.link
+    releaseCredit.type = releaseCreditResponse.type
+  }
+
   function mapResponseToReleaseDetails(releaseDetailsResponse: ReleaseDetailsResponse | null, releaseDetails: UnwrapRef<ReleaseDetails>) {
     if (!releaseDetailsResponse) {
       return
@@ -40,6 +61,27 @@ export function useReleaseMapper() {
     releaseDetailsResponse.links.forEach((releaseLinkResponse: ReleaseLinkResponse) => {
       releaseDetails.links.push(new ReleaseLink())
       mapResponseToReleaseLink(releaseLinkResponse, releaseDetails.links[releaseDetails.links.length - 1])
+    })
+
+    releaseDetails.tracks.splice(0)
+    releaseDetailsResponse.tracks.forEach((releaseTrackResponse: ReleaseTrackResponse) => {
+      releaseDetails.tracks.push(new ReleaseTrack())
+      mapResponseToReleaseTrack(releaseTrackResponse, releaseDetails.tracks[releaseDetails.tracks.length - 1])
+    })
+
+    for (let creditType in releaseDetails.credits) {
+      delete releaseDetails.credits[creditType]
+    }
+    releaseDetailsResponse.credits.forEach((releaseCreditResponse: ReleaseCreditResponse) => {
+      if (!releaseDetails.credits.hasOwnProperty(releaseCreditResponse.type)) {
+        releaseDetails.credits[releaseCreditResponse.type] = []
+      }
+
+      releaseDetails.credits[releaseCreditResponse.type].push(new ReleaseCredit())
+      mapResponseToReleaseCredit(
+        releaseCreditResponse,
+        releaseDetails.credits[releaseCreditResponse.type][releaseDetails.credits[releaseCreditResponse.type].length - 1]
+      )
     })
   }
 

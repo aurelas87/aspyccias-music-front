@@ -10,3 +10,10 @@
     font-weight: bold;
     src: url("@/assets/font/cabin/Cabin-Bold.ttf");
 }
+
+@font-face {
+    font-family: Cabin;
+    font-display: auto;
+    font-style: italic;
+    src: url("@/assets/font/cabin/Cabin-Italic.ttf");
+}

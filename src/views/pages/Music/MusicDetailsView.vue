@@ -11,6 +11,8 @@ import Title from '@/components/Title.vue'
 import ReleaseLinkTemplate from '@/components/ReleaseLink.vue'
 import { useI18n } from 'vue-i18n'
 import { ReleaseLinkCategory } from '@/types/ReleaseLinkCategory'
+import ReleaseTrack from '@/components/ReleaseTrack.vue'
+import ReleaseCredit from '@/components/ReleaseCredit.vue'
 
 const props = defineProps({
   slug: {
@@ -99,21 +101,7 @@ const releaseSmartLinks = computed(() => filterReleaseLinks(ReleaseLinkCategory.
           </p>
 
           <div class="text-justify">
-<!--            {{ releaseDetails.description }}-->
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                          ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                          nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-                          anim id est laborum.</p>
-                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-                          aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
-                          dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
-                          sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore
-                          magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis
-                          suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-                          ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
-                          nulla pariatur?</p>
+            {{ releaseDetails.description }}
           </div>
         </div>
 
@@ -123,11 +111,21 @@ const releaseSmartLinks = computed(() => filterReleaseLinks(ReleaseLinkCategory.
           </div>
 
           <div>
-            <Title :title="$t('music.tracks')" :level="2" />
+            <Title :title="$t('music.tracks.title')" :level="2" />
+            <p v-if="releaseDetails.tracks.length === 0">{{ $t('music.tracks.none') }}</p>
+            <div v-else class="w-max mx-auto">
+              <ReleaseTrack v-for="releaseTrack in releaseDetails.tracks" :release-track="releaseTrack" />
+            </div>
           </div>
 
           <div>
             <Title :title="$t('music.credits')" :level="2" />
+            <p v-if="Object.keys(releaseDetails.credits).length === 0">{{ $t('music.credits.none') }}</p>
+            <div v-else class="w-max mx-auto">
+              <ReleaseCredit v-for="(releaseCredits, creditType) in releaseDetails.credits"
+                             :credit-type="creditType.toString()"
+                             :release-credits="releaseCredits" />
+            </div>
           </div>
 
           <div>

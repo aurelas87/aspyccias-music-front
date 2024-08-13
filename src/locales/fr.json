@@ -21,7 +21,10 @@
     "no_release_date": "Aucune date de sortie",
     "listen_on": "Ecouter sur : ",
     "buy_on": "Acheter sur : ",
-    "tracks": "Pistes",
+    "tracks": {
+      "title": "Pistes",
+      "none": "Aucune piste disponible"
+    },
     "credits": "Crédits",
     "back_cover": "Pochette arrière"
   },
@@ -37,5 +40,6 @@
       "line2": "A moins qu'un autre moi l'ai créée dans une réalité alternative sous un accès de folie !?",
       "line3": "Hum je m'égare tout autant que vous..."
     }
-  }
+  },
+  "colon": " :"
 }
