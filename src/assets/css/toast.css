@@ -1,0 +1,15 @@
+:root {
+    --toastify-color-dark: theme('colors.dark-grey');
+
+    --toastify-color-success: theme('colors.success');
+    --toastify-color-progress-success: theme('colors.success');
+    --toastify-icon-color-success: theme('colors.success');
+
+    --toastify-color-warning: theme('colors.primary');
+    --toastify-color-progress-warning: theme('colors.primary');
+    --toastify-icon-color-warning: theme('colors.primary');
+
+    --toastify-color-error: theme('colors.error');
+    --toastify-color-progress-error: theme('colors.error');
+    --toastify-icon-color-error: theme('colors.error');
+}

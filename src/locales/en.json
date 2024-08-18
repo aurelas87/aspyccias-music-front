@@ -1,0 +1,69 @@
+{
+  "home": {
+    "menu": "Home",
+    "about": "About"
+  },
+  "news": {
+    "menu": "News",
+    "latest": "Latest news",
+    "none": "No news available",
+    "more_about_it": "More about it...",
+    "title": "News",
+    "list": {
+      "older": "Older",
+      "newer": "Newer"
+    }
+  },
+  "music": {
+    "menu": "Music",
+    "none": "No music available",
+    "released": "Released",
+    "no_release_date": "No release date",
+    "listen_on": "Listen on: ",
+    "buy_on": "Buy on: ",
+    "tracks": {
+      "title": "Tracks",
+      "none": "No track available"
+    },
+    "credits": "Credits",
+    "back_cover": "Back cover"
+  },
+  "contact": {
+    "menu": "Contact",
+    "title": "Contact",
+    "email": {
+      "intro": "A question? A project? Or simply sharing your feelings about my musical universe?<br />You can contact me via the form below and/or follow me on the social networks.",
+      "contact_details": "Contact details",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email_address": "Email address",
+      "message": "Message",
+      "subject": "Subject",
+      "your_message": "Your message...",
+      "send": {
+        "label": "Send",
+        "success": "Your email has been sent!",
+        "error": "Your email could not be sent..."
+      }
+    }
+  },
+  "lang": {
+    "en": "English",
+    "fr": "French"
+  },
+  "page": {
+    "lost": "So? Are you lost?",
+    "not_found": {
+      "line1": "Really sorry... But this page does not exist!",
+      "line2": "Unless another me created it in an alternative reality in a fit of madness!?",
+      "line3": "Hum I'm getting lost just as much as you are..."
+    }
+  },
+  "colon": ":",
+  "validation": {
+    "invalid_data": "Invalid data. Please check your form.",
+    "invalid_field": "This field is not valid",
+    "required": "This field is required",
+    "email": "Please enter a valid email address"
+  }
+}

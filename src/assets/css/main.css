@@ -2,16 +2,14 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@font-face {
-    font-family: Cabin;
-    font-display: auto;
-    src: url("@/assets/font/cabin/Cabin-Regular.ttf");
-}
+@import "fonts.css";
+@import "base.css";
+@import "animations.css";
+@import "shadows.css";
+@import "components.css";
+@import "menu.css";
 
-body {
-    background-image: url("@/assets/img/background.jpg");
-}
+@import "form.css";
 
-h1 {
-    @apply text-5xl uppercase first-letter:text-primary;
-}
+@import 'vue3-toastify/dist/index.css';
+@import "toast.css";

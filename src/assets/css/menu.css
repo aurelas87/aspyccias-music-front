@@ -1,0 +1,39 @@
+.burger-button, .burger-menu, .burger-menu button, .burger-menu div {
+    @apply transition-300;
+}
+
+.burger-button-hidden {
+    @apply opacity-0;
+}
+
+.burger-button-visible {
+    @apply opacity-100;
+}
+
+.burger-button, .burger-menu {
+    @apply z-50
+}
+
+.burger-menu-closed {
+    @apply w-0;
+
+    button {
+        @apply opacity-0;
+    }
+
+    div {
+        @apply opacity-0;
+    }
+}
+
+.burger-menu-open {
+    @apply w-full;
+
+    button {
+        @apply opacity-100;
+    }
+
+    div {
+        @apply opacity-100;
+    }
+}

@@ -1,0 +1,15 @@
+.rounded-custom {
+    @apply rounded-md
+}
+
+.rounded-b-custom {
+    @apply rounded-b-md
+}
+
+.rounded-t-custom {
+    @apply rounded-t-md
+}
+
+.custom-align {
+    @apply inline-block align-middle;
+}

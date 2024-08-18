@@ -13,5 +13,11 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  mode: 'maintenance',
+  mode: 'production',
+  optimizeDeps: {
+    exclude: [ "@fortawesome/vue-fontawesome" ]
+  },
+  server: {
+    host: '0.0.0.0'
+  }
 })
