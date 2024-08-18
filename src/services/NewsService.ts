@@ -1,6 +1,5 @@
 import { useAxios } from '@/plugins/axios'
 import { useImage } from '@/composables/image'
-import router from '@/router'
 import News from '@/models/News/News'
 import NewsDetails from '@/models/News/NewsDetails'
 import type { UnwrapNestedRefs } from 'vue'
@@ -35,7 +34,6 @@ export function useNewsService() {
     try {
       return (await axios.get(newsBasePath + '/' + slug)).data
     } catch (error) {
-      await router.push('/not-found')
       return null
     }
   }

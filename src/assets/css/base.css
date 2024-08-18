@@ -9,3 +9,7 @@
 .rounded-t-custom {
     @apply rounded-t-md
 }
+
+.custom-align {
+    @apply inline-block align-middle;
+}

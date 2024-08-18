@@ -13,3 +13,9 @@ p {
 main a {
     @apply hover:text-primary transition-300
 }
+
+.button-custom {
+    @apply inline-block p-3 border border-transparent bg-dark-grey transition-300 rounded-custom;
+    @apply hover:text-primary hover:border-primary;
+    @apply disabled:text-neutral-500 disabled:border-transparent;
+}

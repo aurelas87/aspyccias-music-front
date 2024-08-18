@@ -67,23 +67,21 @@ onBeforeUnmount(() => {
 
         <div class="flex justify-center mt-5">
           <div class="basis-1/2">
-            <a v-if="paginatedNewsList.previousOffset !== null"
-               href="#"
-               class="inline-block p-3 border border-transparent hover:text-primary hover:border-primary bg-dark-grey transition-300 rounded-custom"
+            <button v-if="paginatedNewsList.previousOffset !== null"
+               class="button-custom"
                @click="fetchPreviousNews">
-              <FontAwesomeIcon :icon="faChevronLeft" class="inline-block align-middle mr-3" />
-              <span class="inline-block align-middle">{{ $t('news.list.newer') }}</span>
-            </a>
+              <FontAwesomeIcon :icon="faChevronLeft" class="custom-align mr-3" />
+              <span class="custom-align">{{ $t('news.list.newer') }}</span>
+            </button>
           </div>
 
           <div class="basis-1/2">
-            <a v-if="paginatedNewsList.nextOffset !== null"
-               href="#"
-               class="inline-block p-3 border border-transparent hover:text-primary hover:border-primary bg-dark-grey transition-300 rounded-custom"
+            <button v-if="paginatedNewsList.nextOffset !== null"
+               class="button-custom"
                @click="fetchNextNews">
-              <span class="inline-block align-middle">{{ $t('news.list.older') }}</span>
-              <FontAwesomeIcon :icon="faChevronRight" class="inline-block align-middle ml-3" />
-            </a>
+              <span class="custom-align">{{ $t('news.list.older') }}</span>
+              <FontAwesomeIcon :icon="faChevronRight" class="custom-align ml-3" />
+            </button>
           </div>
         </div>
       </div>

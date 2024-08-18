@@ -21,6 +21,11 @@ const props = defineProps({
     required: false,
     default: true
   },
+  asHtml: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
   margins: {
     type: String,
     required: false
@@ -65,9 +70,12 @@ const titleTagName = computed(() => {
 <template>
   <component :is="titleTagName" :class="classes">
     <TitleIcon v-if="$props.icon" />
+
     <span v-if="$props.level === 1" class="text-primary">{{ $props.title.slice(0, 1) }}</span>
     <span v-if="$props.level === 1">{{ $props.title.slice(1) }}</span>
-    <span v-if="$props.level > 1">{{ $props.title }}</span>
+
+    <span v-if="$props.level > 1 && !$props.asHtml">{{ $props.title }}</span>
+    <span v-if="$props.level > 1 && $props.asHtml" v-html="$props.title"></span>
   </component>
 </template>
 

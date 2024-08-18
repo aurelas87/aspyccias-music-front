@@ -27,7 +27,7 @@ defineProps<{
 
         <p class="text-sm text-neutral-300 font-bold">{{ $d($props.news.date) }}</p>
         <RouterLink :to="newsService.getNewsItemUri($props.news.slug || '')"
-                    class="inline-block w-fit rounded-custom p-3 bg-dark-grey border border-dark-grey hover:border-primary hover:text-primary transition-300">
+                    class="button-custom">
           {{ $t('news.more_about_it') }}
         </RouterLink>
       </div>

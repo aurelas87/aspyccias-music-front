@@ -52,7 +52,7 @@ const router = createRouter({
     },
     {
       path: '/contact',
-      name: 'contact',
+      name: 'contact.menu',
       component: ContactView
     },
     {

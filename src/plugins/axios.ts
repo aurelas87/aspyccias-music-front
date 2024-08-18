@@ -15,7 +15,10 @@ export function updateAxiosLocale(axiosInstance: AxiosInstance, locale: string) 
 export default {
   install: (app: App, options: AxiosOptions) => {
     app.config.globalProperties.$axios = axios.create({
-      baseURL: options.baseUrl
+      baseURL: options.baseUrl,
+      headers: {
+        'Content-Type': 'application/json'
+      }
     })
   }
 }

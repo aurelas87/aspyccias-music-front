@@ -28,7 +28,25 @@
     "credits": "Crédits",
     "back_cover": "Pochette arrière"
   },
-  "contact": "Contact",
+  "contact": {
+    "menu": "Contact",
+    "title": "Contact",
+    "email": {
+      "intro": "Une question ? Un projet ? Ou simplement me faire part de vos impressions sur mon univers musical ?<br />Vous pouvez me contacter via le formulaire ci-dessous et/ou me suivre sur les réseaux.",
+      "contact_details": "Coordonnées",
+      "first_name": "Prénom",
+      "last_name": "Nom de famille",
+      "email_address": "Adresse email",
+      "message": "Message",
+      "subject": "Sujet",
+      "your_message": "Votre message...",
+      "send": {
+        "label": "Envoyer",
+        "success": "Votre email a été envoyé !",
+        "error": "Votre email n'a pas pu être envoyé..."
+      }
+    }
+  },
   "lang": {
     "en": "Anglais",
     "fr": "Français"
@@ -41,5 +59,11 @@
       "line3": "Hum je m'égare tout autant que vous..."
     }
   },
-  "colon": " :"
+  "colon": " :",
+  "validation": {
+    "invalid_data": "Données invalides. Vérifiez votre formulaire.",
+    "invalid_field": "Ce champ est invalide",
+    "required": "Ce champ est requis",
+    "email": "Veuillez saisir une adresse email valide"
+  }
 }

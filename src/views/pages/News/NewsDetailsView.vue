@@ -7,6 +7,7 @@ import Loader from '@/components/Loader.vue'
 import Title from '@/components/Title.vue'
 import NewsDetails from '@/models/News/NewsDetails'
 import { useImage } from '@/composables/image'
+import router from '@/router'
 
 const props = defineProps({
   slug: {
@@ -29,6 +30,10 @@ async function fetchNews() {
   newsMapper.resetNewsDetails(newsDetails)
 
   const newsDetailsResponse = await newsService.get(props.slug).then(r => r)
+  if (!newsDetailsResponse) {
+    await router.push('/not-found')
+  }
+
   newsMapper.mapResponseToNewsDetails(newsDetailsResponse, newsDetails)
 
   loading.value = false

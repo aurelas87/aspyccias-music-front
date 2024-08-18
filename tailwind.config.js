@@ -15,12 +15,17 @@ export default {
           ...defaultTheme.fontFamily.sans,
         ]
       },
+      fontSize: {
+        inherit: 'inherit'
+      },
       colors: {
         background: '#000000',
         'dark-grey': '#1d1d1b',
         primary: '#cd7025',
         'brown-dark': '#94400D',
-        'yellow': '#FFF69E',
+        yellow: '#FFF69E',
+        success: '#00a189',
+        error: '#c45258'
       }
     },
   },

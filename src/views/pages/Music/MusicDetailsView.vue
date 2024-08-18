@@ -13,6 +13,7 @@ import { useI18n } from 'vue-i18n'
 import { ReleaseLinkCategory } from '@/types/ReleaseLinkCategory'
 import ReleaseTrack from '@/components/ReleaseTrack.vue'
 import ReleaseCredit from '@/components/ReleaseCredit.vue'
+import router from '@/router'
 
 const props = defineProps({
   slug: {
@@ -36,6 +37,10 @@ async function fetchRelease() {
   releaseMapper.resetReleaseDetails(releaseDetails)
 
   const releadDetailsResponse = await releaseService.get(props.slug).then(r => r)
+  if (!releadDetailsResponse) {
+    await router.push('/not-found')
+  }
+
   releaseMapper.mapResponseToReleaseDetails(releadDetailsResponse, releaseDetails)
 
   loading.value = false
