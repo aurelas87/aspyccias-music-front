@@ -31,7 +31,7 @@ async function fetchNews() {
 
   const newsDetailsResponse = await newsService.get(props.slug).then(r => r)
   if (!newsDetailsResponse) {
-    await router.push('/not-found')
+    await router.push({ name: 'not-found' })
   }
 
   newsMapper.mapResponseToNewsDetails(newsDetailsResponse, newsDetails)

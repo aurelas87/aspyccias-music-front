@@ -38,7 +38,7 @@ async function fetchRelease() {
 
   const releadDetailsResponse = await releaseService.get(props.slug).then(r => r)
   if (!releadDetailsResponse) {
-    await router.push('/not-found')
+    await router.push({ name: 'not-found' })
   }
 
   releaseMapper.mapResponseToReleaseDetails(releadDetailsResponse, releaseDetails)

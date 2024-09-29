@@ -56,7 +56,7 @@ async function submitEmail() {
     email_address: state.emailAddress,
     subject: state.subject,
     message: state.message
-  }).then((emailSent: boolean) => {
+  }).then((emailSent: boolean|null) => {
     if (emailSent) {
       state.firstName = ''
       state.lastName = ''

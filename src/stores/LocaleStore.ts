@@ -1,12 +1,11 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { useStorage } from '@vueuse/core'
 
 export const useLocaleStore = defineStore('locale', () => {
-  const locale = ref(localStorage.getItem('locale') || '')
+  const locale = useStorage('locale', '')
 
   function setLocale(newLocale: string) {
     locale.value = newLocale
-    localStorage.setItem('locale', locale.value)
   }
 
   return { locale, setLocale }

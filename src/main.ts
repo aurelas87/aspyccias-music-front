@@ -73,6 +73,7 @@ if (import.meta.env.mode !== 'maintenance') {
       transition: toast.TRANSITIONS.FLIP,
       theme: toast.THEME.DARK,
       bodyClassName: 'font-sans',
+      clearOnUrlChange: false
     } as ToastContainerOptions
   )
 }

@@ -4,7 +4,7 @@ export function useContactService() {
   const contactBasePath = '/contact'
   const request = useRequest()
 
-  async function sendEmail(postEmailData: PostEmailData): Promise<boolean> {
+  async function sendEmail(postEmailData: PostEmailData): Promise<boolean|null> {
     return (await request.postRequest(
       contactBasePath + '/email',
       postEmailData,

@@ -59,6 +59,10 @@ const classes = computed(() => {
     }
   }
 
+  if (props.icon) {
+    classes.push('leading-[83px]')
+  }
+
   return (classes.length > 0) ? classes.join(' ') : null
 })
 
@@ -85,6 +89,6 @@ h1 {
 }
 
 h2 {
-  @apply text-2xl md:text-3xl leading-[83px];
+  @apply text-2xl md:text-3xl;
 }
 </style>

@@ -32,7 +32,7 @@
     "menu": "Contact",
     "title": "Contact",
     "email": {
-      "intro": "Une question ? Un projet ? Ou simplement me faire part de vos impressions sur mon univers musical ?<br />Vous pouvez me contacter via le formulaire ci-dessous et/ou me suivre sur les réseaux.",
+      "intro": "<p>Une question ? Un projet ? Ou simplement me faire part de vos impressions sur mon univers musical ?</p><p>Vous pouvez me contacter via le formulaire ci-dessous et/ou me suivre sur les réseaux.</p>",
       "contact_details": "Coordonnées",
       "first_name": "Prénom",
       "last_name": "Nom de famille",

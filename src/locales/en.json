@@ -32,7 +32,7 @@
     "menu": "Contact",
     "title": "Contact",
     "email": {
-      "intro": "A question? A project? Or simply sharing your feelings about my musical universe?<br />You can contact me via the form below and/or follow me on the social networks.",
+      "intro": "<p>A question? A project? Or simply sharing your feelings about my musical universe?</p><p>You can contact me via the form below and/or follow me on the social networks.</p>",
       "contact_details": "Contact details",
       "first_name": "First name",
       "last_name": "Last name",
@@ -65,5 +65,8 @@
     "invalid_field": "This field is not valid",
     "required": "This field is required",
     "email": "Please enter a valid email address"
+  },
+  "admin": {
+    "profile": "Profile"
   }
 }

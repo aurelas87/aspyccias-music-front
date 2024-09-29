@@ -11,7 +11,8 @@ import { faBandcamp } from '@fortawesome/free-brands-svg-icons/faBandcamp'
 import { faApple } from '@fortawesome/free-brands-svg-icons/faApple'
 import { faAmazon } from '@fortawesome/free-brands-svg-icons/faAmazon'
 import { faNapster } from '@fortawesome/free-brands-svg-icons/faNapster'
-import { reactive, watch } from 'vue'
+import { reactive, type UnwrapRef, watch } from 'vue'
+import type ProfileLink from '@/models/Profile/ProfileLink'
 
 library.add(faFacebook)
 library.add(faInstagram)
@@ -29,9 +30,9 @@ const props = defineProps<{
 }>()
 
 const profileLinksStore = useProfileLinksStore()
-const profileLinks = reactive<ProfileLinks>([])
+const profileLinks = reactive<ProfileLink[]>([])
 
-function getProfileLinks(): ProfileLinks {
+function getProfileLinks(): UnwrapRef<ProfileLink>[] {
   return (!props.positionStart || !props.positionEnd)
     ? profileLinksStore.profileLinks
     : profileLinksStore.getProfileLinksInPositionRange(props.positionStart, props.positionEnd)
@@ -40,7 +41,7 @@ function getProfileLinks(): ProfileLinks {
 function updateProfileLinksRef() {
   profileLinks.splice(0)
 
-  getProfileLinks().forEach((profileLink: ProfileLink) => {
+  getProfileLinks().forEach((profileLink: UnwrapRef<ProfileLink>) => {
     profileLinks.push(profileLink)
   })
 }
