@@ -9,15 +9,17 @@ const userStore = useUserStore()
 const router = useRouter()
 const loginService = useLoginService()
 
-function logout() {
-  loginService.logout()
+async function logout() {
+  await loginService.logout().then(r => r)
 
   userStore.setUserToken({
     access_token: null,
-    access_token_expiration_date: null
+    access_token_expiration_date: null,
+    refresh_token: null,
+    refresh_token_expiration_date: null
   })
 
-  router.push({ name: 'admin.login' })
+  await router.push({ name: 'admin.login' })
 }
 </script>
 

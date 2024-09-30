@@ -13,10 +13,16 @@ export function useRequest() {
   async function handleAdminConnection(uri: string): Promise<AxiosRequestConfig> {
     let requestConfig = {}
 
-    if (uri.startsWith(adminBasePath) && userStore.isConnected()) {
+    if (uri.startsWith(adminBasePath)) {
+      await userStore.tryAndKeepUserConnectionAlive(uri).then(r => r)
+
+      const token = (uri.endsWith('token/refresh'))
+        ? userStore.getUser().refreshToken
+        : userStore.getUser().accessToken
+
       requestConfig = {
         headers: {
-          'Authorization': 'Bearer ' + userStore.getUser().accessToken
+          'Authorization': 'Bearer ' + token
         }
       }
     }
@@ -24,19 +30,29 @@ export function useRequest() {
     return requestConfig
   }
 
+  async function getRequest(uri: string): Promise<any> {
+    let requestConfig = await handleAdminConnection(uri)
+    return await axios.get(uri, requestConfig);
+  }
+
   async function postRequest(
     uri: string,
-    postData: any,
-    successMessage: string,
-    errorMessage: string
+    postData: any | null = null,
+    successMessage: string | null = null,
+    errorMessage: string | null = null
   ): Promise<any> {
     const requestConfig = await handleAdminConnection(uri)
 
-    return await axios.post(uri, JSON.stringify(postData) || null, requestConfig)
+    return await axios.post(
+      uri, postData ? JSON.stringify(postData) : null,
+      requestConfig ?? await handleAdminConnection(uri)
+    )
       .then((data) => {
-        toast(i18n.t(successMessage), {
-          type: toast.TYPE.SUCCESS
-        })
+        if (successMessage) {
+          toast(i18n.t(successMessage), {
+            type: toast.TYPE.SUCCESS
+          })
+        }
 
         if (data.status === 205) {
           return true
@@ -45,15 +61,18 @@ export function useRequest() {
         return data.data
       })
       .catch(() => {
-        toast(i18n.t(errorMessage), {
-          type: toast.TYPE.ERROR
-        })
+        if (errorMessage) {
+          toast(i18n.t(errorMessage), {
+            type: toast.TYPE.ERROR
+          })
+        }
 
         return null
       })
   }
 
   return {
+    getRequest,
     postRequest
   }
 }

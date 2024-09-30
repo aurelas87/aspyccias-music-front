@@ -65,8 +65,8 @@ onBeforeUnmount(() => {
 
 <template>
   <main>
-    <div class="text-2xl mb-10">
-      <p>{{ profile.welcome }}</p>
+    <div class="mb-10">
+      <Title :title="profile.welcome || ''" :level="2" :icon="false" :uppercase="false" :as-html="true" />
     </div>
 
     <Title :title="$t('news.latest')" :level="1" />

@@ -52,7 +52,7 @@ watch(profileLinksStore.$state.profileLinks, updateProfileLinksRef)
 
 <template>
   <div>
-    <a v-for="profileLink in profileLinks" :href="profileLink.link" target="_blank">
+    <a v-for="profileLink in profileLinks" :href="profileLink.link || undefined" target="_blank">
       <FontAwesomeIcon :icon="['fab', profileLink.name]" class="px-2 text-4xl hover:text-primary transition-300" />
     </a>
   </div>

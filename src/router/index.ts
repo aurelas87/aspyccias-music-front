@@ -81,10 +81,12 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
   const userStore = useUserStore()
 
   if (to.path.startsWith('/admin')) {
+    await userStore.tryAndKeepUserConnectionAlive(to.path)
+
     if (!userStore.isConnected()) {
       if (!to.path.endsWith('login')) {
         return { name: 'admin.login' }

@@ -1,15 +1,15 @@
-import { useAxios } from '@/plugins/axios'
 import { useImage } from '@/composables/image'
+import { useRequest } from '@/composables/request'
 
 export function useProfileService() {
   const profileBasePath = '/profile'
-  const axios = useAxios()
+  const request = useRequest()
 
   const { getImageUri } = useImage()
 
   async function get(): Promise<ProfileResponse|null> {
     try {
-      return (await axios.get(profileBasePath)).data
+      return (await request.getRequest(profileBasePath)).data
     } catch (error) {
       return null
     }
