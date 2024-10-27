@@ -6,10 +6,12 @@ export function useContactService() {
 
   async function sendEmail(postEmailData: PostEmailData): Promise<boolean|null> {
     return (await request.postRequest(
-      contactBasePath + '/email',
-      postEmailData,
-      'contact.email.send.success',
-      'contact.email.send.error'
+      {
+        uri: contactBasePath + '/email',
+        content: postEmailData,
+        successMessage: 'contact.email.send.success',
+        errorMessage: 'contact.email.send.error'
+      }
     ))
   }
 

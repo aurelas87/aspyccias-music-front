@@ -6,19 +6,22 @@ export function useLoginService() {
 
   async function login(postLoginData: PostLoginData): Promise<LoginResponse|null> {
     return (await request.postRequest(
-      adminBasePath + '/login',
-      postLoginData,
-      'Login successful',
-      'Login error'
+      {
+        uri: adminBasePath + '/login',
+        content: postLoginData,
+        successMessage: 'Login successful',
+        errorMessage: 'Login error'
+      }
     ))
   }
 
   async function logout(): Promise<boolean> {
     return (await request.postRequest(
-      adminBasePath + '/logout',
-      null,
-      'Logout successful',
-      'Logout error'
+      {
+        uri: adminBasePath + '/logout',
+        successMessage: 'Logout successful',
+        errorMessage: 'Logout error'
+      }
     ))
   }
 

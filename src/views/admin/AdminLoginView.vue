@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { customRequired, reduceErrors } from '@/composables/validation'
 import useVuelidate from '@vuelidate/core'
 import FormField from '@/components/FormField.vue'
@@ -17,6 +17,10 @@ const state = reactive({
 })
 
 const loginInProgress = ref(false)
+
+const disabled = computed(() => {
+  return loginInProgress.value ? true : undefined
+})
 
 const rules = {
   username: { customRequired },
@@ -70,12 +74,12 @@ async function submitLogin() {
     <form novalidate class="mx-auto mt-10" @submit.prevent.stop="submitLogin">
       <FormField :has-error="v$.username.$error" :error-message="reduceErrors(v$.username.$errors)">
         <input type="text" placeholder="username" name="username" maxlength="255"
-               v-model.trim="state.username" />
+               v-model.trim="state.username" :disabled="disabled" />
       </FormField>
 
       <FormField :has-error="v$.password.$error" :error-message="reduceErrors(v$.password.$errors)">
         <input type="password" placeholder="Password" name="password" maxlength="255"
-               v-model.trim="state.password" />
+               v-model.trim="state.password" :disabled="disabled" />
       </FormField>
 
       <button type="submit" class="button-custom mt-3" :disabled="loginInProgress ? true : undefined">

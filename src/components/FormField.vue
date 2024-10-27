@@ -6,11 +6,11 @@ import { ref } from 'vue'
 defineProps({
   hasError: {
     type: Boolean,
-    required: true
+    required: false
   },
   errorMessage: {
     type: String,
-    required: true
+    required: false
   }
 })
 
@@ -25,7 +25,7 @@ const errorMessageVisible = ref(false)
       <FontAwesomeIcon :icon="faWarning"
                        @mouseover="errorMessageVisible = true"
                        @mouseleave="errorMessageVisible = false" />
-      <span>{{ $t($props.errorMessage) }}</span>
+      <span>{{ $props.errorMessage ? $t($props.errorMessage) : '' }}</span>
     </p>
   </div>
 </template>

@@ -3,7 +3,7 @@ import { toast } from 'vue3-toastify'
 import { useI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/UserStore'
 import { adminBasePath } from '@/types/admin/Commons'
-import type { AxiosRequestConfig } from 'axios'
+import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export function useRequest() {
   const axios = useAxios()
@@ -30,49 +30,87 @@ export function useRequest() {
     return requestConfig
   }
 
+  function putAndPostThen(data: AxiosResponse, successMessage?: string): any {
+    if (successMessage) {
+      toast(i18n.t(successMessage), {
+        type: toast.TYPE.SUCCESS
+      })
+    }
+
+    if (data.status in [204, 301]) {
+      return true
+    }
+
+    return data.data
+  }
+
+  function putAndPostCatch(errorMessage?: string): null {
+    if (errorMessage) {
+      toast(i18n.t(errorMessage), {
+        type: toast.TYPE.ERROR
+      })
+    }
+
+    return null
+  }
+
   async function getRequest(uri: string): Promise<any> {
     let requestConfig = await handleAdminConnection(uri)
     return await axios.get(uri, requestConfig);
   }
 
   async function postRequest(
-    uri: string,
-    postData: any | null = null,
-    successMessage: string | null = null,
-    errorMessage: string | null = null
+    options: PostAndPutOptions
   ): Promise<any> {
-    const requestConfig = await handleAdminConnection(uri)
+    let requestConfig = await handleAdminConnection(options.uri)
 
-    return await axios.post(
-      uri, postData ? JSON.stringify(postData) : null,
-      requestConfig ?? await handleAdminConnection(uri)
-    )
+    if (options.contentType) {
+      if (!requestConfig.headers) {
+        requestConfig.headers = {}
+      }
+
+      requestConfig.headers['Content-Type'] = options.contentType
+    }
+
+    let postData = options.content || null
+    if (options.content) {
+      if (requestConfig.headers && requestConfig.headers['Content-Type'] === 'multipart/form-data') {
+        postData = new FormData()
+
+        for (let contentKey in options.content) {
+          postData.append(contentKey, options.content[contentKey])
+        }
+      } else {
+        postData = JSON.stringify(options.content)
+      }
+    }
+
+    return await axios.post(options.uri, postData, requestConfig)
       .then((data) => {
-        if (successMessage) {
-          toast(i18n.t(successMessage), {
-            type: toast.TYPE.SUCCESS
-          })
-        }
-
-        if (data.status === 205) {
-          return true
-        }
-
-        return data.data
+        return putAndPostThen(data, options.successMessage)
       })
       .catch(() => {
-        if (errorMessage) {
-          toast(i18n.t(errorMessage), {
-            type: toast.TYPE.ERROR
-          })
-        }
+        return putAndPostCatch(options.errorMessage)
+      })
+  }
 
-        return null
+  async function putRequest(
+    options: PostAndPutOptions
+  ): Promise<any> {
+    const requestConfig = await handleAdminConnection(options.uri)
+
+    return await axios.put(options.uri, options.content ? JSON.stringify(options.content) : null, requestConfig)
+      .then((data) => {
+        return putAndPostThen(data, options.successMessage)
+      })
+      .catch(() => {
+        return putAndPostCatch(options.errorMessage)
       })
   }
 
   return {
     getRequest,
-    postRequest
+    postRequest,
+    putRequest
   }
 }

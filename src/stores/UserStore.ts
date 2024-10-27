@@ -44,7 +44,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   async function tryAndKeepUserConnectionAlive(uri: string) {
-    if (isConnected() || uri.endsWith('logout')) {
+    if (isConnected() || uri.endsWith('login') || uri.endsWith('logout')) {
       return
     }
 
@@ -65,6 +65,13 @@ export const useUserStore = defineStore('user', () => {
       })()
 
       if (!loginResponse) {
+        setUserToken({
+          access_token: null,
+          access_token_expiration_date: null,
+          refresh_token: null,
+          refresh_token_expiration_date: null
+        });
+
         await router.push({ name: 'admin.login' })
       } else {
         setUserToken(loginResponse.token)
