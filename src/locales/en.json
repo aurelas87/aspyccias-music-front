@@ -67,6 +67,8 @@
     "email": "Please enter a valid email address"
   },
   "admin": {
-    "profile": "Profile"
+    "profile": "Profile",
+    "links": "Links",
+    "news": "News"
   }
 }

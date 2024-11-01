@@ -10,7 +10,10 @@ import MusicDetailsView from '@/views/pages/Music/MusicDetailsView.vue'
 import ContactView from '@/views/pages/ContactView.vue'
 import NotFoundView from '@/views/pages/NotFoundView.vue'
 import AdminLoginView from '@/views/admin/AdminLoginView.vue'
-import AdminProfileView from '@/views/admin/AdminProfileView.vue'
+import AdminProfileView from '@/views/admin/Profile/AdminProfileView.vue'
+import AdminProfileLinksView from '@/views/admin/Profile/AdminProfileLinksView.vue'
+import AdminNewsMainView from '@/views/admin/News/AdminNewsMainView.vue'
+import AdminNewsListView from '@/views/admin/News/AdminNewsListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -69,7 +72,12 @@ const router = createRouter({
         {
           path: 'profile',
           name: 'admin.profile',
-          component: AdminProfileView,
+          component: AdminProfileView
+        },
+        {
+          path: 'links',
+          name: 'admin.links',
+          component: AdminProfileLinksView
         }
       ]
     },
@@ -93,7 +101,7 @@ router.beforeEach(async (to, from) => {
       } else {
         return true
       }
-    } else if (to.path.endsWith('login') || !to.path.endsWith('profile')) {
+    } else if (to.path.endsWith('login')) {
       return { name: 'admin.profile' }
     }
 

@@ -19,6 +19,16 @@ export function useProfileLinkMapper() {
     })
   }
 
+  function mapResponseToArray(profileLinksResponse: AdminProfileLinksResponse | null) {
+    if (!profileLinksResponse) {
+      return []
+    }
+
+    profileLinksResponse.map((profileLinkResponse: AdminProfileLinkResponse) => {
+      return Object.keys(profileLinkResponse)
+    })
+  }
+
   return {
     mapResponseToProfileLinks
   }

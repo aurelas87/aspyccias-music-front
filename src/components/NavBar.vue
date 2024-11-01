@@ -24,10 +24,10 @@ watch(localeStore.$state, () => {
 </script>
 
 <template>
-  <nav v-if="!routes.isAdminRoute() || userStore.isConnected()" class="hidden md:block font-bold text-2xl space-x-5">
+  <nav v-if="!routes.isCurrentAdminRoute() || userStore.isConnected()" class="hidden md:block font-bold text-2xl space-x-5">
     <NavLink v-for="route in routes.getRoutes()" :route="route" />
 
-    <LocaleSwitcher v-if="!routes.isAdminRoute()" />
+    <LocaleSwitcher v-if="!routes.isCurrentAdminRoute()" />
     <LogoutLink v-else />
   </nav>
 
@@ -48,13 +48,13 @@ watch(localeStore.$state, () => {
     </button>
 
     <div class="relative top-14">
-      <div v-if="!routes.isAdminRoute() || userStore.isConnected()">
+      <div v-if="!routes.isCurrentAdminRoute() || userStore.isConnected()">
         <NavLink v-for="route in routes.getRoutes()"
                  :route="route"
                  :class="'block text-4xl p-3'"
                  :click="toggleBurgerMenu" />
 
-        <LocaleSwitcher v-if="!routes.isAdminRoute()" />
+        <LocaleSwitcher v-if="!routes.isCurrentAdminRoute()" />
         <LogoutLink v-else />
       </div>
 

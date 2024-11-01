@@ -25,6 +25,7 @@ const state = reactive({
   profilePicture: null
 })
 
+const loading = ref(true)
 const profileUpdating = ref(false)
 
 const disabled = computed(() => {
@@ -71,11 +72,15 @@ async function submitProfile() {
 }
 
 onMounted(async () => {
+  loading.value = true
+
   const adminProfileResponse = await profileService.getForAdmin().then(r => r)
   if (adminProfileResponse) {
     state.fr = adminProfileResponse.fr
     state.en = adminProfileResponse.en
   }
+
+  loading.value = false
 })
 </script>
 
@@ -83,10 +88,12 @@ onMounted(async () => {
   <main>
     <Title title="Edit Profile" :level="1" />
 
-    <FormImage image-alt="Aspyccias profile picture" :image-url="profileService.getProfilePictureUri()"
+    <Loader :loading="loading" />
+
+    <FormImage v-if="!loading" image-alt="Aspyccias profile picture" :image-url="profileService.getProfilePictureUri()"
                resource-type="profile" />
 
-    <form novalidate class="sm:w-[80%] xl:w-[60%] mx-auto mt-10" @submit.prevent.stop="submitProfile">
+    <form v-if="!loading" novalidate class="sm:w-[80%] xl:w-[60%] mx-auto mt-10" @submit.prevent.stop="submitProfile">
       <fieldset>
         <legend>French</legend>
 
@@ -118,9 +125,9 @@ onMounted(async () => {
       </fieldset>
 
       <button type="submit" class="button-custom float-right mt-3" :disabled="disabled">
-        <span class="custom-align">Submit</span>
-        <FontAwesomeIcon v-if="!profileUpdating" :icon="faAnglesRight" class="custom-align ml-3" />
-        <Loader v-else :loading="profileUpdating" class="custom-align ml-3 text-inherit" />
+        <span>Submit</span>
+        <FontAwesomeIcon v-if="!profileUpdating" :icon="faAnglesRight" class="ml-3" />
+        <Loader v-else :loading="profileUpdating" class="ml-3 text-inherit" />
       </button>
     </form>
   </main>

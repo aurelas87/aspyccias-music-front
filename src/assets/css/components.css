@@ -16,6 +16,18 @@ main a {
 
 .button-custom {
     @apply inline-block p-3 border border-transparent bg-dark-grey transition-300 rounded-custom;
-    @apply hover:text-primary hover:border-primary;
+    @apply enabled:hover:text-white enabled:hover:bg-primary/50;
     @apply disabled:text-neutral-500 disabled:border-transparent;
+}
+
+.button-edit {
+    @apply text-info enabled:hover:bg-info;
+}
+
+.button-delete {
+    @apply text-error enabled:hover:bg-error;
+}
+
+.button-add {
+    @apply text-success enabled:hover:bg-success;
 }

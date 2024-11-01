@@ -83,9 +83,9 @@ async function submitLogin() {
       </FormField>
 
       <button type="submit" class="button-custom mt-3" :disabled="loginInProgress ? true : undefined">
-        <span class="custom-align">Login</span>
-        <FontAwesomeIcon v-if="!loginInProgress" :icon="faArrowRightToBracket" class="custom-align ml-3" />
-        <Loader v-else :loading="loginInProgress" class="custom-align ml-3 text-inherit"/>
+        <span>Login</span>
+        <FontAwesomeIcon v-if="!loginInProgress" :icon="faArrowRightToBracket" class="ml-3" />
+        <Loader v-else :loading="loginInProgress" class="ml-3 text-inherit"/>
       </button>
     </form>
   </main>

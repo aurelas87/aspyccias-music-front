@@ -70,8 +70,8 @@ onBeforeUnmount(() => {
             <button v-if="paginatedNewsList.previousOffset !== null"
                class="button-custom"
                @click="fetchPreviousNews">
-              <FontAwesomeIcon :icon="faChevronLeft" class="custom-align mr-3" />
-              <span class="custom-align">{{ $t('news.list.newer') }}</span>
+              <FontAwesomeIcon :icon="faChevronLeft" class="mr-3" />
+              <span>{{ $t('news.list.newer') }}</span>
             </button>
           </div>
 
@@ -79,8 +79,8 @@ onBeforeUnmount(() => {
             <button v-if="paginatedNewsList.nextOffset !== null"
                class="button-custom"
                @click="fetchNextNews">
-              <span class="custom-align">{{ $t('news.list.older') }}</span>
-              <FontAwesomeIcon :icon="faChevronRight" class="custom-align ml-3" />
+              <span>{{ $t('news.list.older') }}</span>
+              <FontAwesomeIcon :icon="faChevronRight" class="ml-3" />
             </button>
           </div>
         </div>

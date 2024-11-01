@@ -1,32 +1,37 @@
-import { type RouteRecord, useRouter } from 'vue-router'
+import type { RouteLocationNormalizedLoaded, RouteRecord, RouteRecordRaw } from 'vue-router'
+import { useRouter } from 'vue-router'
 
 export function useRoutes() {
   const router = useRouter()
-  const routes = useRouter().getRoutes()
+  const routes = router.getRoutes()
 
   function getPublicRoutes() {
     return routes.filter(function (route: RouteRecord) {
-      return !route.name?.toString().startsWith('admin')
+      return !isAdminRoute(route)
     })
   }
 
   function getAdminRoutes() {
     return routes.filter(function (route: RouteRecord) {
-      return route.name?.toString().startsWith('admin') && !route.name?.toString().endsWith('login')
+      return isAdminRoute(route) && !route.name?.toString().endsWith('login')
     })
   }
 
   function getRoutes() {
-    if (isAdminRoute()) {
+    if (isCurrentAdminRoute()) {
       return getAdminRoutes()
     } else {
       return getPublicRoutes()
     }
   }
 
-  function isAdminRoute() {
-    return router.currentRoute.value.path.startsWith('/admin')
+  function isAdminRoute(route: RouteLocationNormalizedLoaded | RouteRecord) {
+    return route.path.startsWith('/admin')
   }
 
-  return { getRoutes, isAdminRoute }
+  function isCurrentAdminRoute() {
+    return isAdminRoute(router.currentRoute.value)
+  }
+
+  return { getRoutes, isCurrentAdminRoute }
 }

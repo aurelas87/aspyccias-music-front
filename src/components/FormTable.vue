@@ -1,0 +1,96 @@
+<script setup lang="ts">
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {
+  faDownLong,
+  faPen,
+  faPlus,
+  faTrash,
+  faUpLong
+} from '@fortawesome/free-solid-svg-icons'
+
+const props = defineProps({
+  headers: {
+    type: Array<String>,
+    required: true
+  },
+  items: {
+    type: Array<any>,
+    required: true
+  },
+  movable: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  editable: {
+    type: Boolean,
+    required: false,
+    default: true
+  },
+  deletable: {
+    type: Boolean,
+    required: false,
+    default: true
+  }
+})
+
+function isFirstIndex(index: number) {
+  return index === 0
+}
+
+function isLastIndex(index: number) {
+  return index === props.items.length - 1
+}
+</script>
+
+<template>
+  <p class="text-right">
+    <button class="button-custom button-add">
+      <span>Add a link</span>
+      <FontAwesomeIcon :icon="faPlus" class="ml-3"/>
+    </button>
+  </p>
+
+  <table>
+    <thead>
+    <tr>
+      <th v-for="header in $props.headers" class="capitalize">{{ header.toString() }}</th>
+      <th v-if="$props.editable || $props.deletable">Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr v-for="(item, index) in $props.items">
+      <td v-for="header in $props.headers">{{ item[header.toString()] }}</td>
+
+      <td>
+        <span v-if="$props.movable"
+              class="hover:text-primary transition-300 inline-block w-5 h-4"
+              :class="{'cursor-pointer': !isFirstIndex(index)}">
+          <FontAwesomeIcon v-if="!isFirstIndex(index)" :icon="faUpLong"></FontAwesomeIcon>
+        </span>
+
+        <span v-if="$props.movable"
+              class="hover:text-primary transition-300 inline-block w-5 h-4"
+              :class="{'cursor-pointer': !isLastIndex(index)}">
+          <FontAwesomeIcon v-if="!isLastIndex(index)" :icon="faDownLong"></FontAwesomeIcon>
+        </span>
+
+        <button class="button-custom button-edit ml-1">
+          <span>Edit</span>
+          <FontAwesomeIcon :icon="faPen" class="ml-3" />
+        </button>
+
+        <button class="button-custom button-delete ml-1">
+          <span>Delete</span>
+          <FontAwesomeIcon :icon="faTrash" class="ml-3" />
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</template>
+
+<style scoped>
+
+</style>

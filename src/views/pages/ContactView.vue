@@ -114,9 +114,9 @@ async function submitEmail() {
       </fieldset>
 
       <button type="submit" class="button-custom float-right mt-3" :disabled="disabled">
-        <span class="custom-align">{{ $t('contact.email.send.label') }}</span>
-        <FontAwesomeIcon v-if="!emailSending" :icon="faPaperPlane" class="custom-align ml-3" />
-        <Loader v-else :loading="emailSending" class="custom-align ml-3 text-inherit"/>
+        <span>{{ $t('contact.email.send.label') }}</span>
+        <FontAwesomeIcon v-if="!emailSending" :icon="faPaperPlane" class="ml-3" />
+        <Loader v-else :loading="emailSending" class="ml-3 text-inherit"/>
       </button>
     </form>
   </main>
