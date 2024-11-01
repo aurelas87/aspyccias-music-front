@@ -62,7 +62,7 @@ async function submitProfile() {
   }
 
   profileService.updateProfile({ fr: state.fr, en: state.en }).then((profileUpdated: boolean | null) => {
-    if (profileUpdated) {
+    if (profileUpdated === true) {
       v$.value.$reset()
     }
 

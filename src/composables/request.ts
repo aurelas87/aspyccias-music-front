@@ -44,9 +44,18 @@ export function useRequest() {
     return data.data
   }
 
-  function putAndPostCatch(errorMessage?: string): null {
+  function putAndPostCatch(uri, reason, errorMessage?: string): null {
+    errorMessage = errorMessage ? i18n.t(errorMessage) : '';
+
+    if (uri.startsWith(adminBasePath) && reason.response.data.message) {
+      if (errorMessage !== '') {
+        errorMessage += ":\n";
+      }
+      errorMessage += reason.response.data.message;
+    }
+
     if (errorMessage) {
-      toast(i18n.t(errorMessage), {
+      toast(errorMessage, {
         type: toast.TYPE.ERROR
       })
     }
@@ -89,8 +98,8 @@ export function useRequest() {
       .then((data) => {
         return putAndPostThen(data, options.successMessage)
       })
-      .catch(() => {
-        return putAndPostCatch(options.errorMessage)
+      .catch((reason) => {
+        return putAndPostCatch(options.uri, reason, options.errorMessage)
       })
   }
 
@@ -103,8 +112,8 @@ export function useRequest() {
       .then((data) => {
         return putAndPostThen(data, options.successMessage)
       })
-      .catch(() => {
-        return putAndPostCatch(options.errorMessage)
+      .catch((reason) => {
+        return putAndPostCatch(options.uri, reason, options.errorMessage)
       })
   }
 

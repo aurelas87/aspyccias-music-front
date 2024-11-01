@@ -49,9 +49,8 @@ async function submitProfileLink() {
     return
   }
 
-  profileLinkService.addProfileLink(state).then((profileLinkAdded: boolean | null) => {
-    console.log(profileLinkAdded)
-    if (profileLinkAdded) {
+  profileLinkService.addProfileLink(state).then((profileLinkAddResponse: boolean | null) => {
+    if (profileLinkAddResponse === true) {
       router.push({ name: 'admin.links' })
     }
 
