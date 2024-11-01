@@ -1,9 +1,10 @@
 import type { ErrorObject } from '@vuelidate/core'
-import { email, helpers, required } from '@vuelidate/validators'
+import { email, helpers, required, url } from '@vuelidate/validators'
 import { useI18n } from 'vue-i18n'
 
 export const customRequired = helpers.withMessage('validation.required', required)
 export const customEmail = helpers.withMessage('validation.email', email)
+export const customUrl = helpers.withMessage('validation.url', url)
 
 export function reduceErrors(errors: ErrorObject[]): string {
   const i18n = useI18n()

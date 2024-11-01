@@ -40,15 +40,10 @@ export function useReleaseService() {
     return getImageUri(imageBasePath + '.jpg')
   }
 
-  function getReleaseUri(slug: string): string {
-    return musicBasePath + '/' + slug
-  }
-
   return {
     getByType,
     get,
 
-    getReleaseImageUri,
-    getReleaseUri
+    getReleaseImageUri
   }
 }

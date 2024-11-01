@@ -62,28 +62,30 @@ function changeImage(event: Event) {
 </script>
 
 <template>
-  <form novalidate ref="imageForm">
-    <FormField class="mx-auto inline-block">
-      <label class="relative cursor-pointer inline-block">
-        <input type="file" accept="image/jpeg" size="" @change=changeImage />
+  <transition appear>
+    <form novalidate ref="imageForm">
+      <FormField class="mx-auto inline-block">
+        <label class="relative cursor-pointer inline-block">
+          <input type="file" accept="image/jpeg" size="" @change=changeImage />
 
-        <img :src="imageUrl"
-             :alt="$props.imageAlt"
-             class="w-[400px] h-[484px] rounded-custom border-2 border-neutral-700"
-             @error="onImageError" />
+          <img :src="imageUrl"
+               :alt="$props.imageAlt"
+               class="w-[400px] h-[484px] rounded-custom border-2 border-neutral-700"
+               @error="onImageError" />
 
-        <div class="absolute w-full h-full top-0 left-0 flex flex-col justify-center p-3">
-          <div class="custom-file-input !bg-opacity-70 flex flex-row items-stretch gap-3">
-            <div class="m-0 my-auto">Browse...</div>
-            <div class="pl-3 border-l-[1px] border-neutral-400">{{ imageName }}</div>
+          <div class="absolute w-full h-full top-0 left-0 flex flex-col justify-center p-3">
+            <div class="custom-file-input !bg-opacity-70 flex flex-row items-stretch gap-3">
+              <div class="m-0 my-auto">Browse...</div>
+              <div class="pl-3 border-l-[1px] border-neutral-400">{{ imageName }}</div>
+            </div>
           </div>
-        </div>
-      </label>
-    </FormField>
+        </label>
+      </FormField>
 
-    <input type="hidden" name="resource_type" :value="$props.resourceType"/>
-    <input type="hidden" name="resource_slug" :value="$props.resourceSlug"/>
-  </form>
+      <input type="hidden" name="resource_type" :value="$props.resourceType" />
+      <input type="hidden" name="resource_slug" :value="$props.resourceSlug" />
+    </form>
+  </transition>
 </template>
 
 <style scoped>

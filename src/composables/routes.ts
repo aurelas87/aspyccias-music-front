@@ -1,4 +1,4 @@
-import type { RouteLocationNormalizedLoaded, RouteRecord, RouteRecordRaw } from 'vue-router'
+import type { RouteLocationNormalizedLoaded, RouteRecord } from 'vue-router'
 import { useRouter } from 'vue-router'
 
 export function useRoutes() {
@@ -7,13 +7,13 @@ export function useRoutes() {
 
   function getPublicRoutes() {
     return routes.filter(function (route: RouteRecord) {
-      return !isAdminRoute(route)
+      return !isAdminRoute(route) && route.meta.menu
     })
   }
 
   function getAdminRoutes() {
     return routes.filter(function (route: RouteRecord) {
-      return isAdminRoute(route) && !route.name?.toString().endsWith('login')
+      return isAdminRoute(route) && route.meta.menu
     })
   }
 

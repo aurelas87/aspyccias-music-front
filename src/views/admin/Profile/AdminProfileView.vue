@@ -49,7 +49,6 @@ async function submitProfile() {
 
   v$.value.$reset()
 
-
   const isFormValid = await v$.value.$validate()
 
   if (!isFormValid) {
@@ -93,43 +92,45 @@ onMounted(async () => {
     <FormImage v-if="!loading" image-alt="Aspyccias profile picture" :image-url="profileService.getProfilePictureUri()"
                resource-type="profile" />
 
-    <form v-if="!loading" novalidate class="sm:w-[80%] xl:w-[60%] mx-auto mt-10" @submit.prevent.stop="submitProfile">
-      <fieldset>
-        <legend>French</legend>
+    <transition appear>
+      <form v-if="!loading" novalidate class="sm:w-[80%] xl:w-[60%] mx-auto mt-10" @submit.prevent.stop="submitProfile">
+        <fieldset>
+          <legend>French</legend>
 
-        <FormField class="md:col-span-2">
-          <input type="text" placeholder="Welcome message" name="welcome-message-fr" maxlength="255"
-                 v-model.trim="state.fr.welcome" :disabled="disabled" />
-        </FormField>
+          <FormField class="md:col-span-2">
+            <input type="text" placeholder="Welcome message" name="welcome-message-fr" maxlength="255"
+                   v-model.trim="state.fr.welcome" :disabled="disabled" />
+          </FormField>
 
-        <FormField :has-error="v$.fr.description.$error" :error-message="reduceErrors(v$.fr.description.$errors)"
-                   class="md:col-span-2">
+          <FormField :has-error="v$.fr.description.$error" :error-message="reduceErrors(v$.fr.description.$errors)"
+                     class="md:col-span-2">
           <textarea placeholder="Description" name="description-fr" rows="10" maxlength="10000"
                     v-model.trim="state.fr.description" :disabled="disabled" />
-        </FormField>
-      </fieldset>
+          </FormField>
+        </fieldset>
 
-      <fieldset>
-        <legend>English</legend>
+        <fieldset>
+          <legend>English</legend>
 
-        <FormField class="md:col-span-2">
-          <input type="text" placeholder="Welcome message" name="welcome-message-fr" maxlength="255"
-                 v-model.trim="state.en.welcome" :disabled="disabled" />
-        </FormField>
+          <FormField class="md:col-span-2">
+            <input type="text" placeholder="Welcome message" name="welcome-message-fr" maxlength="255"
+                   v-model.trim="state.en.welcome" :disabled="disabled" />
+          </FormField>
 
-        <FormField :has-error="v$.en.description.$error" :error-message="reduceErrors(v$.fr.description.$errors)"
-                   class="md:col-span-2">
+          <FormField :has-error="v$.en.description.$error" :error-message="reduceErrors(v$.fr.description.$errors)"
+                     class="md:col-span-2">
           <textarea placeholder="Description" name="description-en" rows="10" maxlength="10000"
                     v-model.trim="state.en.description" :disabled="disabled" />
-        </FormField>
-      </fieldset>
+          </FormField>
+        </fieldset>
 
-      <button type="submit" class="button-custom float-right mt-3" :disabled="disabled">
-        <span>Submit</span>
-        <FontAwesomeIcon v-if="!profileUpdating" :icon="faAnglesRight" class="ml-3" />
-        <Loader v-else :loading="profileUpdating" class="ml-3 text-inherit" />
-      </button>
-    </form>
+        <button type="submit" class="button-custom float-right mt-3" :disabled="disabled">
+          <span>Submit</span>
+          <FontAwesomeIcon v-if="!profileUpdating" :icon="faAnglesRight" class="ml-3" />
+          <Loader v-else :loading="profileUpdating" class="ml-3 text-inherit" />
+        </button>
+      </form>
+    </transition>
   </main>
 </template>
 

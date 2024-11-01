@@ -37,7 +37,7 @@ export function useRequest() {
       })
     }
 
-    if (data.status in [204, 301]) {
+    if ([204, 201].includes(data.status)) {
       return true
     }
 
@@ -72,13 +72,13 @@ export function useRequest() {
       requestConfig.headers['Content-Type'] = options.contentType
     }
 
-    let postData = options.content || null
+    let postData: any = options.content || null
     if (options.content) {
       if (requestConfig.headers && requestConfig.headers['Content-Type'] === 'multipart/form-data') {
         postData = new FormData()
 
-        for (let contentKey in options.content) {
-          postData.append(contentKey, options.content[contentKey])
+        for (const [key, value] of Object.entries(options.content)) {
+          postData.append(key, value)
         }
       } else {
         postData = JSON.stringify(options.content)

@@ -9,5 +9,12 @@ tbody tr {
 
 th {
     @apply bg-primary/50;
-    @apply first:rounded-tl-custom last:rounded-tr-custom;
+
+    &:first-child {
+        @apply rounded-tl-custom;
+    }
+
+    &:last-child {
+        @apply rounded-tr-custom;
+    }
 }

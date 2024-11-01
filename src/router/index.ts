@@ -11,9 +11,9 @@ import ContactView from '@/views/pages/ContactView.vue'
 import NotFoundView from '@/views/pages/NotFoundView.vue'
 import AdminLoginView from '@/views/admin/AdminLoginView.vue'
 import AdminProfileView from '@/views/admin/Profile/AdminProfileView.vue'
-import AdminProfileLinksView from '@/views/admin/Profile/AdminProfileLinksView.vue'
-import AdminNewsMainView from '@/views/admin/News/AdminNewsMainView.vue'
-import AdminNewsListView from '@/views/admin/News/AdminNewsListView.vue'
+import AdminProfileLinksMainView from '@/views/admin/Profile/AdminProfileLinksMainView.vue'
+import AdminProfileLinksListView from '@/views/admin/Profile/AdminProfileLinksListView.vue'
+import AdminProfileLinksAddView from '@/views/admin/Profile/AdminProfileLinksAddView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,7 +22,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'home.menu',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        menu: true
+      }
     },
     {
       path: '/news',
@@ -31,10 +34,14 @@ const router = createRouter({
         {
           path: '',
           name: 'news.menu',
-          component: NewsListView
+          component: NewsListView,
+          meta: {
+            menu: true
+          }
         },
         {
           path: ':slug',
+          name: 'news.details',
           component: NewsDetailsView,
           props: true
         }
@@ -47,10 +54,14 @@ const router = createRouter({
         {
           path: '',
           name: 'music.menu',
-          component: MusicListView
+          component: MusicListView,
+          meta: {
+            menu: true
+          }
         },
         {
           path: ':slug',
+          name: 'music.details',
           component: MusicDetailsView,
           props: true
         }
@@ -59,7 +70,10 @@ const router = createRouter({
     {
       path: '/contact',
       name: 'contact.menu',
-      component: ContactView
+      component: ContactView,
+      meta: {
+        menu: true
+      }
     },
     {
       path: '/admin',
@@ -72,13 +86,30 @@ const router = createRouter({
         {
           path: 'profile',
           name: 'admin.profile',
-          component: AdminProfileView
+          component: AdminProfileView,
+          meta: {
+            menu: true
+          }
         },
         {
           path: 'links',
-          name: 'admin.links',
-          component: AdminProfileLinksView
-        }
+          component: AdminProfileLinksMainView,
+          children: [
+            {
+              path: '',
+              name: 'admin.links',
+              component: AdminProfileLinksListView,
+              meta: {
+                menu: true
+              }
+            },
+            {
+              path: 'add',
+              name: 'admin.links.add',
+              component: AdminProfileLinksAddView
+            }
+          ]
+        },
       ]
     },
     {

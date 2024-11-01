@@ -26,7 +26,7 @@ defineProps<{
         <h3 class="p-3">{{ $props.news.title }}</h3>
 
         <p class="text-sm text-neutral-300 font-bold">{{ $d($props.news.date) }}</p>
-        <RouterLink :to="newsService.getNewsItemUri($props.news.slug || '')"
+        <RouterLink :to="{ name: 'news.details', params: { slug: $props.news.slug || ''}}"
                     class="button-custom">
           {{ $t('news.more_about_it') }}
         </RouterLink>

@@ -84,11 +84,5 @@ const titleTagName = computed(() => {
 </template>
 
 <style lang="postcss" scoped>
-h1 {
-  @apply text-3xl md:text-5xl mx-auto w-fit;
-}
 
-h2 {
-  @apply text-2xl md:text-3xl;
-}
 </style>

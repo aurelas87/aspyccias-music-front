@@ -1,6 +1,9 @@
-interface ProfileLinkResponse {
+interface NewProfileLinkData {
   name: string,
-  link: string,
+  link: string
+}
+
+interface ProfileLinkResponse extends NewProfileLinkData {
   position: number
 }
 

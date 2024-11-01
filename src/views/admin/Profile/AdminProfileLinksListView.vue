@@ -10,7 +10,7 @@ const profileLinKService = useProfileLinkService()
 const loading = ref(true)
 
 const headers = ['position', 'name', 'link']
-let items:any[] = []
+let items: any[] = []
 
 onMounted(async () => {
   loading.value = true
@@ -23,11 +23,12 @@ onMounted(async () => {
 
 <template>
   <main>
-    <Title title="Edit Profile Links" :level="1" />
+    <Title title="Profile Links" :level="1" />
 
     <Loader :loading="loading" />
 
-    <FormTable v-if="!loading && items.length > 0" :headers="headers" :items="items" :movable="true"></FormTable>
+    <FormTable v-if="!loading && items.length > 0" :headers="headers" :items="items" :movable="true"
+               add-route-name="admin.links.add"></FormTable>
     <p v-if="!loading && items.length === 0">No links</p>
   </main>
 </template>

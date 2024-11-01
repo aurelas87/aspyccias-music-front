@@ -52,41 +52,39 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <transition appear>
-    <div>
-      <Title :title="$t('news.title')" :level="1" />
+  <main>
+    <Title :title="$t('news.title')" :level="1" />
 
-      <Loader :loading="loading" />
+    <Loader :loading="loading" />
 
-      <h3 v-if="!loading && paginatedNewsList.items.length === 0">{{ $t('news.none') }}</h3>
+    <h3 v-if="!loading && paginatedNewsList.items.length === 0">{{ $t('news.none') }}</h3>
 
-      <div v-else-if="!loading">
-        <CardList>
-            <NewsCard v-for="news in paginatedNewsList.items" :news="news" />
-        </CardList>
+    <div v-else-if="!loading">
+      <CardList>
+        <NewsCard v-for="news in paginatedNewsList.items" :news="news" />
+      </CardList>
 
-        <div class="flex justify-center mt-5">
-          <div class="basis-1/2">
-            <button v-if="paginatedNewsList.previousOffset !== null"
-               class="button-custom"
-               @click="fetchPreviousNews">
-              <FontAwesomeIcon :icon="faChevronLeft" class="mr-3" />
-              <span>{{ $t('news.list.newer') }}</span>
-            </button>
-          </div>
+      <div class="flex justify-center mt-5">
+        <div class="basis-1/2">
+          <button v-if="paginatedNewsList.previousOffset !== null"
+                  class="button-custom"
+                  @click="fetchPreviousNews">
+            <FontAwesomeIcon :icon="faChevronLeft" class="mr-3" />
+            <span>{{ $t('news.list.newer') }}</span>
+          </button>
+        </div>
 
-          <div class="basis-1/2">
-            <button v-if="paginatedNewsList.nextOffset !== null"
-               class="button-custom"
-               @click="fetchNextNews">
-              <span>{{ $t('news.list.older') }}</span>
-              <FontAwesomeIcon :icon="faChevronRight" class="ml-3" />
-            </button>
-          </div>
+        <div class="basis-1/2">
+          <button v-if="paginatedNewsList.nextOffset !== null"
+                  class="button-custom"
+                  @click="fetchNextNews">
+            <span>{{ $t('news.list.older') }}</span>
+            <FontAwesomeIcon :icon="faChevronRight" class="ml-3" />
+          </button>
         </div>
       </div>
     </div>
-  </transition>
+  </main>
 </template>
 
 <style scoped>

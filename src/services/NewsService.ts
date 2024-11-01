@@ -52,16 +52,11 @@ export function useNewsService() {
     return getImageUri(imageBasePath + '.jpg')
   }
 
-  function getNewsItemUri(slug: string): string {
-    return newsBasePath + '/' + slug
-  }
-
   return {
     getLatest,
     getPaginated,
     get,
 
-    getNewsImageUri,
-    getNewsItemUri
+    getNewsImageUri
   }
 }

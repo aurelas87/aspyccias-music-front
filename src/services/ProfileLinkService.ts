@@ -22,8 +22,20 @@ export function useProfileLinkService() {
     }
   }
 
+  async function addProfileLink(newProfileLinkData: NewProfileLinkData): Promise<boolean | null> {
+    return (await request.postRequest(
+      {
+        uri: adminProfileLinkBasePath,
+        content: newProfileLinkData,
+        successMessage: 'Profile link has been added',
+        errorMessage: 'Unable to add profile link'
+      }
+    ))
+  }
+
   return {
     getAll,
-    getAllForAdmin
+    getAllForAdmin,
+    addProfileLink
   }
 }

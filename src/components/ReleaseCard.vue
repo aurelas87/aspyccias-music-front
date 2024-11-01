@@ -22,7 +22,7 @@ const showTitle = ref(false)
          @mouseover="showTitle = true"
          @mouseleave="showTitle = false"
     >
-      <RouterLink :to="releaseService.getReleaseUri($props.release.slug || '')">
+      <RouterLink :to="{ name: 'music.details', params: { slug: $props.release.slug } }">
         <img
           :src="releaseService.getReleaseImageUri($props.release.artworkFrontImage, true)"
           alt="News preview"
