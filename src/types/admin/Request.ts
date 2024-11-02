@@ -1,7 +1,10 @@
-interface PostAndPutOptions {
+interface BaseOptions {
   uri: string,
-  content?: Object,
   successMessage?: string,
   errorMessage?: string,
+}
+
+interface PostAndPutOptions extends BaseOptions {
+  content?: Object,
   contentType?: string
 }

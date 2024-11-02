@@ -6,7 +6,7 @@ export function useProfileLinkService() {
   const adminProfileLinkBasePath = adminBasePath + profileLinkBasePath
   const request = useRequest()
 
-  async function getAll(): Promise<ProfileLinksResponse|null> {
+  async function getAll(): Promise<ProfileLinksResponse | null> {
     try {
       return (await request.getRequest(profileLinkBasePath)).data
     } catch (error) {
@@ -14,7 +14,7 @@ export function useProfileLinkService() {
     }
   }
 
-  async function getAllForAdmin(): Promise<ProfileLinksResponse|null> {
+  async function getAllForAdmin(): Promise<ProfileLinksResponse | null> {
     try {
       return (await request.getRequest(adminProfileLinkBasePath)).data
     } catch (error) {
@@ -22,7 +22,7 @@ export function useProfileLinkService() {
     }
   }
 
-  async function getForAdmin(name: string): Promise<ProfileLinkResponse|null> {
+  async function getForAdmin(name: string): Promise<ProfileLinkResponse | null> {
     try {
       return (await request.getRequest(adminProfileLinkBasePath + '/' + name)).data
     } catch (error) {
@@ -52,11 +52,22 @@ export function useProfileLinkService() {
     ))
   }
 
+  async function deleteProfileLink(name: string): Promise<boolean> {
+    return (await request.deleteRequest(
+      {
+        uri: adminProfileLinkBasePath + '/' + name,
+        successMessage: 'Profile link has been deleted',
+        errorMessage: 'Unable to delete profile link'
+      }
+    ))
+  }
+
   return {
     getAll,
     getAllForAdmin,
     getForAdmin,
     addProfileLink,
-    editProfileLink
+    editProfileLink,
+    deleteProfileLink
   }
 }

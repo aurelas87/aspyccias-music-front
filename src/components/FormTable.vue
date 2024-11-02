@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {
-  faDownLong,
-  faPen,
-  faPlus,
-  faTrash,
-  faUpLong
-} from '@fortawesome/free-solid-svg-icons'
+import { faDownLong, faPen, faPlus, faTrash, faUpLong } from '@fortawesome/free-solid-svg-icons'
+import { ref } from 'vue'
+import { useEmitter } from '@/plugins/emitter'
+
+const emitter = useEmitter()
 
 const props = defineProps({
   headers: {
@@ -39,6 +37,10 @@ const props = defineProps({
   editRouteName: {
     type: String,
     required: true
+  },
+  deleteFunction: {
+    type: Function,
+    required: true
   }
 })
 
@@ -48,6 +50,20 @@ function isFirstIndex(index: number) {
 
 function isLastIndex(index: number) {
   return index === props.items.length - 1
+}
+
+const deleting = ref(false)
+function deleteItem(name: string) {
+  deleting.value = true
+
+  props.deleteFunction(name)
+    .then((deleteResponse: boolean | null) => {
+      if (deleteResponse === true) {
+        emitter.emit('itemDeleted')
+      }
+
+      deleting.value = false
+    })
 }
 </script>
 
@@ -70,7 +86,7 @@ function isLastIndex(index: number) {
         </thead>
 
         <tbody>
-        <tr v-for="(item, index) in $props.items">
+        <tr v-if="items.length > 0" v-for="(item, index) in $props.items">
           <td v-for="header in $props.headers">{{ item[header.toString()] }}</td>
 
           <td>
@@ -91,11 +107,15 @@ function isLastIndex(index: number) {
               <FontAwesomeIcon :icon="faPen" class="ml-3" />
             </RouterLink>
 
-            <button class="button-custom button-delete ml-1">
+            <button class="button-custom button-delete ml-1" @click="deleteItem(item.name)">
               <span>Delete</span>
               <FontAwesomeIcon :icon="faTrash" class="ml-3" />
             </button>
           </td>
+        </tr>
+
+        <tr v-else>
+          <td :colspan="headers.length + 1">List is empty</td>
         </tr>
         </tbody>
       </table>

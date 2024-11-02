@@ -30,7 +30,7 @@ export function useRequest() {
     return requestConfig
   }
 
-  function putAndPostThen(data: AxiosResponse, successMessage?: string): any {
+  function handleThen(data: AxiosResponse, successMessage?: string): any {
     if (successMessage) {
       toast(i18n.t(successMessage), {
         type: toast.TYPE.SUCCESS
@@ -44,7 +44,7 @@ export function useRequest() {
     return data.data
   }
 
-  function putAndPostCatch(uri, reason, errorMessage?: string): null {
+  function handleCatch(uri: string, reason: any, errorMessage?: string): null {
     errorMessage = errorMessage ? i18n.t(errorMessage) : '';
 
     if (uri.startsWith(adminBasePath) && reason.response.data.message) {
@@ -96,10 +96,10 @@ export function useRequest() {
 
     return await axios.post(options.uri, postData, requestConfig)
       .then((data) => {
-        return putAndPostThen(data, options.successMessage)
+        return handleThen(data, options.successMessage)
       })
       .catch((reason) => {
-        return putAndPostCatch(options.uri, reason, options.errorMessage)
+        return handleCatch(options.uri, reason, options.errorMessage)
       })
   }
 
@@ -110,16 +110,31 @@ export function useRequest() {
 
     return await axios.put(options.uri, options.content ? JSON.stringify(options.content) : null, requestConfig)
       .then((data) => {
-        return putAndPostThen(data, options.successMessage)
+        return handleThen(data, options.successMessage)
       })
       .catch((reason) => {
-        return putAndPostCatch(options.uri, reason, options.errorMessage)
+        return handleCatch(options.uri, reason, options.errorMessage)
+      })
+  }
+
+  async function deleteRequest(
+    options: BaseOptions
+  ): Promise<any> {
+    const requestConfig = await handleAdminConnection(options.uri)
+
+    return await axios.delete(options.uri, requestConfig)
+      .then((data) => {
+        return handleThen(data, options.successMessage)
+      })
+      .catch((reason) => {
+        return handleCatch(options.uri, reason, options.errorMessage)
       })
   }
 
   return {
     getRequest,
     postRequest,
-    putRequest
+    putRequest,
+    deleteRequest
   }
 }
