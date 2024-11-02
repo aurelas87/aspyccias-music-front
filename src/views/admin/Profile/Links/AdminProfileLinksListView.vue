@@ -28,7 +28,8 @@ onMounted(async () => {
     <Loader :loading="loading" />
 
     <FormTable v-if="!loading && items.length > 0" :headers="headers" :items="items" :movable="true"
-               add-route-name="admin.links.add"></FormTable>
+               add-route-name="admin.links.add"
+               edit-route-name="admin.links.edit" />
     <p v-if="!loading && items.length === 0">No links</p>
   </main>
 </template>

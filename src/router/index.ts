@@ -11,9 +11,9 @@ import ContactView from '@/views/pages/ContactView.vue'
 import NotFoundView from '@/views/pages/NotFoundView.vue'
 import AdminLoginView from '@/views/admin/AdminLoginView.vue'
 import AdminProfileView from '@/views/admin/Profile/AdminProfileView.vue'
-import AdminProfileLinksMainView from '@/views/admin/Profile/AdminProfileLinksMainView.vue'
-import AdminProfileLinksListView from '@/views/admin/Profile/AdminProfileLinksListView.vue'
-import AdminProfileLinksAddView from '@/views/admin/Profile/AdminProfileLinksAddView.vue'
+import AdminProfileLinksMainView from '@/views/admin/Profile/Links/AdminProfileLinksMainView.vue'
+import AdminProfileLinksListView from '@/views/admin/Profile/Links/AdminProfileLinksListView.vue'
+import AdminProfileLinksFormView from '@/views/admin/Profile/Links/AdminProfileLinksFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -106,14 +106,30 @@ const router = createRouter({
             {
               path: 'add',
               name: 'admin.links.add',
-              component: AdminProfileLinksAddView
+              component: AdminProfileLinksFormView
+            },
+            {
+              path: 'edit/:name',
+              name: 'admin.links.edit',
+              component: AdminProfileLinksFormView,
+              props: true
             }
           ]
         },
+        {
+          path: ':pathMatch(.*)*',
+          name: 'admin-not-found',
+          redirect: { name: '404' }
+        },
+        {
+          path: '404',
+          name: '404',
+          component: NotFoundView
+        }
       ]
     },
     {
-      path: '/:pathMatch(.*)',
+      path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: NotFoundView
     }
@@ -132,7 +148,7 @@ router.beforeEach(async (to, from) => {
       } else {
         return true
       }
-    } else if (to.path.endsWith('login')) {
+    } else if (to.path.endsWith('login') || to.path.endsWith('/admin')) {
       return { name: 'admin.profile' }
     }
 

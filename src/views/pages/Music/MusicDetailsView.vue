@@ -36,12 +36,12 @@ async function fetchRelease() {
 
   releaseMapper.resetReleaseDetails(releaseDetails)
 
-  const releadDetailsResponse = await releaseService.get(props.slug).then(r => r)
-  if (!releadDetailsResponse) {
+  const releaseDetailsResponse = await releaseService.get(props.slug).then(r => r)
+  if (!releaseDetailsResponse) {
     await router.push({ name: 'not-found' })
   }
 
-  releaseMapper.mapResponseToReleaseDetails(releadDetailsResponse, releaseDetails)
+  releaseMapper.mapResponseToReleaseDetails(releaseDetailsResponse, releaseDetails)
 
   loading.value = false
 }

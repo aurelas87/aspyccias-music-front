@@ -1,16 +1,10 @@
-interface NewProfileLinkData {
+interface ProfileLinkData {
   name: string,
   link: string
 }
 
-interface ProfileLinkResponse extends NewProfileLinkData {
+interface ProfileLinkResponse extends ProfileLinkData {
   position: number
 }
 
-interface AdminProfileLinkResponse extends ProfileLinkResponse {
-  id: number
-}
-
 type ProfileLinksResponse = ProfileLinkResponse[]
-
-type AdminProfileLinksResponse = AdminProfileLinkResponse[]

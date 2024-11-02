@@ -22,7 +22,15 @@ export function useProfileLinkService() {
     }
   }
 
-  async function addProfileLink(newProfileLinkData: NewProfileLinkData): Promise<boolean | null> {
+  async function getForAdmin(name: string): Promise<ProfileLinkResponse|null> {
+    try {
+      return (await request.getRequest(adminProfileLinkBasePath + '/' + name)).data
+    } catch (error) {
+      return null
+    }
+  }
+
+  async function addProfileLink(newProfileLinkData: ProfileLinkData): Promise<boolean | null> {
     return (await request.postRequest(
       {
         uri: adminProfileLinkBasePath,
@@ -33,9 +41,22 @@ export function useProfileLinkService() {
     ))
   }
 
+  async function editProfileLink(name: string, profileLinkData: ProfileLinkData): Promise<boolean | null> {
+    return (await request.putRequest(
+      {
+        uri: adminProfileLinkBasePath + '/' + name,
+        content: profileLinkData,
+        successMessage: 'Profile link has been updated',
+        errorMessage: 'Unable to update profile link'
+      }
+    ))
+  }
+
   return {
     getAll,
     getAllForAdmin,
-    addProfileLink
+    getForAdmin,
+    addProfileLink,
+    editProfileLink
   }
 }

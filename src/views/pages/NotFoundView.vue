@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faQuestion } from '@fortawesome/free-solid-svg-icons/faQuestion'
 import { library } from '@fortawesome/fontawesome-svg-core'

@@ -35,6 +35,10 @@ const props = defineProps({
   addRouteName: {
     type: String,
     required: true
+  },
+  editRouteName: {
+    type: String,
+    required: true
   }
 })
 
@@ -70,22 +74,22 @@ function isLastIndex(index: number) {
           <td v-for="header in $props.headers">{{ item[header.toString()] }}</td>
 
           <td>
-        <span v-if="$props.movable"
-              class="hover:text-primary transition-300 inline-block w-5 h-4"
-              :class="{'cursor-pointer': !isFirstIndex(index)}">
-          <FontAwesomeIcon v-if="!isFirstIndex(index)" :icon="faUpLong"></FontAwesomeIcon>
-        </span>
+            <span v-if="$props.movable"
+                  class="hover:text-primary transition-300 inline-block w-5 h-4"
+                  :class="{'cursor-pointer': !isFirstIndex(index)}">
+              <FontAwesomeIcon v-if="!isFirstIndex(index)" :icon="faUpLong"></FontAwesomeIcon>
+            </span>
 
             <span v-if="$props.movable"
                   class="hover:text-primary transition-300 inline-block w-5 h-4"
                   :class="{'cursor-pointer': !isLastIndex(index)}">
-          <FontAwesomeIcon v-if="!isLastIndex(index)" :icon="faDownLong"></FontAwesomeIcon>
-        </span>
+              <FontAwesomeIcon v-if="!isLastIndex(index)" :icon="faDownLong"></FontAwesomeIcon>
+            </span>
 
-            <button class="button-custom button-edit ml-1">
+            <RouterLink :to="{ name: $props.editRouteName, params: { name: item.name } }" class="button-custom button-edit ml-1">
               <span>Edit</span>
               <FontAwesomeIcon :icon="faPen" class="ml-3" />
-            </button>
+            </RouterLink>
 
             <button class="button-custom button-delete ml-1">
               <span>Delete</span>

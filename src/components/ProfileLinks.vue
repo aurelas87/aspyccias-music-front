@@ -1,28 +1,12 @@
 <script setup lang="ts">
 import { useProfileLinksStore } from '@/stores/ProfileLinksStore'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook'
-import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram'
-import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube'
-import { faSpotify } from '@fortawesome/free-brands-svg-icons/faSpotify'
-import { faDeezer } from '@fortawesome/free-brands-svg-icons/faDeezer'
-import { faBandcamp } from '@fortawesome/free-brands-svg-icons/faBandcamp'
-import { faApple } from '@fortawesome/free-brands-svg-icons/faApple'
-import { faAmazon } from '@fortawesome/free-brands-svg-icons/faAmazon'
-import { faNapster } from '@fortawesome/free-brands-svg-icons/faNapster'
 import { reactive, type UnwrapRef, watch } from 'vue'
 import type ProfileLink from '@/models/Profile/ProfileLink'
 
-library.add(faFacebook)
-library.add(faInstagram)
-library.add(faYoutube)
-library.add(faSpotify)
-library.add(faDeezer)
-library.add(faBandcamp)
-library.add(faApple)
-library.add(faAmazon)
-library.add(faNapster)
+library.add(fab)
 
 const props = defineProps<{
   positionStart?: number,
@@ -38,12 +22,12 @@ function getProfileLinks(): UnwrapRef<ProfileLink>[] {
     : profileLinksStore.getProfileLinksInPositionRange(props.positionStart, props.positionEnd)
 }
 
-function updateProfileLinksRef() {
+async function updateProfileLinksRef() {
   profileLinks.splice(0)
 
-  getProfileLinks().forEach((profileLink: UnwrapRef<ProfileLink>) => {
+  for (const profileLink of getProfileLinks()) {
     profileLinks.push(profileLink)
-  })
+  }
 }
 
 updateProfileLinksRef()

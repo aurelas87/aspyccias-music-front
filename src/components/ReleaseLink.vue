@@ -3,19 +3,9 @@ import type { PropType, UnwrapRef } from 'vue'
 import ReleaseLink from '@/models/Release/ReleaseLink'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube'
-import { faSpotify } from '@fortawesome/free-brands-svg-icons/faSpotify'
-import { faDeezer } from '@fortawesome/free-brands-svg-icons/faDeezer'
-import { faBandcamp } from '@fortawesome/free-brands-svg-icons/faBandcamp'
-import { faApple } from '@fortawesome/free-brands-svg-icons/faApple'
-import { faAmazon } from '@fortawesome/free-brands-svg-icons/faAmazon'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 
-library.add(faYoutube)
-library.add(faSpotify)
-library.add(faDeezer)
-library.add(faBandcamp)
-library.add(faApple)
-library.add(faAmazon)
+library.add(fab)
 
 defineProps({
   releaseLink: {
