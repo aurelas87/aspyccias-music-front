@@ -5,9 +5,11 @@ import Loader from '@/components/Loader.vue'
 import { useProfileLinkService } from '@/services/ProfileLinkService'
 import { onMounted, ref } from 'vue'
 import { useEmitter } from '@/plugins/emitter'
+import { useProfileLinksStore } from '@/stores/ProfileLinksStore'
 
 const profileLinKService = useProfileLinkService()
 const emitter = useEmitter()
+const profileLinksStore = useProfileLinksStore()
 
 const loading = ref(true)
 
@@ -25,6 +27,7 @@ onMounted(async () => {
 
   emitter.on('listUpdated', () => {
     fetchProfileLinks().then(r => r)
+    profileLinksStore.fetchProfileLinks().then(r => r)
   })
 })
 </script>

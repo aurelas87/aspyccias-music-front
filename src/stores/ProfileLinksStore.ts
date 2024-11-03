@@ -10,6 +10,8 @@ export const useProfileLinksStore = defineStore('profileLinks', () => {
   const profileLinkMapper = useProfileLinkMapper()
 
   async function fetchProfileLinks() {
+    profileLinks.splice(0)
+
     const profileLinksResponse = await profileLinkService.getAll()
     profileLinkMapper.mapResponseToProfileLinks(profileLinksResponse, profileLinks)
   }
@@ -26,9 +28,5 @@ export const useProfileLinksStore = defineStore('profileLinks', () => {
     })
   }
 
-  function $reset() {
-    profileLinks.splice(0)
-  }
-
-  return { fetchProfileLinks, getProfileLinksInPositionRange, profileLinks, $reset }
+  return { fetchProfileLinks, getProfileLinksInPositionRange, profileLinks }
 })
