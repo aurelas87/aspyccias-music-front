@@ -81,7 +81,7 @@ export function useRequest() {
       requestConfig.headers['Content-Type'] = options.contentType
     }
 
-    let postData: any = options.content || null
+    let postData: any = options.content || undefined
     if (options.content) {
       if (requestConfig.headers && requestConfig.headers['Content-Type'] === 'multipart/form-data') {
         postData = new FormData()
@@ -108,7 +108,7 @@ export function useRequest() {
   ): Promise<any> {
     const requestConfig = await handleAdminConnection(options.uri)
 
-    return await axios.put(options.uri, options.content ? JSON.stringify(options.content) : null, requestConfig)
+    return await axios.put(options.uri, options.content ? JSON.stringify(options.content) : undefined, requestConfig)
       .then((data) => {
         return handleThen(data, options.successMessage)
       })

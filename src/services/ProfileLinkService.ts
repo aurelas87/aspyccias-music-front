@@ -1,4 +1,4 @@
-import { adminBasePath } from '@/types/admin/Commons'
+import { adminBasePath, DirectionEnum } from '@/types/admin/Commons'
 import { useRequest } from '@/composables/request'
 
 export function useProfileLinkService() {
@@ -62,12 +62,23 @@ export function useProfileLinkService() {
     ))
   }
 
+  async function moveProfileLink(name: string, direction: DirectionEnum): Promise<boolean> {
+    return (await request.putRequest(
+      {
+        uri: adminProfileLinkBasePath + '/' + name + '/move/' + direction,
+        successMessage: 'Profile link has been moved ' + direction,
+        errorMessage: 'Unable to move profile link'
+      }
+    ))
+  }
+
   return {
     getAll,
     getAllForAdmin,
     getForAdmin,
     addProfileLink,
     editProfileLink,
-    deleteProfileLink
+    deleteProfileLink,
+    moveProfileLink
   }
 }

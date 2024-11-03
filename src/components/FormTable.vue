@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faDownLong, faPen, faPlus, faTrash, faUpLong } from '@fortawesome/free-solid-svg-icons'
 import { ref } from 'vue'
 import { useEmitter } from '@/plugins/emitter'
+import { DirectionEnum } from '@/types/admin/Commons'
+import { toast } from 'vue3-toastify'
 
 const emitter = useEmitter()
 
@@ -19,6 +21,10 @@ const props = defineProps({
     type: Boolean,
     required: false,
     default: false
+  },
+  moveFunction: {
+    type: Function,
+    required: false
   },
   editable: {
     type: Boolean,
@@ -52,18 +58,35 @@ function isLastIndex(index: number) {
   return index === props.items.length - 1
 }
 
-const deleting = ref(false)
-function deleteItem(name: string) {
-  deleting.value = true
+const updating = ref(false)
 
-  props.deleteFunction(name)
-    .then((deleteResponse: boolean | null) => {
-      if (deleteResponse === true) {
-        emitter.emit('itemDeleted')
-      }
+function updateSuccess(updateResponse: boolean | null) {
+  if (updateResponse === true) {
+    emitter.emit('listUpdated')
+  }
 
-      deleting.value = false
+  updating.value = false
+}
+
+function deleteItem(identifier: string) {
+  updating.value = true
+
+  props.deleteFunction(identifier)
+    .then(updateSuccess)
+}
+
+function moveItem(identifier: string, direction: DirectionEnum) {
+  if (!props.moveFunction) {
+    toast('Unable to move item', {
+      type: toast.TYPE.ERROR
     })
+    return
+  }
+
+  updating.value = true
+
+  props.moveFunction(identifier, direction)
+    .then(updateSuccess)
 }
 </script>
 
@@ -92,13 +115,15 @@ function deleteItem(name: string) {
           <td>
             <span v-if="$props.movable"
                   class="hover:text-primary transition-300 inline-block w-5 h-4"
-                  :class="{'cursor-pointer': !isFirstIndex(index)}">
+                  :class="{'cursor-pointer': !isFirstIndex(index)}"
+                  @click="moveItem(item.name, DirectionEnum.Up)">
               <FontAwesomeIcon v-if="!isFirstIndex(index)" :icon="faUpLong"></FontAwesomeIcon>
             </span>
 
             <span v-if="$props.movable"
                   class="hover:text-primary transition-300 inline-block w-5 h-4"
-                  :class="{'cursor-pointer': !isLastIndex(index)}">
+                  :class="{'cursor-pointer': !isLastIndex(index)}"
+                  @click="moveItem(item.name, DirectionEnum.Down)">
               <FontAwesomeIcon v-if="!isLastIndex(index)" :icon="faDownLong"></FontAwesomeIcon>
             </span>
 

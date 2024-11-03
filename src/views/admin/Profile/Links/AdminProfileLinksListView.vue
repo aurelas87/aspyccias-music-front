@@ -23,7 +23,7 @@ async function fetchProfileLinks() {
 onMounted(async () => {
   await fetchProfileLinks()
 
-  emitter.on('itemDeleted', () => {
+  emitter.on('listUpdated', () => {
     fetchProfileLinks().then(r => r)
   })
 })
@@ -38,7 +38,8 @@ onMounted(async () => {
     <FormTable v-if="!loading" :headers="headers" :items="items" :movable="true"
                add-route-name="admin.links.add"
                edit-route-name="admin.links.edit"
-               :delete-function="profileLinKService.deleteProfileLink" />
+               :delete-function="profileLinKService.deleteProfileLink"
+               :move-function="profileLinKService.moveProfileLink" />
   </main>
 </template>
 
