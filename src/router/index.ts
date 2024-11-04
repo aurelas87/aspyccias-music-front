@@ -14,6 +14,9 @@ import AdminProfileView from '@/views/admin/Profile/AdminProfileView.vue'
 import AdminProfileLinksMainView from '@/views/admin/Profile/Links/AdminProfileLinksMainView.vue'
 import AdminProfileLinksListView from '@/views/admin/Profile/Links/AdminProfileLinksListView.vue'
 import AdminProfileLinksFormView from '@/views/admin/Profile/Links/AdminProfileLinksFormView.vue'
+import AdminNewsMainView from '@/views/admin/News/AdminNewsMainView.vue'
+import AdminNewsListView from '@/views/admin/News/AdminNewsListView.vue'
+import AdminNewsFormView from '@/views/admin/News/AdminNewsFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -112,6 +115,31 @@ const router = createRouter({
               path: 'edit/:name',
               name: 'admin.links.edit',
               component: AdminProfileLinksFormView,
+              props: true
+            }
+          ]
+        },
+        {
+          path: 'news',
+          component: AdminNewsMainView,
+          children: [
+            {
+              path: '',
+              name: 'admin.news',
+              component: AdminNewsListView,
+              meta: {
+                menu: true
+              }
+            },
+            {
+              path: 'add',
+              name: 'admin.news.add',
+              component: AdminNewsFormView
+            },
+            {
+              path: 'edit/:slug',
+              name: 'admin.news.edit',
+              component: AdminNewsFormView,
               props: true
             }
           ]

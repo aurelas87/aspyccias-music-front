@@ -4,12 +4,6 @@ import PaginatedNewsList from '@/models/News/PaginatedNewsList'
 import type { UnwrapNestedRefs, UnwrapRef } from 'vue'
 
 export function useNewsMapper() {
-  const emptyPaginatedNewsListResponse = <PaginatedNewsListResponse>{
-    previous_offset: null,
-    next_offset: null,
-    items: []
-  }
-
   function resetNewsDetails(news: UnwrapNestedRefs<NewsDetails>) {
     news.slug = NewsDetails.EMPTY_SLUG
     news.previewImage = NewsDetails.EMPTY_PREVIEW_IMAGE
@@ -25,7 +19,10 @@ export function useNewsMapper() {
     news.title = newsResponse.title
   }
 
-  function mapResponseToNewsDetails(newsDetailsResponse: NewsDetailsResponse | null, newsDetails: UnwrapRef<NewsDetails>) {
+  function mapResponseToNewsDetails(
+    newsDetailsResponse: NewsDetailsResponse | null,
+    newsDetails: UnwrapRef<NewsDetails>
+  ) {
     if (!newsDetailsResponse) {
       return
     }
@@ -40,7 +37,10 @@ export function useNewsMapper() {
     paginatedNewsList.items.splice(0)
   }
 
-  function mapResponseToPaginatedNewsList(paginatedNewsListResponse: PaginatedNewsListResponse | null, paginatedNewsList: UnwrapNestedRefs<PaginatedNewsList>) {
+  function mapResponseToPaginatedNewsList(
+    paginatedNewsListResponse: PaginatedNewsListResponse | null,
+    paginatedNewsList: UnwrapNestedRefs<PaginatedNewsList>
+  ) {
     if (!paginatedNewsListResponse) {
       return
     }
@@ -54,7 +54,10 @@ export function useNewsMapper() {
     })
   }
 
-  function mapResponseToNewsList(newsListResponse: NewsListResponse | null, newsList: Array<UnwrapRef<News>>) {
+  function mapResponseToNewsList(
+    newsListResponse: NewsListResponse | null,
+    newsList: Array<UnwrapRef<News>>
+  ) {
     if (!newsListResponse) {
       return
     }
@@ -69,7 +72,6 @@ export function useNewsMapper() {
     resetNewsDetails,
     mapResponseToNewsDetails,
 
-    emptyPaginatedNewsListResponse,
     resetPaginatedNewsList,
     mapResponseToPaginatedNewsList,
 

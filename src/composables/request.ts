@@ -63,8 +63,13 @@ export function useRequest() {
     return null
   }
 
-  async function getRequest(uri: string): Promise<any> {
+  async function getRequest(uri: string, params?: any): Promise<any> {
     let requestConfig = await handleAdminConnection(uri)
+
+    if (params) {
+      requestConfig.params = params
+    }
+
     return await axios.get(uri, requestConfig);
   }
 

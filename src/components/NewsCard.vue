@@ -2,7 +2,7 @@
 import { useImage } from '@/composables/image'
 import { useNewsService } from '@/services/NewsService'
 import News from '@/models/News/News'
-import type { UnwrapNestedRefs } from 'vue'
+import { type UnwrapNestedRefs } from 'vue'
 
 const { onImageError } = useImage()
 const newsService = useNewsService()

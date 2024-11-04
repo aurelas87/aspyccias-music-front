@@ -6,6 +6,7 @@ import { useProfileLinkService } from '@/services/ProfileLinkService'
 import { onMounted, ref } from 'vue'
 import { useEmitter } from '@/plugins/emitter'
 import { useProfileLinksStore } from '@/stores/ProfileLinksStore'
+import type { TableHeaders } from '@/types/admin/Commons'
 
 const profileLinKService = useProfileLinkService()
 const emitter = useEmitter()
@@ -13,7 +14,11 @@ const profileLinksStore = useProfileLinksStore()
 
 const loading = ref(true)
 
-const headers = ['position', 'name', 'link']
+const headers: TableHeaders = [
+  { name: 'Position', property: 'position' },
+  { name: 'Name', property: 'name' },
+  { name: 'Link', property: 'link' }
+]
 let items: any[] = []
 
 async function fetchProfileLinks() {
@@ -38,9 +43,10 @@ onMounted(async () => {
 
     <Loader :loading="loading" />
 
-    <FormTable v-if="!loading" :headers="headers" :items="items" :movable="true"
+    <FormTable v-if="!loading" :headers="headers" :items="items" item-type="profile link"
                add-route-name="admin.links.add"
                edit-route-name="admin.links.edit"
+               edit-route-param-name="name"
                :delete-function="profileLinKService.deleteProfileLink"
                :move-function="profileLinKService.moveProfileLink" />
   </main>

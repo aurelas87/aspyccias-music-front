@@ -1,26 +1,39 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faDownLong, faPen, faPlus, faTrash, faUpLong } from '@fortawesome/free-solid-svg-icons'
-import { ref } from 'vue'
+import { type PropType, ref } from 'vue'
 import { useEmitter } from '@/plugins/emitter'
-import { DirectionEnum } from '@/types/admin/Commons'
+import { DirectionEnum, type TableHeaders } from '@/types/admin/Commons'
 import { toast } from 'vue3-toastify'
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
+import { useI18n } from 'vue-i18n'
 
 const emitter = useEmitter()
+const i18n = useI18n()
 
 const props = defineProps({
   headers: {
-    type: Array<String>,
+    type: Array as PropType<TableHeaders>,
     required: true
   },
   items: {
     type: Array<any>,
     required: true
   },
-  movable: {
-    type: Boolean,
+  itemType: {
+    type: String,
+    required: true
+  },
+  previousOffset: {
+    type: Number as PropType<number | null>,
     required: false,
-    default: false
+    default: null
+  },
+  nextOffset: {
+    type: Number as PropType<number | null>,
+    required: false,
+    default: null
   },
   moveFunction: {
     type: Function,
@@ -41,6 +54,10 @@ const props = defineProps({
     required: true
   },
   editRouteName: {
+    type: String,
+    required: true
+  },
+  editRouteParamName: {
     type: String,
     required: true
   },
@@ -88,6 +105,18 @@ function moveItem(identifier: string, direction: DirectionEnum) {
   props.moveFunction(identifier, direction)
     .then(updateSuccess)
 }
+
+function loadNext() {
+  emitter.emit('listNext')
+}
+
+function loadPrevious() {
+  emitter.emit('listPrevious')
+}
+
+function formatItemData (value: any): any {
+  return value instanceof Date ? i18n.d(value) : value
+}
 </script>
 
 <template>
@@ -95,7 +124,7 @@ function moveItem(identifier: string, direction: DirectionEnum) {
     <div>
       <p class="text-right">
         <RouterLink :to="{ name: $props.addRouteName }" class="button-custom button-add">
-          <span>Add a link</span>
+          <span>Add a {{ $props.itemType }}</span>
           <FontAwesomeIcon :icon="faPlus" class="ml-3" />
         </RouterLink>
       </p>
@@ -103,31 +132,33 @@ function moveItem(identifier: string, direction: DirectionEnum) {
       <table class="w-full">
         <thead>
         <tr>
-          <th v-for="header in $props.headers" class="capitalize ">{{ header.toString() }}</th>
+          <th v-for="header in $props.headers">{{ header.name }}</th>
           <th v-if="$props.editable || $props.deletable">Actions</th>
         </tr>
         </thead>
 
         <tbody>
         <tr v-if="items.length > 0" v-for="(item, index) in $props.items">
-          <td v-for="header in $props.headers">{{ item[header.toString()] }}</td>
+          <td v-for="header in $props.headers">{{ formatItemData(item[header.property]) }}</td>
 
           <td>
-            <span v-if="$props.movable"
+            <span v-if="$props.moveFunction"
                   class="hover:text-primary transition-300 inline-block w-5 h-4"
                   :class="{'cursor-pointer': !isFirstIndex(index)}"
                   @click="moveItem(item.name, DirectionEnum.Up)">
               <FontAwesomeIcon v-if="!isFirstIndex(index)" :icon="faUpLong"></FontAwesomeIcon>
             </span>
 
-            <span v-if="$props.movable"
+            <span v-if="$props.moveFunction"
                   class="hover:text-primary transition-300 inline-block w-5 h-4"
                   :class="{'cursor-pointer': !isLastIndex(index)}"
                   @click="moveItem(item.name, DirectionEnum.Down)">
               <FontAwesomeIcon v-if="!isLastIndex(index)" :icon="faDownLong"></FontAwesomeIcon>
             </span>
 
-            <RouterLink :to="{ name: $props.editRouteName, params: { name: item.name } }" class="button-custom button-edit ml-1">
+            <RouterLink
+              :to="{ name: $props.editRouteName, params: { [$props.editRouteParamName]: item[$props.editRouteParamName] } }"
+              class="button-custom button-edit ml-1">
               <span>Edit</span>
               <FontAwesomeIcon :icon="faPen" class="ml-3" />
             </RouterLink>
@@ -144,6 +175,26 @@ function moveItem(identifier: string, direction: DirectionEnum) {
         </tr>
         </tbody>
       </table>
+
+      <div class="flex justify-center mt-5">
+        <div class="basis-1/2">
+          <button v-if="$props.previousOffset !== null"
+                  class="button-custom"
+                  @click="loadPrevious">
+            <FontAwesomeIcon :icon="faChevronLeft" class="mr-3" />
+            <span>Previous</span>
+          </button>
+        </div>
+
+        <div class="basis-1/2">
+          <button v-if="$props.nextOffset !== null"
+                  class="button-custom"
+                  @click="loadNext">
+            <span>Next</span>
+            <FontAwesomeIcon :icon="faChevronRight" class="ml-3" />
+          </button>
+        </div>
+      </div>
     </div>
   </transition>
 </template>
