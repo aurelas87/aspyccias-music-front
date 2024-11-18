@@ -1,10 +1,10 @@
-interface BaseOptions {
+export interface BaseOptions {
   uri: string,
   successMessage?: string,
   errorMessage?: string,
 }
 
-interface PostAndPutOptions extends BaseOptions {
+export interface PostAndPutOptions extends BaseOptions {
   content?: Object,
   contentType?: string
 }

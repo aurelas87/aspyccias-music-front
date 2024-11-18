@@ -8,7 +8,7 @@ tbody tr {
 }
 
 th {
-    @apply bg-primary/50;
+    @apply bg-primary/80;
 
     &:first-child {
         @apply rounded-tl-custom;

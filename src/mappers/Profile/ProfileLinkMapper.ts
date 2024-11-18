@@ -1,5 +1,6 @@
 import type { UnwrapNestedRefs } from 'vue'
 import ProfileLink from '@/models/Profile/ProfileLink'
+import type { ProfileLinkResponse, ProfileLinksResponse } from '@/types/ProfileLink.ts'
 
 export function useProfileLinkMapper() {
   function mapResponseToProfileLink(profileLinkResponse: ProfileLinkResponse, profileLink: UnwrapNestedRefs<ProfileLink>) {

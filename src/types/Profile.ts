@@ -1,9 +1,9 @@
-interface ProfileResponse {
+export interface ProfileResponse {
   welcome: string,
   description: string
 }
 
-interface AdminProfileData {
+export interface AdminProfileData {
   fr: ProfileResponse,
   en: ProfileResponse
 }

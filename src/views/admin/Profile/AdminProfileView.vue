@@ -38,8 +38,7 @@ const rules = {
   },
   en: {
     description: { customRequired }
-  },
-  profilePicture: {}
+  }
 }
 
 const v$ = useVuelidate(rules, state)
@@ -89,8 +88,12 @@ onMounted(async () => {
 
     <Loader :loading="loading" />
 
-    <FormImage v-if="!loading" image-alt="Aspyccias profile picture" :image-url="profileService.getProfilePictureUri()"
-               resource-type="profile" />
+    <FormImage v-if="!loading"
+               image-alt="Aspyccias profile picture"
+               :image-url="profileService.getProfilePictureUri()"
+               resource-type="profile"
+               :submit-on-change="true"
+               class="w-[400px] h-[484px]" />
 
     <transition appear>
       <form v-if="!loading" novalidate class="sm:w-[80%] xl:w-[60%] mx-auto mt-10" @submit.prevent.stop="submitProfile">
@@ -98,7 +101,7 @@ onMounted(async () => {
           <legend>French</legend>
 
           <FormField class="md:col-span-2">
-            <input type="text" placeholder="Welcome message" name="welcome-message-fr" maxlength="255"
+            <input type="text" placeholder="Message de bienvenue" name="welcome-message-fr" maxlength="255"
                    v-model.trim="state.fr.welcome" :disabled="disabled" />
           </FormField>
 
@@ -117,7 +120,7 @@ onMounted(async () => {
                    v-model.trim="state.en.welcome" :disabled="disabled" />
           </FormField>
 
-          <FormField :has-error="v$.en.description.$error" :error-message="reduceErrors(v$.fr.description.$errors)"
+          <FormField :has-error="v$.en.description.$error" :error-message="reduceErrors(v$.en.description.$errors)"
                      class="md:col-span-2">
           <textarea placeholder="Description" name="description-en" rows="10" maxlength="10000"
                     v-model.trim="state.en.description" :disabled="disabled" />

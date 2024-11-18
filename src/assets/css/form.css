@@ -32,3 +32,19 @@ input, textarea, .custom-file-input {
 input[type="file"] {
     @apply absolute opacity-0 -z-10;
 }
+
+img {
+    &.profile {
+        width: 400px;
+        height: 484px;
+    }
+
+    &.news {
+        width: 960px;
+        height: 540px;
+    }
+}
+
+.error-message {
+    @apply px-3 py-1 m-0 rounded-b-custom bg-dark-grey text-error flex flex-row gap-3 items-center;
+}

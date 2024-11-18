@@ -1,3 +1,16 @@
+export interface NewsData {
+  date: string,
+  slug: string,
+  fr: {
+    title: string,
+    content: string
+  },
+  en: {
+    title: string,
+    content: string
+  }
+}
+
 interface CommonNewsResponse {
   slug: string,
   date: string
@@ -8,34 +21,32 @@ interface CommonPaginatedNewsListResponse {
   next_offset: number | null,
 }
 
-interface NewsResponse extends CommonNewsResponse {
+export interface NewsResponse extends CommonNewsResponse {
   preview_image: string,
   title: string,
 }
 
-interface NewsDetailsResponse extends NewsResponse {
+export interface NewsDetailsResponse extends NewsResponse {
   content: string
 }
 
-type NewsListResponse = NewsResponse[]
+export type NewsListResponse = NewsResponse[]
 
-interface PaginatedNewsListResponse extends CommonPaginatedNewsListResponse {
+export interface PaginatedNewsListResponse extends CommonPaginatedNewsListResponse {
   items: NewsListResponse
 }
 
-interface AdminNewsResponse extends CommonNewsResponse {
+export interface AdminNewsResponse extends CommonNewsResponse {
   title_fr: string,
   title_en: string
 }
 
-interface AdminNewsDetailsResponse extends AdminNewsResponse {
+export interface AdminNewsDetailsResponse extends AdminNewsResponse {
   preview_image: string
   content_fr: string
   content_en: string
 }
 
-type AdminNewsListResponse = AdminNewsResponse[]
-
-interface AdminPaginatedNewsListResponse extends CommonPaginatedNewsListResponse {
-  items: AdminNewsListResponse
+export interface AdminPaginatedNewsListResponse extends CommonPaginatedNewsListResponse {
+  items: AdminNewsResponse[]
 }

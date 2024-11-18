@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faDownLong, faPen, faPlus, faTrash, faUpLong } from '@fortawesome/free-solid-svg-icons'
-import { type PropType, ref } from 'vue'
+import { faDownLong, faEye, faPen, faPlus, faTrash, faUpLong } from '@fortawesome/free-solid-svg-icons'
+import { type PropType } from 'vue'
 import { useEmitter } from '@/plugins/emitter'
 import { DirectionEnum, type TableHeaders } from '@/types/admin/Commons'
 import { toast } from 'vue3-toastify'
@@ -53,16 +53,20 @@ const props = defineProps({
     type: String,
     required: true
   },
-  editRouteName: {
+  viewRouteName: {
     type: String,
-    required: true
+    required: false
   },
-  editRouteParamName: {
+  editRouteName: {
     type: String,
     required: true
   },
   deleteFunction: {
     type: Function,
+    required: true
+  },
+  itemIdentifier: {
+    type: String,
     required: true
   }
 })
@@ -75,18 +79,17 @@ function isLastIndex(index: number) {
   return index === props.items.length - 1
 }
 
-const updating = ref(false)
-
 function updateSuccess(updateResponse: boolean | null) {
   if (updateResponse === true) {
     emitter.emit('listUpdated')
   }
-
-  updating.value = false
 }
 
 function deleteItem(identifier: string) {
-  updating.value = true
+  const confirmed = window.confirm('Are you sure you want to delete the item "' + identifier + '"?')
+  if (!confirmed) {
+    return
+  }
 
   props.deleteFunction(identifier)
     .then(updateSuccess)
@@ -100,8 +103,6 @@ function moveItem(identifier: string, direction: DirectionEnum) {
     return
   }
 
-  updating.value = true
-
   props.moveFunction(identifier, direction)
     .then(updateSuccess)
 }
@@ -114,7 +115,7 @@ function loadPrevious() {
   emitter.emit('listPrevious')
 }
 
-function formatItemData (value: any): any {
+function formatItemData(value: any): any {
   return value instanceof Date ? i18n.d(value) : value
 }
 </script>
@@ -145,25 +146,34 @@ function formatItemData (value: any): any {
             <span v-if="$props.moveFunction"
                   class="hover:text-primary transition-300 inline-block w-5 h-4"
                   :class="{'cursor-pointer': !isFirstIndex(index)}"
-                  @click="moveItem(item.name, DirectionEnum.Up)">
+                  @click="moveItem(item[$props.itemIdentifier], DirectionEnum.Up)">
               <FontAwesomeIcon v-if="!isFirstIndex(index)" :icon="faUpLong"></FontAwesomeIcon>
             </span>
 
             <span v-if="$props.moveFunction"
                   class="hover:text-primary transition-300 inline-block w-5 h-4"
                   :class="{'cursor-pointer': !isLastIndex(index)}"
-                  @click="moveItem(item.name, DirectionEnum.Down)">
+                  @click="moveItem(item[$props.itemIdentifier], DirectionEnum.Down)">
               <FontAwesomeIcon v-if="!isLastIndex(index)" :icon="faDownLong"></FontAwesomeIcon>
             </span>
 
             <RouterLink
-              :to="{ name: $props.editRouteName, params: { [$props.editRouteParamName]: item[$props.editRouteParamName] } }"
+              v-if="$props.viewRouteName && $props.itemIdentifier"
+              :to="{ name: $props.viewRouteName, params: { [$props.itemIdentifier]: item[$props.itemIdentifier] } }"
+              target="_blank"
+              class="button-custom text-success ml-1">
+              <span>View</span>
+              <FontAwesomeIcon :icon="faEye" class="ml-3" />
+            </RouterLink>
+
+            <RouterLink
+              :to="{ name: $props.editRouteName, params: { [$props.itemIdentifier]: item[$props.itemIdentifier] } }"
               class="button-custom button-edit ml-1">
               <span>Edit</span>
               <FontAwesomeIcon :icon="faPen" class="ml-3" />
             </RouterLink>
 
-            <button class="button-custom button-delete ml-1" @click="deleteItem(item.name)">
+            <button class="button-custom button-delete ml-1" @click="deleteItem(item[$props.itemIdentifier])">
               <span>Delete</span>
               <FontAwesomeIcon :icon="faTrash" class="ml-3" />
             </button>

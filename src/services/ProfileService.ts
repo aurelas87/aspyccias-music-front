@@ -2,6 +2,7 @@ import { useImage } from '@/composables/image'
 import { useRequest } from '@/composables/request'
 import { adminBasePath } from '@/types/admin/Commons'
 import { toast } from 'vue3-toastify'
+import type { AdminProfileData, ProfileResponse } from '@/types/Profile.ts'
 
 export function useProfileService() {
   const profileBasePath = '/profile'
@@ -31,7 +32,7 @@ export function useProfileService() {
   }
 
   function getProfilePictureUri(): string {
-    return getImageUri('/image' + profileBasePath)
+    return getImageUri(profileBasePath)
   }
 
   async function updateProfile(profileData: AdminProfileData): Promise<boolean | null> {

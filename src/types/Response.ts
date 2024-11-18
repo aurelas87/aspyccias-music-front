@@ -1,1 +1,2 @@
-interface PostResponse {}
+export interface PostResponse {
+}

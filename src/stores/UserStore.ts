@@ -4,6 +4,8 @@ import { useAxios } from '@/plugins/axios'
 import { useRouter } from 'vue-router'
 import { adminBasePath } from '@/types/admin/Commons'
 import type { AxiosResponse } from 'axios'
+import type { LoginResponse, UserTokenResponse } from '@/types/admin/Login.ts'
+import type { User } from '@/types/admin/User.ts'
 
 export const useUserStore = defineStore('user', () => {
   const axios = useAxios()
@@ -19,7 +21,7 @@ export const useUserStore = defineStore('user', () => {
   const user = useStorage('user', userDefault)
 
   function getUser(): User {
-    return user.value;
+    return user.value
   }
 
   function setUserToken(userToken: UserTokenResponse) {
@@ -33,14 +35,14 @@ export const useUserStore = defineStore('user', () => {
     return user.value !== null
       && user.value.accessToken !== null
       && user.value.accessTokenExpirationDate !== null
-      && new Date(user.value.accessTokenExpirationDate).valueOf() > (new Date()).valueOf();
+      && new Date(user.value.accessTokenExpirationDate).valueOf() > (new Date()).valueOf()
   }
 
   function canRefreshToken() {
     return user.value !== null
       && user.value.refreshToken !== null
       && user.value.refreshTokenExpirationDate !== null
-      && new Date(user.value.refreshTokenExpirationDate).valueOf() > (new Date()).valueOf();
+      && new Date(user.value.refreshTokenExpirationDate).valueOf() > (new Date()).valueOf()
   }
 
   async function tryAndKeepUserConnectionAlive(uri: string) {
@@ -49,7 +51,7 @@ export const useUserStore = defineStore('user', () => {
     }
 
     if (canRefreshToken()) {
-      const loginResponse = await (async function (): Promise<LoginResponse|null> {
+      const loginResponse = await (async function(): Promise<LoginResponse | null> {
         return axios.post(
           adminBasePath + '/token/refresh', null, {
             headers: {
@@ -70,7 +72,7 @@ export const useUserStore = defineStore('user', () => {
           access_token_expiration_date: null,
           refresh_token: null,
           refresh_token_expiration_date: null
-        });
+        })
 
         await router.push({ name: 'admin.login' })
       } else {
@@ -83,6 +85,6 @@ export const useUserStore = defineStore('user', () => {
     getUser,
     setUserToken,
     isConnected,
-    tryAndKeepUserConnectionAlive,
+    tryAndKeepUserConnectionAlive
   }
 })

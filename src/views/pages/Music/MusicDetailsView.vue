@@ -86,7 +86,7 @@ const releaseSmartLinks = computed(() => filterReleaseLinks(ReleaseLinkCategory.
         <Title :title="releaseDetails.title || ''" :level="1" />
 
         <div class="mx-auto w-fit h-fit lg:float-left lg:mr-10 lg:mb-10">
-          <img :src="releaseService.getReleaseImageUri(releaseDetails.artworkFrontImage, false)"
+          <img :src="releaseService.getReleaseImageUri(releaseDetails.artworkFrontImage)"
                alt="Front Artwork"
                width="450" height="450"
                class="release-cover"
@@ -136,7 +136,7 @@ const releaseSmartLinks = computed(() => filterReleaseLinks(ReleaseLinkCategory.
           <div>
             <Title v-if="releaseDetails.artworkBackImage" :title="$t('music.back_cover')" :level="2" />
             <img v-if="releaseDetails.artworkBackImage"
-                 :src="releaseService.getReleaseImageUri(releaseDetails.artworkBackImage, false)"
+                 :src="releaseService.getReleaseImageUri(releaseDetails.artworkBackImage)"
                  alt="Front Artwork"
                  width="450" height="450"
                  class="release-cover mx-auto"

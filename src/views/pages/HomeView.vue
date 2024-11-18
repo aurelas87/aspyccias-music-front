@@ -90,7 +90,7 @@ onBeforeUnmount(() => {
           <Title :title="$t('home.about')" :level="2" />
 
           <Loader :loading="loadingProfile" />
-          <div v-if="!loadingProfile">{{ profile.description }}</div>
+          <div v-if="!loadingProfile" v-html="profile.description"></div>
         </div>
       </div>
     </transition>

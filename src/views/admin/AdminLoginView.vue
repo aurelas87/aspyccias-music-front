@@ -10,6 +10,7 @@ import { toast } from 'vue3-toastify'
 import { useLoginService } from '@/services/admin/LoginService'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/UserStore'
+import type { LoginResponse } from '@/types/admin/Login.ts'
 
 const state = reactive({
   username: '',

@@ -45,6 +45,10 @@ onMounted(async () => {
   emitter.on('listPrevious', () => {
     fetchAdminNewsList(adminPaginatedNewsList.previousOffset).then(r => r)
   })
+
+  emitter.on('listUpdated', () => {
+    fetchAdminNewsList().then(r => r)
+  })
 })
 </script>
 
@@ -59,8 +63,9 @@ onMounted(async () => {
                :next-offset="adminPaginatedNewsList.nextOffset"
                add-route-name="admin.news.add"
                edit-route-name="admin.news.edit"
-               edit-route-param-name="slug"
-               :delete-function="() => {}" />
+               view-route-name="news.details"
+               :delete-function="newsService.deleteNews"
+               item-identifier="slug" />
   </main>
 </template>
 

@@ -1,10 +1,11 @@
 import { useRequest } from '@/composables/request'
 import { adminBasePath } from '@/types/admin/Commons'
+import type { LoginResponse, PostLoginData } from '@/types/admin/Login.ts'
 
 export function useLoginService() {
   const request = useRequest()
 
-  async function login(postLoginData: PostLoginData): Promise<LoginResponse|null> {
+  async function login(postLoginData: PostLoginData): Promise<LoginResponse | null> {
     return (await request.postRequest(
       {
         uri: adminBasePath + '/login',

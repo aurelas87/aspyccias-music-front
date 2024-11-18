@@ -65,7 +65,9 @@
     "invalid_field": "This field is not valid",
     "required": "This field is required",
     "email": "Please enter a valid email address",
-    "url": "Please enter a valid URL"
+    "url": "Please enter a valid URL",
+    "slug": "Pleaser enter a valid slug",
+    "date": "Please enter a valid date"
   },
   "admin": {
     "profile": "Profile",

@@ -2,6 +2,11 @@ import type { UnwrapNestedRefs, UnwrapRef } from 'vue'
 import AdminNews from '@/models/News/AdminNews'
 import AdminNewsDetails from '@/models/News/AdminNewsDetails'
 import AdminPaginatedNewsList from '@/models/News/AdminPaginatedNewsList'
+import type {
+  AdminNewsResponse,
+  AdminNewsDetailsResponse,
+  AdminPaginatedNewsListResponse,
+} from '@/types/News.ts'
 
 export function useAdminNewsMapper() {
   function mapAdminResponseToNews(
@@ -44,7 +49,7 @@ export function useAdminNewsMapper() {
     adminPaginatedNewsList.previousOffset = adminPaginatedNewsListResponse.previous_offset
     adminPaginatedNewsList.nextOffset = adminPaginatedNewsListResponse.next_offset
 
-    adminPaginatedNewsListResponse.items.forEach((newsResponse) => {
+    adminPaginatedNewsListResponse.items.forEach((newsResponse: AdminNewsResponse) => {
       adminPaginatedNewsList.items.push(new AdminNews())
       mapAdminResponseToNews(newsResponse, adminPaginatedNewsList.items[adminPaginatedNewsList.items.length - 1])
     })

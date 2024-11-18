@@ -24,7 +24,7 @@ const showTitle = ref(false)
     >
       <RouterLink :to="{ name: 'music.details', params: { slug: $props.release.slug } }">
         <img
-          :src="releaseService.getReleaseImageUri($props.release.artworkFrontImage, true)"
+          :src="releaseService.getReleaseImageUri($props.release.artworkFrontImage)"
           alt="News preview"
           width="100%"
           class="rounded-custom aspect-square"

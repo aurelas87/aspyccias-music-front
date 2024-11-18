@@ -26,16 +26,12 @@ export function useReleaseService() {
     }
   }
 
-  function getReleaseImageUri(imageName: string | null, isThumbnail: boolean): string {
+  function getReleaseImageUri(imageName: string | null): string {
     if (!imageName) {
       return ''
     }
 
     let imageBasePath = '/uploads' + releasesBaseAPIPath + '/' + imageName
-
-    if (isThumbnail) {
-      imageBasePath += '.thumbnail'
-    }
 
     return getImageUri(imageBasePath + '.jpg')
   }

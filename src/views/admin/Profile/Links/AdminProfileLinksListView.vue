@@ -3,7 +3,7 @@ import Title from '@/components/Title.vue'
 import FormTable from '@/components/FormTable.vue'
 import Loader from '@/components/Loader.vue'
 import { useProfileLinkService } from '@/services/ProfileLinkService'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useEmitter } from '@/plugins/emitter'
 import { useProfileLinksStore } from '@/stores/ProfileLinksStore'
 import type { TableHeaders } from '@/types/admin/Commons'
@@ -35,6 +35,10 @@ onMounted(async () => {
     profileLinksStore.fetchProfileLinks().then(r => r)
   })
 })
+
+onUnmounted(() => {
+  emitter.off('listUpdated')
+})
 </script>
 
 <template>
@@ -46,9 +50,9 @@ onMounted(async () => {
     <FormTable v-if="!loading" :headers="headers" :items="items" item-type="profile link"
                add-route-name="admin.links.add"
                edit-route-name="admin.links.edit"
-               edit-route-param-name="name"
                :delete-function="profileLinKService.deleteProfileLink"
-               :move-function="profileLinKService.moveProfileLink" />
+               :move-function="profileLinKService.moveProfileLink"
+               item-identifier="name" />
   </main>
 </template>
 

@@ -23,6 +23,10 @@ p {
     @apply disabled:text-neutral-500 disabled:border-transparent;
 }
 
+a.button-custom.disabled {
+    @apply text-neutral-500 border-transparent cursor-default hover:text-neutral-500 hover:bg-dark-grey;
+}
+
 .button-add {
     @apply text-success;
 }

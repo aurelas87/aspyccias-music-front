@@ -8,3 +8,7 @@ export interface TableHeader {
 }
 
 export type TableHeaders = TableHeader[]
+
+export interface ImagesState {
+  [key: string]: File | null
+}

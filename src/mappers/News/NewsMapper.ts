@@ -2,11 +2,11 @@ import News from '@/models/News/News'
 import NewsDetails from '@/models/News/NewsDetails'
 import PaginatedNewsList from '@/models/News/PaginatedNewsList'
 import type { UnwrapNestedRefs, UnwrapRef } from 'vue'
+import type { NewsDetailsResponse, NewsListResponse, NewsResponse, PaginatedNewsListResponse } from '@/types/News.ts'
 
 export function useNewsMapper() {
   function resetNewsDetails(news: UnwrapNestedRefs<NewsDetails>) {
     news.slug = NewsDetails.EMPTY_SLUG
-    news.previewImage = NewsDetails.EMPTY_PREVIEW_IMAGE
     news.date = NewsDetails.EMPTY_DATE
     news.title = NewsDetails.EMPTY_TITLE
     news.content = NewsDetails.EMPTY_CONTENT
@@ -14,7 +14,6 @@ export function useNewsMapper() {
 
   function mapResponseToNews(newsResponse: NewsResponse, news: UnwrapRef<News>) {
     news.slug = newsResponse.slug
-    news.previewImage = newsResponse.preview_image
     news.date = new Date(newsResponse.date)
     news.title = newsResponse.title
   }
@@ -48,7 +47,7 @@ export function useNewsMapper() {
     paginatedNewsList.previousOffset = paginatedNewsListResponse.previous_offset
     paginatedNewsList.nextOffset = paginatedNewsListResponse.next_offset
 
-    paginatedNewsListResponse.items.forEach((newsResponse) => {
+    paginatedNewsListResponse.items.forEach((newsResponse: NewsResponse) => {
       paginatedNewsList.items.push(new News())
       mapResponseToNews(newsResponse, paginatedNewsList.items[paginatedNewsList.items.length - 1])
     })
@@ -62,7 +61,7 @@ export function useNewsMapper() {
       return
     }
 
-    newsListResponse.forEach((newsResponse) => {
+    newsListResponse.forEach((newsResponse: NewsResponse) => {
       newsList.push(new News())
       mapResponseToNews(newsResponse, newsList[newsList.length - 1])
     })

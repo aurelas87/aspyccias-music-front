@@ -1,9 +1,16 @@
 import { useImage } from '@/composables/image'
 import News from '@/models/News/News'
-import NewsDetails from '@/models/News/NewsDetails'
 import type { UnwrapNestedRefs } from 'vue'
 import { adminBasePath } from '@/types/admin/Commons'
 import { useRequest } from '@/composables/request'
+import type {
+  AdminNewsDetailsResponse,
+  AdminPaginatedNewsListResponse, NewsData,
+  NewsDetailsResponse,
+  NewsListResponse,
+  PaginatedNewsListResponse
+} from '@/types/News.ts'
+import type AdminNews from '@/models/News/AdminNews.ts'
 
 export function useNewsService() {
   const newsBasePath = '/news'
@@ -56,18 +63,46 @@ export function useNewsService() {
     }
   }
 
-  function getNewsImageUri(news: UnwrapNestedRefs<News>): string {
+  function getNewsImageUri(news: UnwrapNestedRefs<News | AdminNews>): string {
     if (news.date === null) {
       return '#'
     }
 
-    let imageBasePath = '/uploads' + newsBasePath + '/' + news.date.getUTCFullYear() + '/' + news.slug
+    let imageBasePath = newsBasePath + '/' + news.slug
 
-    if (!(news instanceof NewsDetails)) {
-      imageBasePath += '.thumbnail'
-    }
+    return getImageUri(imageBasePath)
+  }
 
-    return getImageUri(imageBasePath + '.jpg')
+  async function addNews(data: NewsData): Promise<boolean | null> {
+    return (await request.postRequest(
+      {
+        uri: adminNewsBasePath,
+        content: data,
+        successMessage: 'News "' + data.slug + '" has been added',
+        errorMessage: 'Unable to add news "' + data.slug + '"'
+      }
+    ))
+  }
+
+  async function editNews(slug: string, data: NewsData): Promise<boolean | null> {
+    return (await request.putRequest(
+      {
+        uri: adminNewsBasePath + '/' + slug,
+        content: data,
+        successMessage: 'News "' + data.slug + '" has been updated',
+        errorMessage: 'Unable to update news "' + data.slug + '"'
+      }
+    ))
+  }
+
+  async function deleteNews(slug: string): Promise<boolean> {
+    return (await request.deleteRequest(
+      {
+        uri: adminNewsBasePath + '/' + slug,
+        successMessage: 'News "' + slug + '" has been deleted',
+        errorMessage: 'Unable to delete news "' + slug + '" '
+      }
+    ))
   }
 
   return {
@@ -78,6 +113,10 @@ export function useNewsService() {
     getPaginatedForAdmin,
     getForAdmin,
 
-    getNewsImageUri
+    getNewsImageUri,
+
+    addNews,
+    editNews,
+    deleteNews
   }
 }

@@ -1,5 +1,6 @@
 import { adminBasePath, DirectionEnum } from '@/types/admin/Commons'
 import { useRequest } from '@/composables/request'
+import type { ProfileLinkData, ProfileLinkResponse, ProfileLinksResponse } from '@/types/ProfileLink.ts'
 
 export function useProfileLinkService() {
   const profileLinkBasePath = '/profile/links'

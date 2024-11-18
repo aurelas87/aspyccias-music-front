@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useUserStore } from '@/stores/UserStore'
 import { adminBasePath } from '@/types/admin/Commons'
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { BaseOptions, PostAndPutOptions } from '@/types/admin/Request.ts'
 
 export function useRequest() {
   const axios = useAxios()
@@ -45,13 +46,20 @@ export function useRequest() {
   }
 
   function handleCatch(uri: string, reason: any, errorMessage?: string): null {
-    errorMessage = errorMessage ? i18n.t(errorMessage) : '';
+    errorMessage = errorMessage ? i18n.t(errorMessage) : ''
 
     if (uri.startsWith(adminBasePath) && reason.response.data.message) {
       if (errorMessage !== '') {
-        errorMessage += ":\n";
+        errorMessage += ':\n'
       }
-      errorMessage += reason.response.data.message;
+
+      if (typeof reason.response.data.message === 'object') {
+        Object.keys(reason.response.data.message).forEach((key: string) => {
+          errorMessage += key + ': ' + reason.response.data.message[key]
+        })
+      } else {
+        errorMessage += reason.response.data.message
+      }
     }
 
     if (errorMessage) {
@@ -70,7 +78,7 @@ export function useRequest() {
       requestConfig.params = params
     }
 
-    return await axios.get(uri, requestConfig);
+    return await axios.get(uri, requestConfig)
   }
 
   async function postRequest(
