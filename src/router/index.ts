@@ -17,6 +17,9 @@ import AdminProfileLinksFormView from '@/views/admin/Profile/Links/AdminProfileL
 import AdminNewsMainView from '@/views/admin/News/AdminNewsMainView.vue'
 import AdminNewsListView from '@/views/admin/News/AdminNewsListView.vue'
 import AdminNewsFormView from '@/views/admin/News/AdminNewsFormView.vue'
+import AdminCreditTypesMainView from '@/views/admin/CreditTypes/AdminCreditTypesMainView.vue'
+import AdminCreditTypesListView from '@/views/admin/CreditTypes/AdminCreditTypesListView.vue'
+import AdminCreditTypesFormView from '@/views/admin/CreditTypes/AdminCreditTypesFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -140,6 +143,31 @@ const router = createRouter({
               path: 'edit/:slug',
               name: 'admin.news.edit',
               component: AdminNewsFormView,
+              props: true
+            }
+          ]
+        },
+        {
+          path: 'credit-types',
+          component: AdminCreditTypesMainView,
+          children: [
+            {
+              path: '',
+              name: 'admin.credit-types',
+              component: AdminCreditTypesListView,
+              meta: {
+                menu: true
+              }
+            },
+            {
+              path: 'add',
+              name: 'admin.credit-types.add',
+              component: AdminCreditTypesFormView
+            },
+            {
+              path: 'edit/:credit_name_key',
+              name: 'admin.credit-types.edit',
+              component: AdminCreditTypesFormView,
               props: true
             }
           ]

@@ -67,11 +67,13 @@
     "email": "Please enter a valid email address",
     "url": "Please enter a valid URL",
     "slug": "Pleaser enter a valid slug",
+    "key": "Please enter a valid name key",
     "date": "Please enter a valid date"
   },
   "admin": {
     "profile": "Profile",
     "links": "Links",
-    "news": "News"
+    "news": "News",
+    "credit-types": "Credit Types"
   }
 }

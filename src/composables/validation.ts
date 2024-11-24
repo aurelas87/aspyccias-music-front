@@ -9,6 +9,9 @@ export const customUrl = helpers.withMessage('validation.url', url)
 export const customRegexSlug = helpers.regex(/^[a-z0-9]+(-[a-z0-9]+)*$/)
 export const customSlug = helpers.withMessage('validation.slug', customRegexSlug)
 
+export const customRegexKey = helpers.regex(/^[a-z]+(_[a-z]+)*$/)
+export const customKey = helpers.withMessage('validation.key', customRegexKey)
+
 export const customDate = helpers.withMessage('validation.date', {
   $validator: (value: string) => {
     if (!value.match(/^(20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)) {
