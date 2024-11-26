@@ -25,7 +25,10 @@
       "title": "Tracks",
       "none": "No track available"
     },
-    "credits": "Credits",
+    "credits": {
+      "title": "Credits",
+      "none": "No credit available"
+    },
     "back_cover": "Back cover"
   },
   "contact": {
@@ -68,12 +71,14 @@
     "url": "Please enter a valid URL",
     "slug": "Pleaser enter a valid slug",
     "key": "Please enter a valid name key",
-    "date": "Please enter a valid date"
+    "date": "Please enter a valid date",
+    "release_type": "Please select a valid release type"
   },
   "admin": {
     "profile": "Profile",
     "links": "Links",
     "news": "News",
-    "credit-types": "Credit Types"
+    "credit-types": "Credit Types",
+    "releases": "Releases"
   }
 }

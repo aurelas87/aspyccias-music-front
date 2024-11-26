@@ -10,6 +10,7 @@ import FormField from '@/components/FormField.vue'
 import { toast } from 'vue3-toastify'
 import { useProfileLinkService } from '@/services/ProfileLinkService'
 import { useRouter } from 'vue-router'
+import type { ProfileLinkData } from '@/types/ProfileLink.ts'
 
 const profileLinkService = useProfileLinkService()
 const router = useRouter()

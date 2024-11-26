@@ -1,11 +1,10 @@
-export default class Release {
-  public static EMPTY_SLUG = null
-  public static EMPTY_RELEASE_DATE = null
-  public static EMPTY_TITLE = null
+import { type ReleaseType } from '@/types/Release.ts'
 
-  protected _slug: string | null = Release.EMPTY_SLUG
-  protected _releaseDate: Date | null = Release.EMPTY_RELEASE_DATE
-  protected _title: string | null = Release.EMPTY_TITLE
+export default class AdminRelease {
+  private _slug: string | null = null
+  private _releaseDate: Date | null = null
+  private _type: ReleaseType | null = null
+  private _title: string | null = null
 
   get slug(): string | null {
     return this._slug
@@ -21,6 +20,14 @@ export default class Release {
 
   set releaseDate(value: Date | null) {
     this._releaseDate = value
+  }
+
+  get type(): ReleaseType | null {
+    return this._type
+  }
+
+  set type(value: ReleaseType | null) {
+    this._type = value
   }
 
   get title(): string | null {

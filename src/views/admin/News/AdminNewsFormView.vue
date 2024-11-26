@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Title from '@/components/Title.vue'
-import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue'
 import Loader from '@/components/Loader.vue'
 import { customDate, customRequired, customSlug, reduceErrors } from '@/composables/validation'
 import useVuelidate from '@vuelidate/core'
@@ -183,6 +183,9 @@ function stepCheckIcon(stepNumber: number): string {
   return formSteps[stepNumber].error ? 'circle-exclamation' : 'circle-check'
 }
 
+const previewImageChangedEvent = 'previewImageChanged'
+const imageUploadedEvent = 'imageUploaded'
+
 onMounted(async () => {
   if (props.slug) {
     loading.value = true
@@ -223,14 +226,19 @@ onMounted(async () => {
     }
   })
 
-  emitter.on('previewImageChanged', (previewImage: File) => {
+  emitter.on(previewImageChangedEvent, (previewImage: File) => {
     statePreview.previewImage = previewImage
     validateStep(2)
   })
 
-  emitter.on('imageUploaded', async () => {
+  emitter.on(imageUploadedEvent, async () => {
     await router.push({ name: 'admin.news' })
   })
+})
+
+onUnmounted(() => {
+  emitter.off(previewImageChangedEvent)
+  emitter.off(imageUploadedEvent)
 })
 </script>
 
@@ -265,7 +273,18 @@ onMounted(async () => {
           </li>
         </ol>
 
-        <form v-if="!loading" novalidate class="sm:w-[80%] xl:w-[60%] mx-auto mt-10"
+        <FormImage v-if="!loading" image-alt="News preview"
+                   :image-url="newsService.getNewsImageUri(adminNewsDetails)"
+                   image-width="960px"
+                   image-height="540px"
+                   resource-type="news"
+                   :resource-slug="stateDate.slug"
+                   :stateEvent="previewImageChangedEvent"
+                   :image-error="previewImageError"
+                   :class="{ 'absolute opacity-0 -z-50': currentStepNumber !== 2, 'mt-10': currentStepNumber === 2 }" />
+
+        <form v-if="!loading" novalidate class="sm:w-[80%] xl:w-[60%] mx-auto"
+              :class="{ 'mt-10': currentStepNumber !== 2 }"
               @submit.prevent.stop="submitNews">
           <fieldset v-if="currentStepNumber === 0">
             <legend>Date and slug</legend>
@@ -314,16 +333,6 @@ onMounted(async () => {
                           v-model.trim="stateContent.en.content" :disabled="disabled" />
             </FormField>
           </fieldset>
-
-          <FormImage image-alt="News preview"
-                     :image-url="newsService.getNewsImageUri(adminNewsDetails)"
-                     image-width="960px"
-                     image-height="540px"
-                     resource-type="news"
-                     :resource-slug="stateDate.slug"
-                     stateEvent="previewImageChanged"
-                     :image-error="previewImageError"
-                     :class="{ 'absolute opacity-0 -z-50': currentStepNumber !== 2 }" />
 
           <button v-if="currentStepNumber > 0" type="button"
                   class="button-custom float-left mt-3 transition-300"

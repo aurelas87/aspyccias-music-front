@@ -25,7 +25,10 @@
       "title": "Pistes",
       "none": "Aucune piste disponible"
     },
-    "credits": "Crédits",
+    "credits": {
+      "title": "Crédits",
+      "none": "Aucun crédit disponible"
+    },
     "back_cover": "Pochette arrière"
   },
   "contact": {

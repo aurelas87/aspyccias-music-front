@@ -7,6 +7,7 @@ import { useReleaseMapper } from '@/mappers/Release/ReleaseMapper'
 import Loader from '@/components/Loader.vue'
 import CardList from '@/components/CardList.vue'
 import ReleaseCard from '@/components/ReleaseCard.vue'
+import { ReleaseType } from '@/types/Release.ts'
 
 const releaseService = useReleaseService()
 const releaseMapper = useReleaseMapper()
@@ -26,19 +27,19 @@ async function fetchReleases(releaseType: string, releases: Array<UnwrapRef<Rele
 
 async function fetchSingles() {
   loadingSingles.value = true
-  await fetchReleases('single', singleReleases)
+  await fetchReleases(ReleaseType.SINGLE, singleReleases)
   loadingSingles.value = false
 }
 
 async function fetchEPs() {
   loadingEPs.value = true
-  await fetchReleases('ep', epReleases)
+  await fetchReleases(ReleaseType.EP, epReleases)
   loadingEPs.value = false
 }
 
 async function fetchAlbums() {
   loadingAlbums.value = true
-  await fetchReleases('album', albumReleases)
+  await fetchReleases(ReleaseType.ALBUM, albumReleases)
   loadingAlbums.value = false
 }
 

@@ -4,23 +4,23 @@ import ReleaseTrack from '@/models/Release/ReleaseTrack'
 import type { ReleaseCreditsMappedByType } from '@/types/Release'
 
 export default class ReleaseDetails extends Release {
-  public static EMPTY_ARTWORK_BACK_IMAGE = null
+  public static EMPTY_ARTWORK_BACK_IMAGE = false
   public static EMPTY_DESCRIPTION = null
   public static EMPTY_LINKS = []
   public static EMPTY_TRACKS = []
   public static EMPTY_CREDITS = {}
 
-  private _artworkBackImage: string | null = ReleaseDetails.EMPTY_ARTWORK_BACK_IMAGE
+  private _artworkBackImage: boolean = ReleaseDetails.EMPTY_ARTWORK_BACK_IMAGE
   private _description: string | null = ReleaseDetails.EMPTY_DESCRIPTION
   private _links: ReleaseLink[] = ReleaseDetails.EMPTY_LINKS
   private _tracks: ReleaseTrack[] = ReleaseDetails.EMPTY_TRACKS
   private _credits: ReleaseCreditsMappedByType = ReleaseDetails.EMPTY_CREDITS
 
-  get artworkBackImage(): string | null {
+  get artworkBackImage(): boolean {
     return this._artworkBackImage
   }
 
-  set artworkBackImage(value: string | null) {
+  set artworkBackImage(value: boolean) {
     this._artworkBackImage = value
   }
 

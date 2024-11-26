@@ -39,16 +39,6 @@ const props = defineProps({
     type: Function,
     required: false
   },
-  editable: {
-    type: Boolean,
-    required: false,
-    default: true
-  },
-  deletable: {
-    type: Boolean,
-    required: false,
-    default: true
-  },
   addRouteName: {
     type: String,
     required: true
@@ -134,7 +124,7 @@ function formatItemData(value: any): any {
         <thead>
         <tr>
           <th v-for="header in $props.headers">{{ header.name }}</th>
-          <th v-if="$props.editable || $props.deletable">Actions</th>
+          <th>Actions</th>
         </tr>
         </thead>
 

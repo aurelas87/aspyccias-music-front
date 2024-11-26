@@ -9,6 +9,7 @@ import { faWarning } from '@fortawesome/free-solid-svg-icons/faWarning'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import type { ImagePostData } from '@/types/Image.ts'
 import { toast } from 'vue3-toastify'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const { onImageError } = useImage()
 const request = useRequest()
@@ -20,6 +21,11 @@ const props = defineProps({
     required: true
   },
   resourceSlug: {
+    type: String,
+    required: false,
+    default: null
+  },
+  prefix: {
     type: String,
     required: false,
     default: null
@@ -47,6 +53,20 @@ const props = defineProps({
   },
   stateEvent: {
     type: String,
+    required: false
+  },
+  submitEvent: {
+    type: String,
+    required: false,
+    default: 'submitImage'
+  },
+  uploadedEvent: {
+    type: String,
+    required: false,
+    default: 'imageUploaded'
+  },
+  deletable: {
+    type: Boolean,
     required: false
   },
   imageError: {
@@ -80,6 +100,10 @@ function submitImage(image: File) {
     content.resource_slug = props.resourceSlug
   }
 
+  if (props.prefix) {
+    content.prefix = props.prefix
+  }
+
   request.postRequest(
     {
       uri: adminBasePath + '/image',
@@ -91,12 +115,23 @@ function submitImage(image: File) {
   ).then(() => {
     submitting.value = false
 
-    emitter.emit('imageUploaded')
+    emitter.emit(props.uploadedEvent)
   })
 }
 
-function changeImage(event: Event) {
-  let target = (event.target || event.currentTarget) as HTMLInputElement
+function changeImage(event: Event | null, fromDelete: boolean = false) {
+  if (fromDelete) {
+    imageUrl.value = ''
+    imageName.value = ''
+
+    if (props.stateEvent) {
+      emitter.emit(props.stateEvent, null)
+    }
+
+    return
+  }
+
+  let target = (event?.target || event?.currentTarget) as HTMLInputElement
 
   const image = (target && target.files) ? target.files[0] : null
   if (!image) {
@@ -120,24 +155,28 @@ function changeImage(event: Event) {
   }
 }
 
+function resetImageForm() {
+  changeImage(null, true)
+}
+
 onMounted(() => {
-  emitter.on('submitImage', () => {
+  emitter.on(props.submitEvent, () => {
     submitImage(imageState.value)
   })
 })
 
 onUnmounted(() => {
-  emitter.off('submitImage')
+  emitter.off(props.submitEvent)
 })
 </script>
 
 <template>
   <transition appear>
     <form novalidate ref="imageForm" class="mx-auto">
-      <FormField class="mx-auto inline-block custom-image"
+      <FormField class="mx-auto inline-block"
                  :has-error="$props.imageError !== ''">
         <label class="relative cursor-pointer inline-block">
-          <input type="file" accept="image/jpeg" size="" @change=changeImage :disabled="disabled" />
+          <input type="file" accept="image/jpeg" @change=changeImage :disabled="disabled" />
 
           <img :src="imageUrl"
                :alt="$props.imageAlt"
@@ -157,6 +196,13 @@ onUnmounted(() => {
               <span>{{ $t($props.imageError) }}</span>
             </p>
           </div>
+
+          <button type="button" v-if="$props.deletable"
+                  class="button-custom button-delete absolute top-3 right-3"
+                  @click=resetImageForm>
+            <span>Delete</span>
+            <FontAwesomeIcon :icon="faTrash" class="ml-3" />
+          </button>
         </label>
       </FormField>
 

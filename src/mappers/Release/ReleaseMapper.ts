@@ -18,7 +18,6 @@ export function useReleaseMapper() {
     releaseDetails.slug = ReleaseDetails.EMPTY_SLUG
     releaseDetails.releaseDate = ReleaseDetails.EMPTY_RELEASE_DATE
     releaseDetails.title = ReleaseDetails.EMPTY_TITLE
-    releaseDetails.artworkFrontImage = ReleaseDetails.EMPTY_ARTWORK_FRONT_IMAGE
     releaseDetails.artworkBackImage = ReleaseDetails.EMPTY_ARTWORK_BACK_IMAGE
   }
 
@@ -26,7 +25,6 @@ export function useReleaseMapper() {
     release.slug = releaseResponse.slug
     release.releaseDate = new Date(releaseResponse.release_date)
     release.title = releaseResponse.title
-    release.artworkFrontImage = releaseResponse.artwork_front_image
   }
 
   function mapResponseToReleaseLink(releaseLinkResponse: ReleaseLinkResponse, releaseLink: UnwrapRef<ReleaseLink>) {

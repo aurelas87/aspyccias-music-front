@@ -4,6 +4,7 @@ import Release from '@/models/Release/Release'
 import { useImage } from '@/composables/image'
 import { useReleaseService } from '@/services/ReleaseService'
 import Title from '@/components/Title.vue'
+import { ReleaseImageType } from '@/types/Release.ts'
 
 const { onImageError } = useImage()
 const releaseService = useReleaseService()
@@ -24,7 +25,7 @@ const showTitle = ref(false)
     >
       <RouterLink :to="{ name: 'music.details', params: { slug: $props.release.slug } }">
         <img
-          :src="releaseService.getReleaseImageUri($props.release.artworkFrontImage)"
+          :src="releaseService.getReleaseImageUri($props.release, ReleaseImageType.FRONT)"
           alt="News preview"
           width="100%"
           class="rounded-custom aspect-square"

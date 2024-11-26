@@ -1,6 +1,7 @@
 import type { ErrorObject } from '@vuelidate/core'
 import { email, helpers, required, url } from '@vuelidate/validators'
 import { useI18n } from 'vue-i18n'
+import { ReleaseType } from '@/types/Release.ts'
 
 export const customRequired = helpers.withMessage('validation.required', required)
 export const customEmail = helpers.withMessage('validation.email', email)
@@ -31,6 +32,16 @@ export const customDate = helpers.withMessage('validation.date', {
 
     return !isNaN(date.getTime())
   }
+})
+
+export const customReleaseTypeValidator = (value: string) => {
+  return Object.values(ReleaseType).map((releaseType: ReleaseType) => {
+    return releaseType.toString()
+  }).includes(value)
+}
+
+export const customReleaseType = helpers.withMessage('validation.release_type', {
+  $validator: customReleaseTypeValidator
 })
 
 export function reduceErrors(errors: ErrorObject[]): string {

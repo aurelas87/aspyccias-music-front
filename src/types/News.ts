@@ -1,3 +1,5 @@
+import type { CommonPaginatedListResponse } from '@/types/PaginatedList.ts'
+
 export interface NewsData {
   date: string,
   slug: string,
@@ -16,11 +18,6 @@ interface CommonNewsResponse {
   date: string
 }
 
-interface CommonPaginatedNewsListResponse {
-  previous_offset: number | null,
-  next_offset: number | null,
-}
-
 export interface NewsResponse extends CommonNewsResponse {
   preview_image: string,
   title: string,
@@ -32,7 +29,7 @@ export interface NewsDetailsResponse extends NewsResponse {
 
 export type NewsListResponse = NewsResponse[]
 
-export interface PaginatedNewsListResponse extends CommonPaginatedNewsListResponse {
+export interface PaginatedNewsListResponse extends CommonPaginatedListResponse {
   items: NewsListResponse
 }
 
@@ -47,6 +44,6 @@ export interface AdminNewsDetailsResponse extends AdminNewsResponse {
   content_en: string
 }
 
-export interface AdminPaginatedNewsListResponse extends CommonPaginatedNewsListResponse {
+export interface AdminPaginatedNewsListResponse extends CommonPaginatedListResponse {
   items: AdminNewsResponse[]
 }

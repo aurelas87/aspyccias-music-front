@@ -17,9 +17,12 @@ import AdminProfileLinksFormView from '@/views/admin/Profile/Links/AdminProfileL
 import AdminNewsMainView from '@/views/admin/News/AdminNewsMainView.vue'
 import AdminNewsListView from '@/views/admin/News/AdminNewsListView.vue'
 import AdminNewsFormView from '@/views/admin/News/AdminNewsFormView.vue'
-import AdminCreditTypesMainView from '@/views/admin/CreditTypes/AdminCreditTypesMainView.vue'
-import AdminCreditTypesListView from '@/views/admin/CreditTypes/AdminCreditTypesListView.vue'
-import AdminCreditTypesFormView from '@/views/admin/CreditTypes/AdminCreditTypesFormView.vue'
+import AdminCreditTypesMainView from '@/views/admin/Releases/CreditTypes/AdminCreditTypesMainView.vue'
+import AdminCreditTypesListView from '@/views/admin/Releases/CreditTypes/AdminCreditTypesListView.vue'
+import AdminCreditTypesFormView from '@/views/admin/Releases/CreditTypes/AdminCreditTypesFormView.vue'
+import AdminReleasesMainView from '@/views/admin/Releases/AdminReleasesMainView.vue'
+import AdminReleasesListView from '@/views/admin/Releases/AdminReleasesListView.vue'
+import AdminReleasesFormView from '@/views/admin/Releases/AdminReleasesFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -168,6 +171,31 @@ const router = createRouter({
               path: 'edit/:credit_name_key',
               name: 'admin.credit-types.edit',
               component: AdminCreditTypesFormView,
+              props: true
+            }
+          ]
+        },
+        {
+          path: 'releases',
+          component: AdminReleasesMainView,
+          children: [
+            {
+              path: '',
+              name: 'admin.releases',
+              component: AdminReleasesListView,
+              meta: {
+                menu: true
+              }
+            },
+            {
+              path: 'add',
+              name: 'admin.releases.add',
+              component: AdminReleasesFormView
+            },
+            {
+              path: 'edit/:slug',
+              name: 'admin.releases.edit',
+              component: AdminReleasesFormView,
               props: true
             }
           ]
