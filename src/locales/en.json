@@ -72,7 +72,8 @@
     "slug": "Pleaser enter a valid slug",
     "key": "Please enter a valid name key",
     "date": "Please enter a valid date",
-    "release_type": "Please select a valid release type"
+    "release_type": "Please select a valid release type",
+    "integer": "Please enter a valid integer"
   },
   "admin": {
     "profile": "Profile",

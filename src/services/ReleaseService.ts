@@ -1,7 +1,11 @@
 import { useRequest } from '@/composables/request.ts'
 import { useImage } from '@/composables/image'
 import type {
-  AdminPaginatedReleaseListResponse, AdminReleaseDetailsResponse, ReleaseData,
+  AdminPaginatedReleaseListResponse,
+  AdminReleaseDetailsResponse,
+  AdminReleaseTracksPostData,
+  AdminReleaseTracksResponse,
+  ReleaseData,
   ReleaseDetailsResponse,
   ReleasesResponse
 } from '@/types/Release'
@@ -75,6 +79,29 @@ export function useReleaseService() {
     ))
   }
 
+  async function getTracksForAdmin(slug: string): Promise<AdminReleaseTracksResponse | null> {
+    try {
+      return (await request.getRequest(adminReleasesBasePath + '/' + slug + '/tracks')).data
+    } catch (error) {
+      return null
+    }
+  }
+
+  async function editTracks(
+    releaseSlug: string,
+    releaseTitle: string,
+    data: AdminReleaseTracksPostData
+  ): Promise<boolean | null> {
+    return (await request.postRequest(
+      {
+        uri: adminReleasesBasePath + '/' + releaseSlug + '/tracks',
+        content: data,
+        successMessage: '"' + releaseTitle + '" tracks have been updated',
+        errorMessage: 'Unable to update "' + releaseTitle + '" tracks'
+      }
+    ))
+  }
+
   async function deleteRelease(slug: string): Promise<boolean | null> {
     return await request.deleteRequest({
       uri: adminReleasesBasePath + '/' + slug,
@@ -105,6 +132,9 @@ export function useReleaseService() {
     addRelease,
     editRelease,
     deleteRelease,
+
+    getTracksForAdmin,
+    editTracks,
 
     getReleaseImageUri
   }

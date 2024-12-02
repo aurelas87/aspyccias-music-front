@@ -64,6 +64,11 @@ onMounted(async () => {
                add-route-name="admin.releases.add"
                edit-route-name="admin.releases.edit"
                view-route-name="music.details"
+               :custom-links="[
+                 { name: 'admin.releases.edit.tracks', label: 'Tracks', icon: 'list-ol' },
+                 { name: 'admin.releases.edit.links', label: 'Links', icon: 'link' },
+                 { name: 'admin.releases.edit.credits', label: 'Credits', icon: 'circle-info' }
+               ]"
                :delete-function="releaseService.deleteRelease"
                item-identifier="slug" />
   </main>

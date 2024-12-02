@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faDownLong, faEye, faPen, faPlus, faTrash, faUpLong } from '@fortawesome/free-solid-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
 import { type PropType } from 'vue'
 import { useEmitter } from '@/plugins/emitter'
-import { DirectionEnum, type TableHeaders } from '@/types/admin/Commons'
+import { type CustomLinks, DirectionEnum, type TableHeaders } from '@/types/admin/Commons'
 import { toast } from 'vue3-toastify'
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight'
 import { useI18n } from 'vue-i18n'
+
+library.add(fas)
 
 const emitter = useEmitter()
 const i18n = useI18n()
@@ -54,6 +55,11 @@ const props = defineProps({
   deleteFunction: {
     type: Function,
     required: true
+  },
+  customLinks: {
+    type: Array as PropType<CustomLinks>,
+    required: false,
+    default: []
   },
   itemIdentifier: {
     type: String,
@@ -116,7 +122,7 @@ function formatItemData(value: any): any {
       <p class="text-right">
         <RouterLink :to="{ name: $props.addRouteName }" class="button-custom button-add">
           <span>Add a {{ $props.itemType }}</span>
-          <FontAwesomeIcon :icon="faPlus" class="ml-3" />
+          <FontAwesomeIcon :icon="['fas', 'plus']" class="ml-3" />
         </RouterLink>
       </p>
 
@@ -137,14 +143,14 @@ function formatItemData(value: any): any {
                   class="hover:text-primary transition-300 inline-block w-5 h-4"
                   :class="{'cursor-pointer': !isFirstIndex(index)}"
                   @click="moveItem(item[$props.itemIdentifier], DirectionEnum.Up)">
-              <FontAwesomeIcon v-if="!isFirstIndex(index)" :icon="faUpLong"></FontAwesomeIcon>
+              <FontAwesomeIcon v-if="!isFirstIndex(index)" :icon="['fas', 'up-long']"></FontAwesomeIcon>
             </span>
 
             <span v-if="$props.moveFunction"
                   class="hover:text-primary transition-300 inline-block w-5 h-4"
                   :class="{'cursor-pointer': !isLastIndex(index)}"
                   @click="moveItem(item[$props.itemIdentifier], DirectionEnum.Down)">
-              <FontAwesomeIcon v-if="!isLastIndex(index)" :icon="faDownLong"></FontAwesomeIcon>
+              <FontAwesomeIcon v-if="!isLastIndex(index)" :icon="['fas', 'down-long']"></FontAwesomeIcon>
             </span>
 
             <RouterLink
@@ -153,19 +159,27 @@ function formatItemData(value: any): any {
               target="_blank"
               class="button-custom text-success ml-1">
               <span>View</span>
-              <FontAwesomeIcon :icon="faEye" class="ml-3" />
+              <FontAwesomeIcon :icon="['fas', 'eye']" class="ml-3" />
             </RouterLink>
 
             <RouterLink
               :to="{ name: $props.editRouteName, params: { [$props.itemIdentifier]: item[$props.itemIdentifier] } }"
               class="button-custom button-edit ml-1">
               <span>Edit</span>
-              <FontAwesomeIcon :icon="faPen" class="ml-3" />
+              <FontAwesomeIcon :icon="['fas', 'pen']" class="ml-3" />
+            </RouterLink>
+
+            <RouterLink
+              v-for="(customLink) in $props.customLinks"
+              :to="{ name: customLink.name, params: { [$props.itemIdentifier]: item[$props.itemIdentifier] } }"
+              class="button-custom button-edit ml-1">
+              <span>{{ customLink.label }}</span>
+              <FontAwesomeIcon :icon="['fas', customLink.icon]" class="ml-3" />
             </RouterLink>
 
             <button class="button-custom button-delete ml-1" @click="deleteItem(item[$props.itemIdentifier])">
               <span>Delete</span>
-              <FontAwesomeIcon :icon="faTrash" class="ml-3" />
+              <FontAwesomeIcon :icon="['fas', 'trash']" class="ml-3" />
             </button>
           </td>
         </tr>
@@ -181,7 +195,7 @@ function formatItemData(value: any): any {
           <button v-if="$props.previousOffset !== null"
                   class="button-custom"
                   @click="loadPrevious">
-            <FontAwesomeIcon :icon="faChevronLeft" class="mr-3" />
+            <FontAwesomeIcon :icon="['fas', 'chevron-left']" class="mr-3" />
             <span>Previous</span>
           </button>
         </div>
@@ -191,7 +205,7 @@ function formatItemData(value: any): any {
                   class="button-custom"
                   @click="loadNext">
             <span>Next</span>
-            <FontAwesomeIcon :icon="faChevronRight" class="ml-3" />
+            <FontAwesomeIcon :icon="['fas', 'chevron-right']" class="ml-3" />
           </button>
         </div>
       </div>

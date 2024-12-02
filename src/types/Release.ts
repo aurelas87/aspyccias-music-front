@@ -76,3 +76,25 @@ export interface ReleaseData extends ReleaseResponse {
   },
   artwork_back_image: boolean
 }
+
+export interface CommonAdminReleaseTrack {
+  title: string,
+  position: number
+}
+
+export interface AdminReleaseTrackData extends CommonAdminReleaseTrack {
+  duration: number
+}
+
+export interface AdminReleaseTrackFormData extends CommonAdminReleaseTrack {
+  duration: string
+}
+
+export interface AdminReleaseTracksResponse {
+  title: string,
+  tracks: AdminReleaseTrackData[]
+}
+
+export interface AdminReleaseTracksPostData {
+  tracks: AdminReleaseTrackData[]
+}

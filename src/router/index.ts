@@ -23,6 +23,9 @@ import AdminCreditTypesFormView from '@/views/admin/Releases/CreditTypes/AdminCr
 import AdminReleasesMainView from '@/views/admin/Releases/AdminReleasesMainView.vue'
 import AdminReleasesListView from '@/views/admin/Releases/AdminReleasesListView.vue'
 import AdminReleasesFormView from '@/views/admin/Releases/AdminReleasesFormView.vue'
+import AdminReleasesTracksFormView from '@/views/admin/Releases/AdminReleasesTracksFormView.vue'
+import AdminReleasesLinksFormView from '@/views/admin/Releases/AdminReleasesLinksFormView.vue'
+import AdminReleasesCreditsFormView from '@/views/admin/Releases/AdminReleasesCreditsFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -196,6 +199,24 @@ const router = createRouter({
               path: 'edit/:slug',
               name: 'admin.releases.edit',
               component: AdminReleasesFormView,
+              props: true
+            },
+            {
+              path: 'edit/:slug/tracks',
+              name: 'admin.releases.edit.tracks',
+              component: AdminReleasesTracksFormView,
+              props: true
+            },
+            {
+              path: 'edit/:slug/links',
+              name: 'admin.releases.edit.links',
+              component: AdminReleasesLinksFormView,
+              props: true
+            },
+            {
+              path: 'edit/:slug/credits',
+              name: 'admin.releases.edit.credits',
+              component: AdminReleasesCreditsFormView,
               props: true
             }
           ]

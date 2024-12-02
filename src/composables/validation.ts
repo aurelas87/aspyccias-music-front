@@ -13,6 +13,9 @@ export const customSlug = helpers.withMessage('validation.slug', customRegexSlug
 export const customRegexKey = helpers.regex(/^[a-z]+(_[a-z]+)*$/)
 export const customKey = helpers.withMessage('validation.key', customRegexKey)
 
+export const customRegexDuration = helpers.regex(/^[0-9]{2}:[0-9]{2}$/)
+export const customDuration = helpers.withMessage('validation.duration', customRegexDuration)
+
 export const customDate = helpers.withMessage('validation.date', {
   $validator: (value: string) => {
     if (!value.match(/^(20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/)) {

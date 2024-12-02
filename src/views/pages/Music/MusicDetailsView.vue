@@ -125,7 +125,7 @@ const releaseSmartLinks = computed(() => filterReleaseLinks(ReleaseLinkCategory.
           </div>
 
           <div>
-            <Title :title="$t('music.credits')" :level="2" />
+            <Title :title="$t('music.credits.title')" :level="2" />
             <p v-if="Object.keys(releaseDetails.credits).length === 0">{{ $t('music.credits.none') }}</p>
             <div v-else class="w-max mx-auto">
               <ReleaseCredit v-for="(releaseCredits, creditType) in releaseDetails.credits"
