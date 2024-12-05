@@ -4,4 +4,4 @@ export interface AdminReleaseCreditTypeData {
   credit_name_en: string
 }
 
-export type AdminReleaseCreditTypesResponse = AdminReleaseCreditTypeData[]
+export type AdminReleaseCreditTypes = AdminReleaseCreditTypeData[]

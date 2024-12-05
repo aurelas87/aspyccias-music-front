@@ -98,3 +98,17 @@ export interface AdminReleaseTracksResponse {
 export interface AdminReleaseTracksPostData {
   tracks: AdminReleaseTrackData[]
 }
+
+export interface AdminReleaseCreditData {
+  full_name: string,
+  link: string|null,
+  type: string
+}
+
+export interface AdminReleaseCreditsData {
+  credits: AdminReleaseCreditData[]
+}
+
+export interface AdminReleaseCreditsResponse extends AdminReleaseCreditsData {
+  title: string
+}

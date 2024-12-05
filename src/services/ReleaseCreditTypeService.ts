@@ -1,16 +1,16 @@
 import { adminBasePath } from '@/types/admin/Commons'
 import { useRequest } from '@/composables/request'
 import type {
-  AdminReleaseCreditTypesResponse,
+  AdminReleaseCreditTypes,
   AdminReleaseCreditTypeData
 } from '@/types/ReleaseCreditType.ts'
 
 export function useReleaseCreditTypeService() {
-  const releaseCreditTypeBasePath = '/releases/credit-types'
+  const releaseCreditTypeBasePath = '/credit-types'
   const adminReleaseCreditTypeBasePath = adminBasePath + releaseCreditTypeBasePath
   const request = useRequest()
 
-  async function getAllForAdmin(): Promise<AdminReleaseCreditTypesResponse | null> {
+  async function getAllForAdmin(): Promise<AdminReleaseCreditTypes | null> {
     try {
       return (await request.getRequest(adminReleaseCreditTypeBasePath)).data
     } catch (error) {

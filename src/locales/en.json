@@ -65,7 +65,6 @@
   "colon": ":",
   "validation": {
     "invalid_data": "Invalid data. Please check your form.",
-    "invalid_field": "This field is not valid",
     "required": "This field is required",
     "email": "Please enter a valid email address",
     "url": "Please enter a valid URL",
@@ -73,7 +72,8 @@
     "key": "Please enter a valid name key",
     "date": "Please enter a valid date",
     "release_type": "Please select a valid release type",
-    "integer": "Please enter a valid integer"
+    "integer": "Please enter a valid integer",
+    "release_credit_type": "Please select a valid credit type"
   },
   "admin": {
     "profile": "Profile",

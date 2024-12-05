@@ -1,6 +1,5 @@
 import type { ErrorObject } from '@vuelidate/core'
 import { email, helpers, required, url } from '@vuelidate/validators'
-import { useI18n } from 'vue-i18n'
 import { ReleaseType } from '@/types/Release.ts'
 
 export const customRequired = helpers.withMessage('validation.required', required)
@@ -48,10 +47,8 @@ export const customReleaseType = helpers.withMessage('validation.release_type', 
 })
 
 export function reduceErrors(errors: ErrorObject[]): string {
-  const i18n = useI18n()
-
   if (!errors || errors.length === 0) {
-    return i18n.t('validation.invalid_field')
+    return ''
   }
 
   return errors[0].$message.toString()
