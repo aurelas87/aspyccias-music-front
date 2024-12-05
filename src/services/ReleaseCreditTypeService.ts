@@ -37,11 +37,11 @@ export function useReleaseCreditTypeService() {
     ))
   }
 
-  async function editReleaseCreditType(releaseCreditTypeNameKey: string, profileLinkData: AdminReleaseCreditTypeData): Promise<boolean | null> {
+  async function editReleaseCreditType(releaseCreditTypeNameKey: string, releaseCreditTypeData: AdminReleaseCreditTypeData): Promise<boolean | null> {
     return (await request.putRequest(
       {
         uri: adminReleaseCreditTypeBasePath + '/' + releaseCreditTypeNameKey,
-        content: profileLinkData,
+        content: releaseCreditTypeData,
         successMessage: 'Credit type has been updated',
         errorMessage: 'Unable to update credit type'
       }

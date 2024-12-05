@@ -26,6 +26,9 @@ import AdminReleasesFormView from '@/views/admin/Releases/AdminReleasesFormView.
 import AdminReleasesTracksFormView from '@/views/admin/Releases/AdminReleasesTracksFormView.vue'
 import AdminReleasesLinksFormView from '@/views/admin/Releases/AdminReleasesLinksFormView.vue'
 import AdminReleasesCreditsFormView from '@/views/admin/Releases/AdminReleasesCreditsFormView.vue'
+import AdminReleaseLinkNamesMainView from '@/views/admin/Releases/LinkNames/AdminReleaseLinkNamesMainView.vue'
+import AdminReleaseLinkNamesListView from '@/views/admin/Releases/LinkNames/AdminReleaseLinkNamesListView.vue'
+import AdminReleaseLinkNamesFormView from '@/views/admin/Releases/LinkNames/AdminReleaseLinkNamesFormView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -174,6 +177,31 @@ const router = createRouter({
               path: 'edit/:credit_name_key',
               name: 'admin.credit-types.edit',
               component: AdminCreditTypesFormView,
+              props: true
+            }
+          ]
+        },
+        {
+          path: 'release-link-names',
+          component: AdminReleaseLinkNamesMainView,
+          children: [
+            {
+              path: '',
+              name: 'admin.release-link-names',
+              component: AdminReleaseLinkNamesListView,
+              meta: {
+                menu: true
+              }
+            },
+            {
+              path: 'add',
+              name: 'admin.release-link-names.add',
+              component: AdminReleaseLinkNamesFormView
+            },
+            {
+              path: 'edit/:link_name',
+              name: 'admin.release-link-names.edit',
+              component: AdminReleaseLinkNamesFormView,
               props: true
             }
           ]
