@@ -55,3 +55,55 @@ img {
 .error-message {
     @apply px-3 py-1 m-0 rounded-b-custom bg-dark-grey text-error flex flex-row gap-3 items-center;
 }
+
+.form-stepper {
+    @apply grid grid-flow-col justify-center sm:w-[80%] xl:w-[60%] mx-auto;
+
+    li {
+        @apply flex flex-row items-center grow;
+    }
+
+    hr {
+        @apply w-10 h-2 border-0 transition-300;
+
+        &.before-current-step {
+            @apply bg-primary/80;
+        }
+
+        &.after-current-step {
+            @apply bg-neutral-700/80;
+        }
+    }
+
+    p {
+        @apply m-0 leading-none w-fit relative cursor-pointer;
+    }
+
+    .step-icon {
+        @apply w-5 h-5 p-5 rounded-[100%] relative transition-300 border-2 border-transparent bg-neutral-700/80;
+
+        &.current-step {
+            @apply text-primary/80 !border-primary/80;
+        }
+
+        &.beyond-step {
+            @apply !bg-primary/80;
+        }
+    }
+
+    .step-status {
+        @apply absolute right-0 top-0 rounded-[100%] transition-300;
+
+        &.unchecked-step {
+            @apply opacity-0;
+        }
+
+        &.success-step {
+            @apply text-success;
+        }
+
+        &.error-step {
+            @apply text-error;
+        }
+    }
+}

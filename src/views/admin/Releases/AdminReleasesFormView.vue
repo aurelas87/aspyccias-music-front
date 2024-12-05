@@ -306,44 +306,42 @@ onUnmounted(() => {
       <Loader :loading="loading" />
 
       <transition-group appear>
-        <ol v-if="!loading" class="grid grid-flow-col justify-center sm:w-[80%] xl:w-[60%] mx-auto">
-          <li v-for="(formStep, stepNumber) in formSteps" class="flex flex-row items-center grow">
+        <ol v-if="!loading" class="form-stepper">
+          <li v-for="(formStep, stepNumber) in formSteps">
             <hr
               v-if="stepNumber > 0"
-              class="w-10 h-2 border-0 transition-300"
               :class="{
-                'bg-primary/80': currentStepNumber >= stepNumber,
-                'bg-neutral-700/80': currentStepNumber < stepNumber
+                'before-current-step': currentStepNumber >= stepNumber,
+                'after-current-step': currentStepNumber < stepNumber
               }"
             />
 
-            <p class="m-0 leading-none w-fit relative cursor-pointer">
+            <p>
               <FontAwesomeIcon
                 :icon="['fas', formStep.icon]"
-                class="w-5 h-5 p-5 rounded-[100%] relative transition-300 border-2 border-transparent bg-neutral-700/80"
+                class="step-icon"
                 :class="{
-                  'text-primary/80 !border-primary/80': currentStepNumber === stepNumber,
-                  '!bg-primary/80': currentStepNumber > stepNumber
+                  'current-step': currentStepNumber === stepNumber,
+                  'beyond-step': currentStepNumber > stepNumber
                 }"
                 @click="currentStepNumber = stepNumber"
               />
               <FontAwesomeIcon
                 :icon="['fas', stepCheckIcon(stepNumber)]"
-                class="absolute right-0 top-0 rounded-[100%] transition-300"
+                class="step-status"
                 :class="{
-                  'opacity-0': currentStepNumber <= stepNumber,
-                  'text-success': !formSteps[stepNumber].error,
-                  'text-error': formSteps[stepNumber].error
+                  'unchecked-step': currentStepNumber <= stepNumber,
+                  'success-step': !formSteps[stepNumber].error,
+                  'error-step': formSteps[stepNumber].error
                 }"
               />
             </p>
 
             <hr
               v-if="stepNumber < formSteps.length - 1"
-              class="w-10 h-2 border-0 transition-300"
               :class="{
-                '!bg-primary/80': currentStepNumber > stepNumber,
-                'bg-neutral-700/80': currentStepNumber <= stepNumber
+                'before-current-step': currentStepNumber > stepNumber,
+                'after-current-step': currentStepNumber <= stepNumber
               }"
             />
           </li>

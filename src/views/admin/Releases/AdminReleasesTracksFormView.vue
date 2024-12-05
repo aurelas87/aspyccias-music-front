@@ -172,7 +172,6 @@ onMounted(async () => {
               <FormField
                 :has-error="v$.tracks.$each.$response.$errors[index].title.length"
                 :error-message="reduceErrors(v$.tracks.$each.$response.$errors[index].title)"
-                class="md:col-span-2"
               >
                 <input
                   type="text"
@@ -189,7 +188,6 @@ onMounted(async () => {
               <FormField
                 :has-error="v$.tracks.$each.$response.$errors[index].duration.length"
                 :error-message="reduceErrors(v$.tracks.$each.$response.$errors[index].duration)"
-                class="md:col-span-2"
               >
                 <input
                   type="text"
