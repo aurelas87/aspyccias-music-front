@@ -3,8 +3,7 @@ import Title from '@/components/Title.vue'
 import Loader from '@/components/Loader.vue'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useReleaseService } from '@/services/ReleaseService.ts'
-import { useRouter } from 'vue-router'
-import type { AdminReleaseCreditData } from '@/types/Release.ts'
+import type { ReleaseCreditData } from '@/types/Release.ts'
 import { helpers } from '@vuelidate/validators'
 import { customRequired, customUrl, reduceErrors } from '@/composables/validation.ts'
 import useVuelidate from '@vuelidate/core'
@@ -17,7 +16,6 @@ import FormField from '@/components/FormField.vue'
 
 const releaseService = useReleaseService()
 const releaseCreditTypeService = useReleaseCreditTypeService()
-const router = useRouter()
 
 const props = defineProps({
   slug: {
@@ -38,7 +36,7 @@ const releaseCreditTypeErrors = reactive<boolean[]>([])
 const releaseCreditTypeErrorMessages = reactive<string[]>([])
 
 const state = reactive({
-  credits: <AdminReleaseCreditData[]>[]
+  credits: <ReleaseCreditData[]>[]
 })
 
 const rules = {
@@ -60,7 +58,7 @@ const disabled = computed(() => {
   return creditsSubmitting.value ? true : undefined
 })
 
-function addCredit(adminReleaseCreditData?: AdminReleaseCreditData) {
+function addCredit(adminReleaseCreditData?: ReleaseCreditData) {
   if (adminReleaseCreditData) {
     state.credits.push(adminReleaseCreditData)
   } else {
@@ -118,10 +116,47 @@ async function submitCredits() {
     return
   }
 
+  const uniqueCredits = state.credits.map(item => item.type + '_' + item.full_name.toLowerCase())
+    .filter((value, index, self) => self.indexOf(value) === index)
+  if (state.credits.length > uniqueCredits.length) {
+    toast('Unique errors: Check that all the "Type" and "Full name" combinations are unique', {
+      type: toast.TYPE.WARNING
+    })
+
+    creditsSubmitting.value = false
+
+    return
+  }
+
   releaseService.editCredits(props.slug, releaseTitle.value, state)
     .then(() => {
       creditsSubmitting.value = false
+      fetchData()
     })
+}
+
+async function fetchData() {
+  loading.value = true
+
+  const adminReleaseCreditsResponse = await releaseService.getCreditsForAdmin(props.slug).then((r) => r)
+  if (!adminReleaseCreditsResponse) {
+    toast('No release credit found', {
+      type: toast.TYPE.WARNING
+    })
+
+    loading.value = false
+
+    return
+  }
+
+  releaseTitle.value = adminReleaseCreditsResponse.title
+
+  state.credits.splice(0)
+  adminReleaseCreditsResponse.credits.forEach((adminReleaseCreditData: ReleaseCreditData) => {
+    addCredit(adminReleaseCreditData)
+  })
+
+  loading.value = false
 }
 
 onMounted(async () => {
@@ -140,19 +175,7 @@ onMounted(async () => {
     releaseCreditTypes.list.push(adminReleaseCreditTypeData)
   })
 
-  const adminReleaseCreditsResponse = await releaseService.getCreditsForAdmin(props.slug).then((r) => r)
-  if (!adminReleaseCreditsResponse) {
-    await router.push({ name: 'admin-not-found' })
-
-    return
-  }
-
-  releaseTitle.value = adminReleaseCreditsResponse.title
-  adminReleaseCreditsResponse.credits.forEach((adminReleaseCreditData: AdminReleaseCreditData) => {
-    addCredit(adminReleaseCreditData)
-  })
-
-  loading.value = false
+  await fetchData()
 })
 </script>
 
@@ -178,7 +201,6 @@ onMounted(async () => {
           <tbody>
           <tr v-for="(credit, index) in state.credits">
             <td>
-              {{ reduceErrors(v$.credits.$each.$response.$errors[index].type) }}
               <FormField
                 :has-error="releaseCreditTypeErrors[index]"
                 :error-message="releaseCreditTypeErrorMessages[index]"

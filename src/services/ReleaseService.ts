@@ -4,7 +4,7 @@ import type {
   AdminPaginatedReleaseListResponse,
   AdminReleaseCreditsData,
   AdminReleaseCreditsResponse,
-  AdminReleaseDetailsResponse,
+  AdminReleaseDetailsResponse, AdminReleaseLinksData, AdminReleaseLinksResponse,
   AdminReleaseTracksPostData,
   AdminReleaseTracksResponse,
   ReleaseData,
@@ -127,6 +127,29 @@ export function useReleaseService() {
     ))
   }
 
+  async function getLinksForAdmin(slug: string): Promise<AdminReleaseLinksResponse | null> {
+    try {
+      return (await request.getRequest(adminReleasesBasePath + '/' + slug + '/links')).data
+    } catch (error) {
+      return null
+    }
+  }
+
+  async function editLinks(
+    releaseSlug: string,
+    releaseTitle: string,
+    data: AdminReleaseLinksData
+  ): Promise<boolean | null> {
+    return (await request.postRequest(
+      {
+        uri: adminReleasesBasePath + '/' + releaseSlug + '/links',
+        content: data,
+        successMessage: '"' + releaseTitle + '" links have been updated',
+        errorMessage: 'Unable to update "' + releaseTitle + '" links'
+      }
+    ))
+  }
+
   async function deleteRelease(slug: string): Promise<boolean | null> {
     return await request.deleteRequest({
       uri: adminReleasesBasePath + '/' + slug,
@@ -163,6 +186,9 @@ export function useReleaseService() {
 
     getCreditsForAdmin,
     editCredits,
+
+    getLinksForAdmin,
+    editLinks,
 
     getReleaseImageUri
   }

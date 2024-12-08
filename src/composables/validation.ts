@@ -1,6 +1,7 @@
 import type { ErrorObject } from '@vuelidate/core'
 import { email, helpers, required, url } from '@vuelidate/validators'
 import { ReleaseType } from '@/types/Release.ts'
+import { ReleaseLinkCategory } from '@/types/ReleaseLinkCategory.ts'
 
 export const customRequired = helpers.withMessage('validation.required', required)
 export const customEmail = helpers.withMessage('validation.email', email)
@@ -44,6 +45,16 @@ export const customReleaseTypeValidator = (value: string) => {
 
 export const customReleaseType = helpers.withMessage('validation.release_type', {
   $validator: customReleaseTypeValidator
+})
+
+export const customReleaseLinkCategoryValidator = (value: string) => {
+  return Object.values(ReleaseLinkCategory).map((releaseLinkCategory: ReleaseLinkCategory) => {
+    return releaseLinkCategory.toString()
+  }).includes(value)
+}
+
+export const customReleaseLinkCategory = helpers.withMessage('validation.release_link_category', {
+  $validator: customReleaseLinkCategoryValidator
 })
 
 export function reduceErrors(errors: ErrorObject[]): string {

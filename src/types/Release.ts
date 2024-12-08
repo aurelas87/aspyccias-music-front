@@ -23,20 +23,23 @@ export interface ReleaseResponse {
   title: string
 }
 
-export interface ReleaseLinkResponse {
-  category: ReleaseLinkCategory,
+export interface ReleaseLinkData {
+  category: ReleaseLinkCategory | string,
   name: string,
   link: string | null,
   embedded: string | null
 }
 
-export interface ReleaseTrackResponse {
+export interface CommonReleaseTrackData {
   title: string,
-  position: number,
+  position: number
+}
+
+export interface ReleaseTrackData extends CommonReleaseTrackData {
   duration: number
 }
 
-export interface ReleaseCreditResponse {
+export interface ReleaseCreditData {
   full_name: string,
   link: string|null,
   type: string
@@ -45,9 +48,9 @@ export interface ReleaseCreditResponse {
 export interface ReleaseDetailsResponse extends ReleaseResponse {
   artwork_back_image: boolean,
   description: string,
-  links: ReleaseLinkResponse[],
-  tracks: ReleaseTrackResponse[],
-  credits: ReleaseCreditResponse[]
+  links: ReleaseLinkData[],
+  tracks: ReleaseTrackData[],
+  credits: ReleaseCreditData[]
 }
 
 export type ReleasesResponse = ReleaseResponse[]
@@ -77,38 +80,31 @@ export interface ReleaseData extends ReleaseResponse {
   artwork_back_image: boolean
 }
 
-export interface CommonAdminReleaseTrack {
-  title: string,
-  position: number
-}
-
-export interface AdminReleaseTrackData extends CommonAdminReleaseTrack {
-  duration: number
-}
-
-export interface AdminReleaseTrackFormData extends CommonAdminReleaseTrack {
+export interface AdminReleaseTrackFormData extends CommonReleaseTrackData {
   duration: string
 }
 
 export interface AdminReleaseTracksResponse {
   title: string,
-  tracks: AdminReleaseTrackData[]
+  tracks: ReleaseTrackData[]
 }
 
 export interface AdminReleaseTracksPostData {
-  tracks: AdminReleaseTrackData[]
-}
-
-export interface AdminReleaseCreditData {
-  full_name: string,
-  link: string|null,
-  type: string
+  tracks: ReleaseTrackData[]
 }
 
 export interface AdminReleaseCreditsData {
-  credits: AdminReleaseCreditData[]
+  credits: ReleaseCreditData[]
 }
 
 export interface AdminReleaseCreditsResponse extends AdminReleaseCreditsData {
+  title: string
+}
+
+export interface AdminReleaseLinksData {
+  links: ReleaseLinkData[]
+}
+
+export interface AdminReleaseLinksResponse extends AdminReleaseLinksData {
   title: string
 }

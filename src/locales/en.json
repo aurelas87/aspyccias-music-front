@@ -73,7 +73,9 @@
     "date": "Please enter a valid date",
     "release_type": "Please select a valid release type",
     "integer": "Please enter a valid integer",
-    "release_credit_type": "Please select a valid credit type"
+    "release_credit_type": "Please select a valid credit type",
+    "release_link_name": "Please select a valid link name",
+    "release_link_category": "Please select a valid link category"
   },
   "admin": {
     "profile": "Profile",

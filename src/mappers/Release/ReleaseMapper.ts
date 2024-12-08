@@ -5,9 +5,9 @@ import ReleaseLink from '@/models/Release/ReleaseLink'
 import ReleaseTrack from '@/models/Release/ReleaseTrack'
 import ReleaseCredit from '@/models/Release/ReleaseCredit'
 import type {
-  ReleaseCreditResponse,
+  ReleaseCreditData,
   ReleaseDetailsResponse,
-  ReleaseLinkResponse,
+  ReleaseLinkData,
   ReleaseResponse,
   ReleasesResponse,
   ReleaseTrackResponse
@@ -27,7 +27,7 @@ export function useReleaseMapper() {
     release.title = releaseResponse.title
   }
 
-  function mapResponseToReleaseLink(releaseLinkResponse: ReleaseLinkResponse, releaseLink: UnwrapRef<ReleaseLink>) {
+  function mapResponseToReleaseLink(releaseLinkResponse: ReleaseLinkData, releaseLink: UnwrapRef<ReleaseLink>) {
     releaseLink.category = releaseLinkResponse.category
     releaseLink.name = releaseLinkResponse.name
     releaseLink.link = releaseLinkResponse.link
@@ -40,7 +40,7 @@ export function useReleaseMapper() {
     releaseTrack.duration = releaseTrackResponse.duration
   }
 
-  function mapResponseToReleaseCredit(releaseCreditResponse: ReleaseCreditResponse, releaseCredit: UnwrapRef<ReleaseCredit>) {
+  function mapResponseToReleaseCredit(releaseCreditResponse: ReleaseCreditData, releaseCredit: UnwrapRef<ReleaseCredit>) {
     releaseCredit.fullName = releaseCreditResponse.full_name
     releaseCredit.link = releaseCreditResponse.link
     releaseCredit.type = releaseCreditResponse.type
@@ -56,7 +56,7 @@ export function useReleaseMapper() {
     releaseDetails.description = releaseDetailsResponse.description
 
     releaseDetails.links.splice(0)
-    releaseDetailsResponse.links.forEach((releaseLinkResponse: ReleaseLinkResponse) => {
+    releaseDetailsResponse.links.forEach((releaseLinkResponse: ReleaseLinkData) => {
       releaseDetails.links.push(new ReleaseLink())
       mapResponseToReleaseLink(releaseLinkResponse, releaseDetails.links[releaseDetails.links.length - 1])
     })
@@ -70,7 +70,7 @@ export function useReleaseMapper() {
     for (let creditType in releaseDetails.credits) {
       delete releaseDetails.credits[creditType]
     }
-    releaseDetailsResponse.credits.forEach((releaseCreditResponse: ReleaseCreditResponse) => {
+    releaseDetailsResponse.credits.forEach((releaseCreditResponse: ReleaseCreditData) => {
       if (!releaseDetails.credits.hasOwnProperty(releaseCreditResponse.type)) {
         releaseDetails.credits[releaseCreditResponse.type] = []
       }

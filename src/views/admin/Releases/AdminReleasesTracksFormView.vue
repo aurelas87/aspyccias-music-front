@@ -3,8 +3,7 @@ import Title from '@/components/Title.vue'
 import Loader from '@/components/Loader.vue'
 import { computed, onMounted, reactive, ref } from 'vue'
 import { useReleaseService } from '@/services/ReleaseService.ts'
-import { useRouter } from 'vue-router'
-import type { AdminReleaseTrackData, AdminReleaseTrackFormData } from '@/types/Release.ts'
+import type { AdminReleaseTrackFormData, ReleaseTrackData } from '@/types/Release.ts'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import FormField from '@/components/FormField.vue'
 import { customDuration, customRequired, reduceErrors } from '@/composables/validation.ts'
@@ -15,7 +14,6 @@ import { DirectionEnum } from '@/types/admin/Commons.ts'
 import { toast } from 'vue3-toastify'
 
 const releaseService = useReleaseService()
-const router = useRouter()
 
 const props = defineProps({
   slug: {
@@ -106,6 +104,17 @@ async function submitTracks() {
     return
   }
 
+  const uniqueTracks = state.tracks.map(item => item.title).filter((value, index, self) => self.indexOf(value) === index)
+  if (state.tracks.length > uniqueTracks.length) {
+    toast('Unique errors: Check that all the "Title" values are unique', {
+      type: toast.TYPE.WARNING
+    })
+
+    tracksSubmitting.value = false
+
+    return
+  }
+
   releaseService.editTracks(props.slug, releaseTitle.value, {
     tracks: state.tracks.map((adminReleaseTrackFormData: AdminReleaseTrackFormData) => {
       const durationArray = adminReleaseTrackFormData.duration.split(':')
@@ -118,21 +127,30 @@ async function submitTracks() {
     })
   }).then(() => {
     tracksSubmitting.value = false
+    fetchData()
   })
 }
 
-onMounted(async () => {
+async function fetchData() {
+  loading.value = true
+
   const adminReleaseTracksResponse = await releaseService.getTracksForAdmin(props.slug).then((r) => r)
   if (!adminReleaseTracksResponse) {
-    await router.push({ name: 'admin-not-found' })
+    toast('No release track found', {
+      type: toast.TYPE.WARNING
+    })
+
+    loading.value = false
 
     return
   }
 
   releaseTitle.value = adminReleaseTracksResponse.title
-  adminReleaseTracksResponse.tracks.forEach((adminReleaseTrackData: AdminReleaseTrackData) => {
+
+  state.tracks.splice(0)
+  adminReleaseTracksResponse.tracks.forEach((adminReleaseTrackData: ReleaseTrackData) => {
     let formattedDuration = Math.floor(adminReleaseTrackData.duration / 60).toString().padStart(2, '0')
-    formattedDuration += ':' + adminReleaseTrackData.duration % 60
+    formattedDuration += ':' + (adminReleaseTrackData.duration % 60).toString().padStart(2, '0')
 
     state.tracks.push({
       position: adminReleaseTrackData.position,
@@ -142,6 +160,10 @@ onMounted(async () => {
   })
 
   loading.value = false
+}
+
+onMounted(async () => {
+  await fetchData()
 })
 </script>
 
