@@ -16,7 +16,7 @@
   },
   "music": {
     "menu": "Musique",
-    "none": "Aucune musique n'est disponible",
+    "none": "Aucune musique disponible",
     "released": "Date de sortie",
     "no_release_date": "Aucune date de sortie",
     "listen_on": "Ecouter sur : ",
