@@ -64,7 +64,7 @@ onBeforeUnmount(() => {
         <img :src="newsService.getNewsImageUri(newsDetails)" class="mb-10 rounded-custom shadow-white-double"
              alt="News preview" @error="onImageError" />
 
-        <div class="text-justify">{{ newsDetails.content }}</div>
+        <div class="text-center" v-html="newsDetails.content"></div>
       </div>
     </div>
   </transition>

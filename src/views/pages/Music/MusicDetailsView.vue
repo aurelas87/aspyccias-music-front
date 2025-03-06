@@ -106,9 +106,7 @@ const releaseSmartLinks = computed(() => filterReleaseLinks(ReleaseLinkCategory.
             <ReleaseLinkTemplate v-for="releaseLink in releaseBuyLinks" :release-link="releaseLink" />
           </p>
 
-          <div class="text-justify">
-            {{ releaseDetails.description }}
-          </div>
+          <div class="text-justify" v-html="releaseDetails.description"></div>
         </div>
 
         <div class="clear-both flex flex-col gap-10">
