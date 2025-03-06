@@ -2,6 +2,14 @@ body {
     background-image: url("@/assets/img/background.jpg");
 }
 
+h1 {
+    @apply text-3xl md:text-5xl mx-auto w-fit;
+}
+
+h2 {
+    @apply text-2xl md:text-3xl;
+}
+
 h3 {
     @apply text-xl;
 }
@@ -10,12 +18,61 @@ p {
     @apply mb-3;
 }
 
-main a {
-    @apply hover:text-primary transition-300
-}
-
 .button-custom {
     @apply inline-block p-3 border border-transparent bg-dark-grey transition-300 rounded-custom;
-    @apply hover:text-primary hover:border-primary;
     @apply disabled:text-neutral-500 disabled:border-transparent;
+}
+
+a.button-custom.disabled {
+    @apply text-neutral-500 border-transparent cursor-default hover:text-neutral-500 hover:bg-dark-grey;
+}
+
+.button-add {
+    @apply text-success;
+}
+
+.button-edit {
+    @apply text-info;
+}
+
+.button-delete {
+    @apply text-error;
+}
+
+a {
+    @apply hover:text-primary transition-300;
+
+    &.button-custom {
+        @apply hover:text-white hover:bg-primary/50;
+    }
+
+    &.button-edit {
+        @apply hover:bg-info;
+    }
+
+    &.button-delete {
+        @apply hover:bg-error;
+    }
+
+    &.button-add {
+        @apply hover:bg-success;
+    }
+}
+
+button {
+    &.button-custom {
+        @apply enabled:hover:text-white enabled:hover:bg-primary/50;
+    }
+
+    &.button-edit {
+        @apply enabled:hover:bg-info;
+    }
+
+    &.button-delete {
+        @apply enabled:hover:bg-error;
+    }
+
+    &.button-add {
+        @apply enabled:hover:bg-success;
+    }
 }

@@ -1,3 +1,3 @@
-interface AxiosOptions {
+export interface AxiosOptions {
   baseUrl: string
 }

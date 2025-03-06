@@ -31,7 +31,7 @@ async function fetchNews() {
 
   const newsDetailsResponse = await newsService.get(props.slug).then(r => r)
   if (!newsDetailsResponse) {
-    await router.push('/not-found')
+    await router.push({ name: 'not-found' })
   }
 
   newsMapper.mapResponseToNewsDetails(newsDetailsResponse, newsDetails)
@@ -61,10 +61,10 @@ onBeforeUnmount(() => {
         <Title :title="newsDetails.title || ''" :level="1" margins="mb-0" />
         <Title :title="$d(newsDetails.date, 'long')" :level="2" :icon="false" :uppercase="false" margins="mb-10" />
 
-        <img :src="newsService.getNewsImageUri(newsDetails)" class="mb-10"
+        <img :src="newsService.getNewsImageUri(newsDetails)" class="mb-10 rounded-custom shadow-white-double"
              alt="News preview" @error="onImageError" />
 
-        <div class="text-justify">{{ newsDetails.content }}</div>
+        <div class="text-center" v-html="newsDetails.content"></div>
       </div>
     </div>
   </transition>

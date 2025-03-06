@@ -2,6 +2,7 @@ import type { App } from 'vue'
 import { getCurrentInstance } from 'vue'
 import type { AxiosInstance } from 'axios'
 import axios from 'axios'
+import type { AxiosOptions } from '@/types/AxiosOptions.ts'
 
 export function useAxios(): AxiosInstance {
   const currentInstance = getCurrentInstance()

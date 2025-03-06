@@ -1,27 +1,12 @@
 <script setup lang="ts">
 import { useProfileLinksStore } from '@/stores/ProfileLinksStore'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook'
-import { faInstagram } from '@fortawesome/free-brands-svg-icons/faInstagram'
-import { faYoutube } from '@fortawesome/free-brands-svg-icons/faYoutube'
-import { faSpotify } from '@fortawesome/free-brands-svg-icons/faSpotify'
-import { faDeezer } from '@fortawesome/free-brands-svg-icons/faDeezer'
-import { faBandcamp } from '@fortawesome/free-brands-svg-icons/faBandcamp'
-import { faApple } from '@fortawesome/free-brands-svg-icons/faApple'
-import { faAmazon } from '@fortawesome/free-brands-svg-icons/faAmazon'
-import { faNapster } from '@fortawesome/free-brands-svg-icons/faNapster'
-import { reactive, watch } from 'vue'
+import { reactive, type UnwrapRef, watch } from 'vue'
+import type ProfileLink from '@/models/Profile/ProfileLink'
 
-library.add(faFacebook)
-library.add(faInstagram)
-library.add(faYoutube)
-library.add(faSpotify)
-library.add(faDeezer)
-library.add(faBandcamp)
-library.add(faApple)
-library.add(faAmazon)
-library.add(faNapster)
+library.add(fab)
 
 const props = defineProps<{
   positionStart?: number,
@@ -29,20 +14,20 @@ const props = defineProps<{
 }>()
 
 const profileLinksStore = useProfileLinksStore()
-const profileLinks = reactive<ProfileLinks>([])
+const profileLinks = reactive<ProfileLink[]>([])
 
-function getProfileLinks(): ProfileLinks {
+function getProfileLinks(): UnwrapRef<ProfileLink>[] {
   return (!props.positionStart || !props.positionEnd)
     ? profileLinksStore.profileLinks
     : profileLinksStore.getProfileLinksInPositionRange(props.positionStart, props.positionEnd)
 }
 
-function updateProfileLinksRef() {
+async function updateProfileLinksRef() {
   profileLinks.splice(0)
 
-  getProfileLinks().forEach((profileLink: ProfileLink) => {
+  for (const profileLink of getProfileLinks()) {
     profileLinks.push(profileLink)
-  })
+  }
 }
 
 updateProfileLinksRef()
@@ -51,7 +36,7 @@ watch(profileLinksStore.$state.profileLinks, updateProfileLinksRef)
 
 <template>
   <div>
-    <a v-for="profileLink in profileLinks" :href="profileLink.link" target="_blank">
+    <a v-for="profileLink in profileLinks" :href="profileLink.link || undefined" target="_blank">
       <FontAwesomeIcon :icon="['fab', profileLink.name]" class="px-2 text-4xl hover:text-primary transition-300" />
     </a>
   </div>

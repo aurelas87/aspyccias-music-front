@@ -25,14 +25,17 @@
       "title": "Tracks",
       "none": "No track available"
     },
-    "credits": "Credits",
+    "credits": {
+      "title": "Credits",
+      "none": "No credit available"
+    },
     "back_cover": "Back cover"
   },
   "contact": {
     "menu": "Contact",
     "title": "Contact",
     "email": {
-      "intro": "A question? A project? Or simply sharing your feelings about my musical universe?<br />You can contact me via the form below and/or follow me on the social networks.",
+      "intro": "<p>A question? A project? Or simply sharing your feelings about my musical universe?</p><p>You can contact me via the form below and/or follow me on the social networks.</p>",
       "contact_details": "Contact details",
       "first_name": "First name",
       "last_name": "Last name",
@@ -62,8 +65,24 @@
   "colon": ":",
   "validation": {
     "invalid_data": "Invalid data. Please check your form.",
-    "invalid_field": "This field is not valid",
     "required": "This field is required",
-    "email": "Please enter a valid email address"
+    "email": "Please enter a valid email address",
+    "url": "Please enter a valid URL",
+    "slug": "Pleaser enter a valid slug",
+    "key": "Please enter a valid name key",
+    "date": "Please enter a valid date",
+    "release_type": "Please select a valid release type",
+    "integer": "Please enter a valid integer",
+    "release_credit_type": "Please select a valid credit type",
+    "release_link_name": "Please select a valid link name",
+    "release_link_category": "Please select a valid link category"
+  },
+  "admin": {
+    "profile": "Profile",
+    "links": "Links",
+    "news": "News",
+    "credit-types": "Credit Types",
+    "release-link-names": "Release Link Names",
+    "releases": "Releases"
   }
 }

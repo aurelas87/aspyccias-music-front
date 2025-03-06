@@ -24,8 +24,10 @@ export default {
         primary: '#cd7025',
         'brown-dark': '#94400D',
         yellow: '#FFF69E',
+        info: '#4694e1',
         success: '#00a189',
-        error: '#c45258'
+        error: '#c45258',
+        'neutral-750': 'rgb(51, 51, 51)'
       }
     },
   },

@@ -14,6 +14,7 @@ import { ReleaseLinkCategory } from '@/types/ReleaseLinkCategory'
 import ReleaseTrack from '@/components/ReleaseTrack.vue'
 import ReleaseCredit from '@/components/ReleaseCredit.vue'
 import router from '@/router'
+import { ReleaseImageType } from '@/types/Release.ts'
 
 const props = defineProps({
   slug: {
@@ -36,12 +37,12 @@ async function fetchRelease() {
 
   releaseMapper.resetReleaseDetails(releaseDetails)
 
-  const releadDetailsResponse = await releaseService.get(props.slug).then(r => r)
-  if (!releadDetailsResponse) {
-    await router.push('/not-found')
+  const releaseDetailsResponse = await releaseService.get(props.slug).then(r => r)
+  if (!releaseDetailsResponse) {
+    await router.push({ name: 'not-found' })
   }
 
-  releaseMapper.mapResponseToReleaseDetails(releadDetailsResponse, releaseDetails)
+  releaseMapper.mapResponseToReleaseDetails(releaseDetailsResponse, releaseDetails)
 
   loading.value = false
 }
@@ -86,7 +87,7 @@ const releaseSmartLinks = computed(() => filterReleaseLinks(ReleaseLinkCategory.
         <Title :title="releaseDetails.title || ''" :level="1" />
 
         <div class="mx-auto w-fit h-fit lg:float-left lg:mr-10 lg:mb-10">
-          <img :src="releaseService.getReleaseImageUri(releaseDetails.artworkFrontImage, false)"
+          <img :src="releaseService.getReleaseImageUri(releaseDetails, ReleaseImageType.FRONT)"
                alt="Front Artwork"
                width="450" height="450"
                class="release-cover"
@@ -105,9 +106,7 @@ const releaseSmartLinks = computed(() => filterReleaseLinks(ReleaseLinkCategory.
             <ReleaseLinkTemplate v-for="releaseLink in releaseBuyLinks" :release-link="releaseLink" />
           </p>
 
-          <div class="text-justify">
-            {{ releaseDetails.description }}
-          </div>
+          <div class="text-justify" v-html="releaseDetails.description"></div>
         </div>
 
         <div class="clear-both flex flex-col gap-10">
@@ -124,7 +123,7 @@ const releaseSmartLinks = computed(() => filterReleaseLinks(ReleaseLinkCategory.
           </div>
 
           <div>
-            <Title :title="$t('music.credits')" :level="2" />
+            <Title :title="$t('music.credits.title')" :level="2" />
             <p v-if="Object.keys(releaseDetails.credits).length === 0">{{ $t('music.credits.none') }}</p>
             <div v-else class="w-max mx-auto">
               <ReleaseCredit v-for="(releaseCredits, creditType) in releaseDetails.credits"
@@ -136,7 +135,7 @@ const releaseSmartLinks = computed(() => filterReleaseLinks(ReleaseLinkCategory.
           <div>
             <Title v-if="releaseDetails.artworkBackImage" :title="$t('music.back_cover')" :level="2" />
             <img v-if="releaseDetails.artworkBackImage"
-                 :src="releaseService.getReleaseImageUri(releaseDetails.artworkBackImage, false)"
+                 :src="releaseService.getReleaseImageUri(releaseDetails, ReleaseImageType.BACK)"
                  alt="Front Artwork"
                  width="450" height="450"
                  class="release-cover mx-auto"

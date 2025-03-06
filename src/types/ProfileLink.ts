@@ -1,7 +1,10 @@
-interface ProfileLinkResponse {
+export interface ProfileLinkData {
   name: string,
-  link: string,
+  link: string
+}
+
+export interface ProfileLinkResponse extends ProfileLinkData {
   position: number
 }
 
-type ProfileLinksResponse = ProfileLinkResponse[]
+export type ProfileLinksResponse = ProfileLinkResponse[]

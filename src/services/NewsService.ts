@@ -1,18 +1,27 @@
-import { useAxios } from '@/plugins/axios'
 import { useImage } from '@/composables/image'
 import News from '@/models/News/News'
-import NewsDetails from '@/models/News/NewsDetails'
 import type { UnwrapNestedRefs } from 'vue'
+import { adminBasePath } from '@/types/admin/Commons'
+import { useRequest } from '@/composables/request'
+import type {
+  AdminNewsDetailsResponse,
+  AdminPaginatedNewsListResponse, NewsData,
+  NewsDetailsResponse,
+  NewsListResponse,
+  PaginatedNewsListResponse
+} from '@/types/News.ts'
+import type AdminNews from '@/models/News/AdminNews.ts'
 
 export function useNewsService() {
   const newsBasePath = '/news'
-  const axios = useAxios()
+  const adminNewsBasePath = adminBasePath + newsBasePath
+  const request = useRequest()
 
   const { getImageUri } = useImage()
 
   async function getLatest(): Promise<NewsListResponse | null> {
     try {
-      return (await axios.get(newsBasePath + '/latest')).data
+      return (await request.getRequest(newsBasePath + '/latest')).data
     } catch (error) {
       return null
     }
@@ -20,10 +29,8 @@ export function useNewsService() {
 
   async function getPaginated(offset: number | null = null): Promise<PaginatedNewsListResponse | null> {
     try {
-      return (await axios.get(newsBasePath, {
-        params: {
-          offset: offset
-        }
+      return (await request.getRequest(newsBasePath, {
+        offset: offset
       })).data
     } catch (error) {
       return null
@@ -32,28 +39,70 @@ export function useNewsService() {
 
   async function get(slug: string): Promise<NewsDetailsResponse | null> {
     try {
-      return (await axios.get(newsBasePath + '/' + slug)).data
+      return (await request.getRequest(newsBasePath + '/' + slug)).data
     } catch (error) {
       return null
     }
   }
 
-  function getNewsImageUri(news: UnwrapNestedRefs<News>): string {
+  async function getPaginatedForAdmin(offset: number | null = null): Promise<AdminPaginatedNewsListResponse | null> {
+    try {
+      return (await request.getRequest(adminNewsBasePath, {
+        offset: offset
+      })).data
+    } catch (error) {
+      return null
+    }
+  }
+
+  async function getForAdmin(slug: string): Promise<AdminNewsDetailsResponse | null> {
+    try {
+      return (await request.getRequest(adminNewsBasePath + '/' + slug)).data
+    } catch (error) {
+      return null
+    }
+  }
+
+  function getNewsImageUri(news: UnwrapNestedRefs<News | AdminNews>): string {
     if (news.date === null) {
       return '#'
     }
 
-    let imageBasePath = '/uploads' + newsBasePath + '/' + news.date.getUTCFullYear() + '/' + news.slug
+    let imageBasePath = newsBasePath + '/' + news.slug
 
-    if (!(news instanceof NewsDetails)) {
-      imageBasePath += '.thumbnail'
-    }
-
-    return getImageUri(imageBasePath + '.jpg')
+    return getImageUri(imageBasePath)
   }
 
-  function getNewsItemUri(slug: string): string {
-    return newsBasePath + '/' + slug
+  async function addNews(data: NewsData): Promise<boolean | null> {
+    return (await request.postRequest(
+      {
+        uri: adminNewsBasePath,
+        content: data,
+        successMessage: 'News "' + data.slug + '" has been added',
+        errorMessage: 'Unable to add news "' + data.slug + '"'
+      }
+    ))
+  }
+
+  async function editNews(slug: string, data: NewsData): Promise<boolean | null> {
+    return (await request.putRequest(
+      {
+        uri: adminNewsBasePath + '/' + slug,
+        content: data,
+        successMessage: 'News "' + data.slug + '" has been updated',
+        errorMessage: 'Unable to update news "' + data.slug + '"'
+      }
+    ))
+  }
+
+  async function deleteNews(slug: string): Promise<boolean> {
+    return (await request.deleteRequest(
+      {
+        uri: adminNewsBasePath + '/' + slug,
+        successMessage: 'News "' + slug + '" has been deleted',
+        errorMessage: 'Unable to delete news "' + slug + '" '
+      }
+    ))
   }
 
   return {
@@ -61,7 +110,13 @@ export function useNewsService() {
     getPaginated,
     get,
 
+    getPaginatedForAdmin,
+    getForAdmin,
+
     getNewsImageUri,
-    getNewsItemUri
+
+    addNews,
+    editNews,
+    deleteNews
   }
 }

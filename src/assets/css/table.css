@@ -1,0 +1,20 @@
+td, th {
+    @apply p-2 box-border;
+}
+
+tbody tr {
+    @apply odd:bg-neutral-700/80 even:bg-neutral-750/80;
+    @apply hover:bg-neutral-400/50;
+}
+
+th {
+    @apply bg-primary/80;
+
+    &:first-child {
+        @apply rounded-tl-custom;
+    }
+
+    &:last-child {
+        @apply rounded-tr-custom;
+    }
+}

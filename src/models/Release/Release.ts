@@ -2,12 +2,10 @@ export default class Release {
   public static EMPTY_SLUG = null
   public static EMPTY_RELEASE_DATE = null
   public static EMPTY_TITLE = null
-  public static EMPTY_ARTWORK_FRONT_IMAGE = null
 
   protected _slug: string | null = Release.EMPTY_SLUG
   protected _releaseDate: Date | null = Release.EMPTY_RELEASE_DATE
   protected _title: string | null = Release.EMPTY_TITLE
-  protected _artworkFrontImage: string | null = Release.EMPTY_ARTWORK_FRONT_IMAGE
 
   get slug(): string | null {
     return this._slug
@@ -31,13 +29,5 @@ export default class Release {
 
   set title(value: string | null) {
     this._title = value
-  }
-
-  get artworkFrontImage(): string | null {
-    return this._artworkFrontImage
-  }
-
-  set artworkFrontImage(value: string | null) {
-    this._artworkFrontImage = value
   }
 }

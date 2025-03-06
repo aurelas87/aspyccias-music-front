@@ -16,7 +16,7 @@
   },
   "music": {
     "menu": "Musique",
-    "none": "Aucune musique n'est disponible",
+    "none": "Aucune musique disponible",
     "released": "Date de sortie",
     "no_release_date": "Aucune date de sortie",
     "listen_on": "Ecouter sur : ",
@@ -25,14 +25,17 @@
       "title": "Pistes",
       "none": "Aucune piste disponible"
     },
-    "credits": "Crédits",
+    "credits": {
+      "title": "Crédits",
+      "none": "Aucun crédit disponible"
+    },
     "back_cover": "Pochette arrière"
   },
   "contact": {
     "menu": "Contact",
     "title": "Contact",
     "email": {
-      "intro": "Une question ? Un projet ? Ou simplement me faire part de vos impressions sur mon univers musical ?<br />Vous pouvez me contacter via le formulaire ci-dessous et/ou me suivre sur les réseaux.",
+      "intro": "<p>Une question ? Un projet ? Ou simplement me faire part de vos impressions sur mon univers musical ?</p><p>Vous pouvez me contacter via le formulaire ci-dessous et/ou me suivre sur les réseaux.</p>",
       "contact_details": "Coordonnées",
       "first_name": "Prénom",
       "last_name": "Nom de famille",
@@ -62,7 +65,6 @@
   "colon": " :",
   "validation": {
     "invalid_data": "Données invalides. Vérifiez votre formulaire.",
-    "invalid_field": "Ce champ est invalide",
     "required": "Ce champ est requis",
     "email": "Veuillez saisir une adresse email valide"
   }

@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
-import router from '@/router'
+import { ref, watch } from 'vue'
 import NavLink from '@/components/NavLink.vue'
-import LocaleMenu from '@/components/LocaleSwitcher.vue'
+import LocaleSwitcher from '@/components/LocaleSwitcher.vue'
 import ProfileLinks from '@/components/ProfileLinks.vue'
+import LogoutLink from '@/components/LogoutLink.vue'
 import { useLocaleStore } from '@/stores/LocaleStore'
-import type { RouteRecord } from 'vue-router'
+import { useRoutes } from '@/composables/routes'
+import { useUserStore } from '@/stores/UserStore'
 
-const routes = reactive<RouteRecord[]>(router.getRoutes())
+const routes = useRoutes()
 
 const burgerMenuOpen = ref(false)
 const toggleBurgerMenu = () => {
   burgerMenuOpen.value = !burgerMenuOpen.value
 }
+
+const userStore = useUserStore()
 
 const localeStore = useLocaleStore()
 watch(localeStore.$state, () => {
@@ -21,9 +24,11 @@ watch(localeStore.$state, () => {
 </script>
 
 <template>
-  <nav class="hidden md:block font-bold text-2xl space-x-5">
-    <NavLink v-for="route in routes" :route="route" />
-    <LocaleMenu />
+  <nav v-if="!routes.isCurrentAdminRoute() || userStore.isConnected()" class="hidden md:block font-bold text-2xl space-x-5">
+    <NavLink v-for="route in routes.getRoutes()" :route="route" />
+
+    <LocaleSwitcher v-if="!routes.isCurrentAdminRoute()" />
+    <LogoutLink v-else />
   </nav>
 
   <button @click="toggleBurgerMenu"
@@ -43,11 +48,15 @@ watch(localeStore.$state, () => {
     </button>
 
     <div class="relative top-14">
-      <NavLink v-for="route in routes"
-               :route="route"
-               :class="'block text-4xl p-3'"
-               :click="toggleBurgerMenu" />
-      <LocaleMenu />
+      <div v-if="!routes.isCurrentAdminRoute() || userStore.isConnected()">
+        <NavLink v-for="route in routes.getRoutes()"
+                 :route="route"
+                 :class="'block text-4xl p-3'"
+                 :click="toggleBurgerMenu" />
+
+        <LocaleSwitcher v-if="!routes.isCurrentAdminRoute()" />
+        <LogoutLink v-else />
+      </div>
 
       <ProfileLinks :position-start="1" :position-end="4" class="pt-5"/>
     </div>

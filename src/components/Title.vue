@@ -59,6 +59,10 @@ const classes = computed(() => {
     }
   }
 
+  if (props.icon) {
+    classes.push('leading-[83px]')
+  }
+
   return (classes.length > 0) ? classes.join(' ') : null
 })
 
@@ -80,11 +84,5 @@ const titleTagName = computed(() => {
 </template>
 
 <style lang="postcss" scoped>
-h1 {
-  @apply text-3xl md:text-5xl mx-auto w-fit;
-}
 
-h2 {
-  @apply text-2xl md:text-3xl leading-[83px];
-}
 </style>

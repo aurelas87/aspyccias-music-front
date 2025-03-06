@@ -2,7 +2,7 @@
 import Title from '@/components/Title.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons/faPaperPlane'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { toast } from 'vue3-toastify'
 import { customEmail, customRequired, reduceErrors } from '@/composables/validation'
 import useVuelidate from '@vuelidate/core'
@@ -21,6 +21,10 @@ const state = reactive({
 
 const emailSending = ref(false)
 
+const disabled = computed(() => {
+  return emailSending.value ? true : undefined
+})
+
 const rules = {
   firstName: { customRequired },
   lastName: { customRequired },
@@ -35,7 +39,7 @@ const i18n = useI18n()
 const contactService = useContactService()
 
 async function submitEmail() {
-  emailSending.value = true;
+  emailSending.value = true
 
   v$.value.$reset()
   const isFormValid = await v$.value.$validate()
@@ -45,7 +49,7 @@ async function submitEmail() {
       type: toast.TYPE.WARNING
     })
 
-    emailSending.value = false;
+    emailSending.value = false
 
     return
   }
@@ -56,7 +60,7 @@ async function submitEmail() {
     email_address: state.emailAddress,
     subject: state.subject,
     message: state.message
-  }).then((emailSent: boolean) => {
+  }).then((emailSent: boolean|null) => {
     if (emailSent) {
       state.firstName = ''
       state.lastName = ''
@@ -66,7 +70,7 @@ async function submitEmail() {
       v$.value.$reset()
     }
 
-    emailSending.value = false;
+    emailSending.value = false
   })
 }
 </script>
@@ -82,17 +86,17 @@ async function submitEmail() {
 
         <FormField :has-error="v$.firstName.$error" :error-message="reduceErrors(v$.firstName.$errors)">
           <input type="text" :placeholder="$t('contact.email.first_name')" name="contact-firstname" maxlength="255"
-                 v-model.trim="state.firstName" />
+                 v-model.trim="state.firstName" :disabled="disabled" />
         </FormField>
 
         <FormField :has-error="v$.lastName.$error" :error-message="reduceErrors(v$.lastName.$errors)">
           <input type="text" :placeholder="$t('contact.email.last_name')" name="contact-lastname" maxlength="255"
-                 v-model.trim="state.lastName" />
+                 v-model.trim="state.lastName" :disabled="disabled" />
         </FormField>
 
         <FormField :has-error="v$.emailAddress.$error" :error-message="reduceErrors(v$.emailAddress.$errors)">
           <input type="email" :placeholder="$t('contact.email.email_address')" name="contact-email" maxlength="255"
-                 v-model.trim="state.emailAddress" />
+                 v-model.trim="state.emailAddress" :disabled="disabled" />
         </FormField>
       </fieldset>
       <fieldset>
@@ -100,19 +104,19 @@ async function submitEmail() {
 
         <FormField :has-error="v$.subject.$error" :error-message="reduceErrors(v$.subject.$errors)">
           <input type="text" :placeholder="$t('contact.email.subject')" name="contact-subject" maxlength="255"
-                 v-model.trim="state.subject" />
+                 v-model.trim="state.subject" :disabled="disabled" />
         </FormField>
 
         <FormField :has-error="v$.message.$error" :error-message="reduceErrors(v$.message.$errors)" class="md:col-span-2">
           <textarea :placeholder="$t('contact.email.your_message')" name="contact-message" rows="5" maxlength="10000"
-                    v-model.trim="state.message" />
+                    v-model.trim="state.message" :disabled="disabled" />
         </FormField>
       </fieldset>
 
-      <button type="submit" class="button-custom float-right mt-3" :disabled="emailSending ? true : undefined">
-        <span class="custom-align">{{ $t('contact.email.send.label') }}</span>
-        <FontAwesomeIcon v-if="!emailSending" :icon="faPaperPlane" class="custom-align ml-3" />
-        <Loader v-else :loading="emailSending" class="custom-align ml-3 text-inherit"/>
+      <button type="submit" class="button-custom float-right mt-3" :disabled="disabled">
+        <span>{{ $t('contact.email.send.label') }}</span>
+        <FontAwesomeIcon v-if="!emailSending" :icon="faPaperPlane" class="ml-3" />
+        <Loader v-else :loading="emailSending" class="ml-3 text-inherit"/>
       </button>
     </form>
   </main>
