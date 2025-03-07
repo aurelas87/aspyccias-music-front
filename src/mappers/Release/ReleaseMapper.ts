@@ -10,8 +10,9 @@ import type {
   ReleaseLinkData,
   ReleaseResponse,
   ReleasesResponse,
-  ReleaseTrackResponse
+  ReleaseTrackData
 } from '@/types/Release'
+import { ReleaseLinkCategory } from '@/types/ReleaseLinkCategory.ts'
 
 export function useReleaseMapper() {
   function resetReleaseDetails(releaseDetails: UnwrapNestedRefs<ReleaseDetails>) {
@@ -28,13 +29,13 @@ export function useReleaseMapper() {
   }
 
   function mapResponseToReleaseLink(releaseLinkResponse: ReleaseLinkData, releaseLink: UnwrapRef<ReleaseLink>) {
-    releaseLink.category = releaseLinkResponse.category
+    releaseLink.category = <ReleaseLinkCategory>releaseLinkResponse.category
     releaseLink.name = releaseLinkResponse.name
     releaseLink.link = releaseLinkResponse.link
     releaseLink.embedded = releaseLinkResponse.embedded
   }
 
-  function mapResponseToReleaseTrack(releaseTrackResponse: ReleaseTrackResponse, releaseTrack: UnwrapRef<ReleaseTrack>) {
+  function mapResponseToReleaseTrack(releaseTrackResponse: ReleaseTrackData, releaseTrack: UnwrapRef<ReleaseTrack>) {
     releaseTrack.title = releaseTrackResponse.title
     releaseTrack.position = releaseTrackResponse.position
     releaseTrack.duration = releaseTrackResponse.duration
@@ -62,7 +63,7 @@ export function useReleaseMapper() {
     })
 
     releaseDetails.tracks.splice(0)
-    releaseDetailsResponse.tracks.forEach((releaseTrackResponse: ReleaseTrackResponse) => {
+    releaseDetailsResponse.tracks.forEach((releaseTrackResponse: ReleaseTrackData) => {
       releaseDetails.tracks.push(new ReleaseTrack())
       mapResponseToReleaseTrack(releaseTrackResponse, releaseDetails.tracks[releaseDetails.tracks.length - 1])
     })
